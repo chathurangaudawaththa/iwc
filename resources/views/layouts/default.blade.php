@@ -4,19 +4,12 @@
    @include('includes.head')
 </head>
 <body class="hold-transition skin-blue sidebar-mini fixed">
-<div class="wrapper">
-       @include('includes.header')
-       @include('includes.sidebar')
-       @yield('content')
-    <footer class="main-footer">
+    <div class="wrapper">
+        @include('includes.header')
+        @include('includes.sidebar')
+        @yield('content')
         @include('includes.footer')
-    </footer>
-    <div class="control-sidebar-bg"></div>
-</div>
-<script>
-$(document).ready(()=>{
-
-                })</script>
+    </div>
     @include('includes.footScript')        
 </body>
 </html>
