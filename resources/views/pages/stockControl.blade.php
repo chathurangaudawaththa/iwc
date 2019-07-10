@@ -1,15 +1,16 @@
 @extends('layouts.default')
 @section('content')
+<?php $nav_stock = 'active'; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>Stock Controll Unit
-          <small>Iron Wood Craft Stock Management System</small>
+        <h1>Stock Control Unit
+        <small><b> | Iron Wood Craft </b>| Stock Management System</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Stock Controll Unit</li>
+          <li class="active">Stock Control Unit</li>
         </ol>
       </section>
 
@@ -18,7 +19,7 @@
 
         <!-- Default box -->
         <div class="box">
-          <div class="box-header with-border" style="color:rgb(31, 31, 31); background: #ffd900;">
+          <div class="box-header with-border" style="color:#fff; background: #00adef;">
             <h3 class="box-title">Update Stock</h3>
 
             <div class="box-tools pull-right">
@@ -43,13 +44,22 @@
               </select>
             </div>
             <div class="form-group has-warning  col-md-6">
-              <label class="control-label" for="inputWarning"><i class="fa fa-bell-o"></i> Use only to update item
-                count.</label>
               <input type="number" class="form-control" id="inputWarning" placeholder="Add new quantity">
+              <span class="help-block">Use only to update item count.</span>
+            </div>
+            <div class="col-md-3">
+            <button class="btn btn-app btn-app-marg-top" title="Cancel">
+                <i class="fa fa-repeat"></i>
+              </button>
+            </div>
+            <div class="col-md-3">
+            <button class="btn btn-app btn-app-marg-top" title="Save">
+                <i class="fa fa-save"></i>
+              </button>
             </div>
           </div>
           <!-- /.box-body -->
-          <div class="box-footer" style="color:rgb(31, 31, 31); background: #ffd900;">
+          <div class="box-footer" style="color:#fff; background: #00adef;">
             Update stock
           </div>
           <!-- /.box-footer-->
@@ -72,6 +82,7 @@
             </div>
           </div>
           <div class="box-body" style="display: none;">
+          <form action="">
             <!-- select category -->
             <!-- <div class="form-group col-md-6">
               <label>Select Category</label>
@@ -97,21 +108,30 @@
                 <option>Sub Category</option>
               </select>
             </div> -->
-
-            <div class="form-group has-warning col-md-6">
-              <label class="control-label" for="inputWarning"><i class="fa fa-bell-o"></i> Use only to add a new
+            <div class="col-md-12 row">
+            <div class="form-group has-warning col-md-4">
+              <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i> Item Code</label>
+              <input type="text" class="form-control" id="inputWarning" placeholder="Item Code">
+            </div>
+            <div class="form-group has-warning col-md-8">
+              <label class="control-label" for="inputWarning"> Use only to add a new
                 item.</label>
-              <input type="text" class="form-control" id="inputWarning" placeholder="New Item">
-              <span class="help-block">Select Category and Sub Category related to the new item.</span>
+              <input type="text" class="form-control" id="inputWarning" placeholder="Item Name"></div>
+            </div>
+            <div class="form-group col-md-6">
+            <label class="control-label" for="inputError">
+              <i class="fa fa-fw fa-stack-overflow"></i> Input quantity
+            </label>
+              <input type="number" class="form-control" id="inputError" placeholder="Quantity">
             </div>
             <div class="form-group has-error col-md-6">
-              <label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> Input low quantity
+              <label class="control-label" for="inputError"><i class="fa fa-fw fa-stack-overflow"></i> Input low quantity
                 rate</label>
               <input type="number" class="form-control" id="inputError" placeholder="Low quantity rate">
               <span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span>
             </div>
 
-            <div class="input-group  col-md-12">
+            <div class="input-group col-md-12 add-padding">
               <label class="custom-file-label" for="exampleInputFile">Add Item Image</label>
 
               <div class="custom-file">
@@ -123,8 +143,9 @@
               </div>
 
             </div>
-            <div class="form-group col-md-4" style="background:#3c8dbc40">
-              <label>Select Stock Status</label>
+            <div class="add-padding">
+            <div class="form-group col-md-4" style="background:#00adef">
+              <label style="font-size: 13px;margin-top: 10px;">Select Stock Status</label>
               <div class="radio">
                 <label>
                   <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
@@ -153,8 +174,8 @@
 
               </div>
             </div>
-            <div class="form-group col-md-4" style="background:#3c8dbc50">
-              <label>Select Rack</label>
+            <div class="form-group col-md-4" style="background:#00adef">
+              <label style="font-size: 13px;margin-top: 10px;">Select Rack</label>
               <div class="radio">
                   <label>
                     <input type="radio" name="optionsRadiosDeck" id="optionsRadios3" value="option1">
@@ -183,8 +204,8 @@
   
                 </div>
             </div>
-            <div class="form-group col-md-4" style="background:#3c8dbc60">
-              <label>Select Shelving deck</label>
+            <div class="form-group col-md-4" style="background:#00adef">
+              <label style="font-size: 13px;margin-top: 10px;">Select Shelving deck</label>
               <div class="radio">
                   <label>
                     <input type="radio" name="optionsRadiosRack" id="optionsRadios2" value="option1">
@@ -213,6 +234,7 @@
   
                 </div>
             </div>
+            </div>
             <div class="form-group col-md-12">
               <fieldset>
                 <legend class="has-warning"><label>Complete this for rental items.</label></legend>
@@ -239,6 +261,20 @@
                 </div>
               </fieldset>
             </div>
+            <div class="add-padding">
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+            <button class="btn btn-app btn-app-marg-bot" title="Cancel">
+                <i class="fa fa-repeat"></i>
+              </button>
+            </div>
+            <div class="col-md-3">
+            <button class="btn btn-app btn-app-marg-bot" title="Save">
+                <i class="fa fa-save"></i>
+              </button>
+            </div>
+            </div>
+          </form>
           </div>
           <!-- /.box-body -->
           <div class="box-footer" style="color:#fff; background: #222d32;">
@@ -254,7 +290,7 @@
 
         <!-- Default box -->
         <div class="box">
-          <div class="box-header with-border" style="color:rgb(255, 255, 255); background: #00ad26;">
+          <div class="box-header with-border" style="color:rgb(255, 255, 255); background: #00adef;">
             <h3 class="box-title">Stock Overview</h3>
 
             <div class="box-tools pull-right">
@@ -310,7 +346,7 @@
             </table>
           </div>
           <!-- /.box-body -->
-          <div class="box-footer" style="color:rgb(255, 255, 255); background: #00ad26;">
+          <div class="box-footer" style="color:rgb(255, 255, 255); background: #00adef;">
             Footer
           </div>
           <!-- /.box-footer-->
