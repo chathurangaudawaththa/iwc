@@ -28,14 +28,14 @@ class UserController extends Controller
     }
 
     public function LogUser(Request $request){
-        $userdata = array(
+        /*$userdata = array(
             'username' => $request->get('username'),
             'password'  => $request->get('password')
         );
         if (Auth::attempt($userdata)) {
             # code...
             return view('pages.Home');
-        }
+        }*/
         return redirect()->back()->with('message','Your Username and Password Does not match...');
     }
 }
