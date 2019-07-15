@@ -5,19 +5,13 @@
 <div class="content-wrapper">
  <!-- Content Header (Page header) -->
  <section class="content-header">
-      <h1>
-        Dashboard
-        <small><b> | Iron Wood Craft </b>| Stock Management System</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li class="@isset($nav_home){{$nav_home}}@endisset"><i class="fa fa-dashboard"></i> Dashboard</li>
-      </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
+        <a href="rent" title="Click tio visit">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
@@ -31,8 +25,9 @@
             </div>
             <div class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></div>
           </div>
-        </div>
+        </div></a>
         <!-- ./col -->
+        <a href="emp" title="Click to visit">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
@@ -44,26 +39,29 @@
             <div class="icon">
               <i class="ion ion-gear-b"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <div class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></div>
           </div>
         </div>
+        </a>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+<a href="rent" title="Click to visit">
+<div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
               <h3>44</h3>
 
-              <p>Hand over date<br>is over</p>
+              <p>Handover date<br>is over</p>
             </div>
             <div class="icon">
               <i class="ion ion-ios-calendar"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <div class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></div>
           </div>
-        </div>
+        </div></a>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+<a href="stock" title="Click to visit">
+<div class="col-lg-3 col-xs-6"> 
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
@@ -74,17 +72,55 @@
             <div class="icon">
               <i class="ion ion-ios-list"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <div href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></div>
           </div>
         </div>
+</a>
         <!-- ./col -->
       </div>
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
-      <section class="col-lg-4 connectedSortable">
-      </section>
-        <section class="col-lg-4 connectedSortable">
+      <section class="col-lg-7 connectedSortable">
+
+<!-- Chat box -->
+
+<!-- /.box (chat box) -->
+
+<!-- TO DO List -->
+<div class="box box-primary">
+  <div class="box-header">
+    <i class="ion ion-clipboard"></i>
+
+    <h3 class="box-title">The stocks
+are low</h3>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+    <ul class="todo-list">
+      <li>
+            <span class="handle">
+              <i class="fa fa-ellipsis-v"></i>
+              <i class="fa fa-ellipsis-v"></i>
+            </span>
+        <span class="text">Wood screws</span>
+        <small class="label label-danger" style="font-size: 13px;"></i>92 Piece(s)</small>
+      </li>
+      <li>
+            <span class="handle">
+              <i class="fa fa-ellipsis-v"></i>
+              <i class="fa fa-ellipsis-v"></i>
+            </span>
+        <span class="text">Bolt</span>
+        <small class="label label-danger" style="font-size: 13px;"></i>80 Piece(s)</small>
+      </li>
+    </ul>
+  </div>
+</div>
+</section>
+<!-- /.Left col -->
+        <section class="col-lg-5 connectedSortable">
           <!-- Calendar -->
           <div class="box box-solid bg-green-gradient">
             <div class="box-header">
@@ -111,8 +147,6 @@
 
         </section>
         <!-- right col -->
-        <section class="col-lg-4 connectedSortable">
-      </section>
       </div>
       <!-- /.row (main row) -->
 

@@ -22,7 +22,7 @@
     <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
           From
-          <address>
+          <address> 
             <strong>IWC Rental Service.</strong><br>
             188/B, Aluthgama,<br>
             Bogamuwa.<br>

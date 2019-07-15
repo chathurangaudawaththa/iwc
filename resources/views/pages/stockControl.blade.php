@@ -5,23 +5,17 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>Stock Control Unit
-        <small><b> | Iron Wood Craft </b>| Stock Management System</small>
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Stock Control Unit</li>
-        </ol>
+
       </section>
 
       <!-- Main content -->
       <section class="content col-md-6">
 
         <!-- Default box -->
-        <div class="box">
+        <div class="box collapsed-box">
           <div class="box-header with-border" style="color:#fff; background: #00adef;">
             <h3 class="box-title">Update Stock</h3>
-
+ 
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i></button>
@@ -29,20 +23,22 @@
                 <i class="fa fa-times"></i></button>
             </div>
           </div>
-          <div class="box-body">
+          <div class="box-body" style="display: none;">
             <!-- select item -->
-            <div class="form-group  col-md-12">
+            <div class="form-group  col-md-8">
               <label>Select Item</label>
               <select class="form-control select2" style="width: 100%;">
-                <option selected="selected">Item</option>
-                <option>Item</option>
-                <option>Item</option>
-                <option>Item</option>
-                <option>Item</option>
-                <option>Item</option>
-                <option>Item</option>
+                <option>Select Item</option>
+                <option>High Strenght Hex Bolt</option>
+                <option>Flange Bolt</option>
+                <option>Carriage Bolt</option>
+                <option>Drywall Screw</option>
+                <option>Nail 2"</option>
+                <option selected="selected">Drill</option>
               </select>
             </div>
+            <div class="form-group  col-md-4 overviewImage2"><img src="../../dist/img/item-001-sample.png" alt=""></div>
+
             <div class="form-group has-warning  col-md-6">
               <input type="number" class="form-control" id="inputWarning" placeholder="Add new quantity">
               <span class="help-block">Use only to update item count.</span>
@@ -110,7 +106,7 @@
             </div> -->
             <div class="col-md-12 row">
             <div class="form-group has-warning col-md-4">
-              <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i> Item Code</label>
+              <label class="control-label" for="inputWarning">Item Code</label>
               <input type="text" class="form-control" id="inputWarning" placeholder="Item Code">
             </div>
             <div class="form-group has-warning col-md-8">
@@ -143,39 +139,35 @@
               </div>
 
             </div>
+            <br>
             <div class="add-padding">
             <div class="form-group col-md-4" style="background:#00adef">
-              <label style="font-size: 13px;margin-top: 10px;">Select Stock Status</label>
+              <label style="font-size: 13px;margin-top: 10px;">Stock Status</label>
               <div class="radio">
                 <label>
                   <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
-                  itm
+                  Piece (s)
                 </label>
                 <br>
                 <label>
                   <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
-                  pcs
+                  Packet (s)
                 </label>
                 <br>
                 <label>
                   <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
-                  pkt
+                  ml (Liquid)
                 </label>
                 <br>
                 <label>
                   <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
-                  ml
-                </label>
-                <br>
-                <label>
-                  <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
-                  m
+                  m (meters)
                 </label>
 
               </div>
             </div>
             <div class="form-group col-md-4" style="background:#00adef">
-              <label style="font-size: 13px;margin-top: 10px;">Select Rack</label>
+              <label style="font-size: 13px;margin-top: 10px;">Rack</label>
               <div class="radio">
                   <label>
                     <input type="radio" name="optionsRadiosDeck" id="optionsRadios3" value="option1">
@@ -195,17 +187,11 @@
                   <label>
                     <input type="radio" name="optionsRadiosDeck" id="optionsRadios3" value="option1">
                     D
-                  </label>
-                  <br>
-                  <label>
-                    <input type="radio" name="optionsRadiosDeck" id="optionsRadios3" value="option1">
-                    E
-                  </label>
-  
+                  </label> 
                 </div>
             </div>
             <div class="form-group col-md-4" style="background:#00adef">
-              <label style="font-size: 13px;margin-top: 10px;">Select Shelving deck</label>
+              <label style="font-size: 13px;margin-top: 10px;">Shelving deck</label>
               <div class="radio">
                   <label>
                     <input type="radio" name="optionsRadiosRack" id="optionsRadios2" value="option1">
@@ -226,33 +212,24 @@
                     <input type="radio" name="optionsRadiosRack" id="optionsRadios2" value="option1">
                     4
                   </label>
-                  <br>
-                  <label>
-                    <input type="radio" name="optionsRadiosRack" id="optionsRadios2" value="option1">
-                    5
-                  </label>
   
                 </div>
             </div>
             </div>
+            <br>
             <div class="form-group col-md-12">
               <fieldset>
                 <legend class="has-warning"><label>Complete this for rental items.</label></legend>
-
-                <div class="form-group has-warning col-md-2">
-                  <section title=".squaredOne">
-                    <!-- .squaredOne -->
-                    <div class="squaredOne">
-                      <input type="checkbox" value="None" id="squaredOne" name="check" />
-                      <label for="squaredOne"></label>
-                    </div>
-                    <!-- end .squaredOne -->
-                  </section>
-
-                </div>
                 <div class="form-group has-warning col-md-4">
                   <label>Mark this for rental items..</label>
                 </div>
+                <div class="form-group has-warning col-md-2">
+                <label style="display: table;margin: 0 auto;">
+                      <input type="checkbox" class="flat-red">
+                    </label>
+
+                </div>
+                
                 <div class="form-group has-warning col-md-6">
                   <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-money"></i> Rental charge per
                     day
@@ -307,7 +284,8 @@
                   <th>Item Code</th>
                   <th>Item Name</th>
                   <th>Image</th>
-                  <th>Stock Count</th>
+                  <th>Rental Price</th>
+                  <th>Stock Qty</th>
                   <th style="background: rgb(255, 138, 138)">Low Qty Rate</th>
                   <th>Item Location</th>
                   <th class="th-sm" style="text-align:center">Update</th>
@@ -317,9 +295,10 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><a href="iwc001" title="Click to view item">iwc001</a></td>
+                  <td>iwc001</td>
                   <td>Walding Plant</td>
                   <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
+                  <th>350.00</th>
                   <td>1000pcs</td>
                   <td>100pcs</td>
                   <td>Location : A3</td>
@@ -329,11 +308,12 @@
                         aria-hidden="true"></i></a></td>
                 </tr>
                 <!-- IF itme quntity less than low rate, should be red this row  -->
-                <tr style="background: rgb(253, 8, 8); color: #fff;">
+                <tr style="background: rgb(255, 138, 138); color: #fff;">
                     <!-- IF itme quntity less than low rate, should be red this row  -->
-                    <td><a style="color: #ffffff" href="iwc002" title="Click to view item">iwc002</a></td>
+                    <td>iwc002</td>
                     <td>Glinder</td>
                     <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
+                    <th>Not a rental item</th>
                     <td>99pcs</td>
                     <td>100pcs</td>
                     <td>Location : D5</td>
@@ -347,7 +327,7 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer" style="color:rgb(255, 255, 255); background: #00adef;">
-            Footer
+          Stock Overview
           </div>
           <!-- /.box-footer-->
         </div>

@@ -12,6 +12,7 @@ class UserController extends Controller
         $this->validate($request, [
             'first_name'=>'required',
             'last_name'=>'required',
+            'user_role'=>'required',
             'username'=>'required|unique:users',
             'password'=>'required'
         ]);
@@ -20,6 +21,7 @@ class UserController extends Controller
 
         $table->first_name = $request->input('first_name');
         $table->last_name = $request->input('last_name');
+        $table->user_role = $request->input('user_role');
         $table->username = $request->input('username');
         //password Encrypted
         $table->password = bcrypt($request->input('password'));

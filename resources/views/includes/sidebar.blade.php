@@ -8,7 +8,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>User Name</p>
+          <p>{{ Auth::user()->first_name }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -32,6 +32,12 @@
             <span>Supply To Employee</span>
           </a>
         </li>
+        <li class="@isset($nav_handoveremp){{$nav_handoveremp}}@endisset">
+          <a href="/handoveremp"> 
+          <i class="fa fa-fw fa-check-square-o"></i>            
+          <span>Handover Employee Items</span>
+          </a>
+        </li>
         <li class="@isset($nav_rent){{$nav_rent}}@endisset">
           <a href="/rent"> 
           <i class="fa fa-fw fa-users"></i>
@@ -41,7 +47,7 @@
         <li class="@isset($nav_handover){{$nav_handover}}@endisset">
           <a href="/handover"> 
           <i class="fa fa-fw fa-check-square-o"></i>            
-          <span>Handover Items</span>
+          <span>Handover Rental Items</span>
           </a>
         </li>
         <li class="@isset($nav_payment){{$nav_payment}}@endisset">

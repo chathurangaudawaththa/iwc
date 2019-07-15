@@ -5,13 +5,7 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>Issue of items to Employees
-        <small><b> | Iron Wood Craft </b>| Stock Management System</small>
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Stock Controll Unit</li>
-        </ol>
+
       </section>
 
       <!-- Main content -->
@@ -59,7 +53,6 @@
               </div>
             </div>
             <div class="form-group has-error col-md-6 min-margin">
-            <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Select Item</label>
               <select class="form-control select2" style="width: 100%;">
                 <option>Select Item</option>
                 <option>Glinder</option>
@@ -67,23 +60,15 @@
                 <option>Welding Plant</option>
               </select>
             </div>
-            <div class="form-group col-md-6 min-margin">
-            <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Item Count</label>
-                <input type="number" class="form-control" placeholder="Item Count">
-              </div>
-              <div class="form-group has-error add-padding">
-              <span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span>
-              </div>
-            <div class="form-group col-md-12">
-            <div class="form-group input-group min-margin">
-                <input type="text" class="form-control" placeholder="Note">
+            <div class="form-group col-md-6 input-group min-margin">
+                <input type="text" class="form-control" placeholder="Qty">
                     <span class="input-group-btn">
                       <button type="button" class="btn btn-info btn-flat">Add</button>
                     </span>
               </div>
-              <span class="help-block">Optional</span>
+              <div class="form-group  col-md-4 overviewImage2"><img src="../../dist/img/item-001-sample.png" alt=""></div>
 
-              </div>
+              <br>
               <div class="form-group col-md-12">
 
             <!-- /.box-header -->
@@ -96,7 +81,7 @@
                   <th>Submit Date</th>
                   <th>Item</th>
                   <th>Qty</th>
-                  <th>Note</th>
+                  <th>Image</th>
                   <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
                   <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
                 </tr>
@@ -106,7 +91,7 @@
                 <td>2019/07/11</td>
                   <td>Glinder</td>
                   <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
+                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
                   <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
                         aria-hidden="true"></i></a></td>
                   <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
@@ -116,7 +101,7 @@
                   <td>2019/07/11</td>
                   <td>Drill</td>
                   <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
+                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
                   <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
                         aria-hidden="true"></i></a></td>
                   <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
@@ -225,11 +210,11 @@
           </form>
             <div class="form-group col-md-12" style="background: #e8e1e1; padding-top:10px">
               <fieldset>
-                <legend class="has-warning"><label>Registerd Employees</label></legend>
+                <legend class="has-warning"><label>Last Registerd Client</label></legend>
                 <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <th>Emp ID</th>
+                  <th>NID</th>
                   <th>Full Name</th>
                   <th>NID (Front)</th>
                   <th>NID (Back)</th>
@@ -239,25 +224,15 @@
               </thead>
               <tbody>
                 <tr>
-                <td>101</td>
+                <td>922251568V</td>
                   <td>W.A.Senarath</td>
-                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
-                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
+                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
+                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
                   <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
                         aria-hidden="true"></i></a></td>
                   <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
                         aria-hidden="true"></i></a></td>
                 </tr>
-                <tr>
-                  <td>102</td>
-                  <td>W.A.Senarath</td>
-                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
-                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
-                  <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
-                        aria-hidden="true"></i></a></td>
-                  <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
-                        aria-hidden="true"></i></a></td>
-                  </tr>
               </tbody>
             </table>
               </fieldset>
@@ -298,7 +273,6 @@
                   <th>Cient Name</th>
                   <th>Item name</th>
                   <th>Quantity</th>
-                  <th>Note</th>
                 </tr>
               </thead>
               <tbody>
@@ -309,7 +283,6 @@
                   <td>W.A.Senarath</td>
                   <td>Glinder</td>
                   <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
                 </tr>
                 <tr>
                   <td>2019/07/01</td>
@@ -318,7 +291,6 @@
                   <td>W.A.Senarath</td>
                   <td>Drill</td>
                   <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
                 </tr>
                 <tr style="background: rgb(253, 8, 8); color: #fff;">
                   <td>2019/07/01</td>
@@ -327,9 +299,8 @@
                   <td>W.A.Senarath</td>
                   <td>Glinder</td>
                   <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
                 </tr>
-              </tbody>
+              </tbody> 
             </table>
           </div>
           <!-- /.box-body -->
