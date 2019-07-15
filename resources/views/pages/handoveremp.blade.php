@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-<?php $nav_payment = 'active'; ?>
+<?php $nav_handoveremp = 'active'; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -11,50 +11,49 @@
         <!-- Default box -->
         <div class="box">
           <div class="box-header with-border" style="color:#fff; background: #00adef;">
-            <h3 class="box-title">Payment History</h3>
- 
+            <h3 class="box-title">Employee</h3>
+
             <div class="box-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i></button>
               <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                 <i class="fa fa-times"></i></button>
-            </div>
+            </div> 
           </div>
           <div class="box-body">
             <table id="example1" class="table table-bordered table-hover">
               <thead>
                 <tr>
-                <th>Invoice No</th>
                   <th>Date</th>
-                  <th>Amount</th>
-
-                </tr>
+                  <th>Emp ID</th>
+                  <th>Employee Name</th>
+                  <th>Supplied Items</th>
+                  <th></th>
+                </tr> 
               </thead>
               <tbody>
                 <tr>
-                  <td><a href="/invoice">#007612</a></td>
-                  <td>2019/07/11</td>
-                  <td>5000.00</td>
-
+                  <td>2019/07/01</td>
+                  <td>101</td>
+                  <td>W.A.Senarath</td>
+                  <td>4</td>
+                  <td class="article-btn delete" style="text-align:center"><a href="/eid" title="View Items"><i style="color: #19ab09" class="fa fa-share-square-o"
+                      aria-hidden="true"></i></a></td>
                 </tr>
                 <tr>
-                <td><a href="/invoice">#007611</a></td>
-                  <td>2019/07/11</td>
-                  <td>4000.00</td>
-
-                </tr>
-                <tr>
-                <td><a href="/invoice">#007610</a></td>
-                  <td>2019/07/10</td>
-                  <td>3000.00</td>
-
+                  <td>2019/07/01</td>
+                  <td>102</td>
+                  <td>W.A.Bandara</td>
+                  <td>2</td>
+                  <td class="article-btn delete" style="text-align:center"><a href="/eid" title="View Items"><i style="color: #19ab09" class="fa fa-share-square-o"
+                      aria-hidden="true"></i></a></td>
                 </tr>
               </tbody>
             </table>
           </div>
           <!-- /.box-body -->
           <div class="box-footer" style="color:#fff; background: #00adef;">
-                Payment History
+                Clients
           </div>
           <!-- /.box-footer-->
         </div>

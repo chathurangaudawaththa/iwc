@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('content')
-<?php $nav_rent = 'active'; ?>
+<?php $nav_handoveremp = 'active'; ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -10,16 +10,15 @@
     <section class="content">
 
       <!-- row -->
-      <div class="row"> 
+      <div class="row">
         <div class="col-md-12">
           <!-- The time line -->
           <ul class="timeline">
-            <!-- timeline item -->
-            <li>
+          <li>
               <i class="fa fa-fw fa-stack-overflow bg-purple"></i>
 
               <div class="timeline-item">
-                <h3 class="timeline-header"><a href="#">Rented Items</a></h3>
+                <h3 class="timeline-header"><a href="#">Supplied Items</a></h3>
 
                 <div class="timeline-body">
                 <table id="example1" class="table table-bordered table-hover">
@@ -61,30 +60,31 @@
               </tbody>
             </table>
             <table>
-            <tr>
+            <tr> 
                   <td>
-                    <a href="/invoice" class="btn btn-app btn-app-marg-top" title="Save">
+                    <a href="/handoveremp" class="btn btn-app btn-app-marg-top" title="Save">
                         <i class="fa fa-save"></i>
                     </a></td>
-                </tr> 
+                </tr>
             </table>
                 </div>
               </div>
             </li>
+            <!-- timeline item -->
             <li>
               <i class="fa fa-user bg-aqua"></i>
 
               <div class="timeline-item">
               <h3 class="timeline-header"><a href="#">Personal Details</a></h3>
               <div class="timeline-body profile-text">
+                      <span>Emp ID : 101</span>
+                      <br>
                       <span>Name : W.A.Senarath</span>
                       <br>
                       <span>NID : 882251568V</span>
                       <br>
-                      <span>Address : 188/B, Aluthgama, Bogamuwa.</span>
-                      <br>
-                      <span>Contact Number : (071) 406 7638</span>
-                </div>
+
+                      <br>                </div>
               </div>
             </li>
             <li>
@@ -94,7 +94,7 @@
                 <h3 class="timeline-header"><a href="#">National ID </a></h3>
 
                 <div class="timeline-body">
-                <img style="width: 200px;" src="../../dist/img/id.jpg" alt="Front view of NID" class="margin">
+                  <img style="width: 200px;" src="../../dist/img/id.jpg" alt="Front view of NID" class="margin">
                   <img style="width: 200px;" src="../../dist/img/id.jpg" alt="Back view of NID" class="margin">
                 </div>
               </div>

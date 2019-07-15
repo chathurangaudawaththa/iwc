@@ -58,6 +58,15 @@ Route::get('/id', function()
 });
 
 // stock control
+Route::get('/eid', function()
+{
+    if (Auth::check()) {
+      return View::make('pages.empView');
+   }
+    return view('pages.login');
+});
+
+// stock control
 Route::get('/invoice', function()
 {
     if (Auth::check()) {
@@ -80,6 +89,15 @@ Route::get('/handover', function()
 {
     if (Auth::check()) {
       return View::make('pages.handoverItems');
+   }
+    return view('pages.login');
+});
+
+// stock control
+Route::get('/handoveremp', function()
+{
+    if (Auth::check()) {
+      return View::make('pages.handoveremp');
    }
     return view('pages.login');
 });

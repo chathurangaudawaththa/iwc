@@ -3,15 +3,9 @@
 <?php $nav_emp = 'active'; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
+      <!-- Content Header (Page header) --> 
       <section class="content-header">
-        <h1>Issue of items to Employees
-        <small><b> | Iron Wood Craft </b>| Stock Management System</small>
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Stock Controll Unit</li>
-        </ol>
+
       </section>
 
       <section class="content col-md-6">
@@ -33,6 +27,7 @@
 
                 <input type="text" name="first_name" placeholder="first_name">
                 <input type="text" name="last_name" placeholder="last_name">
+                <input type="text" name="user_role" placeholder="user_role">
                 <input type="text" name="username" placeholder="username">
                 <input type="text" name="password" placeholder="password">
                     <button type="submit" value="submit">Save</button>

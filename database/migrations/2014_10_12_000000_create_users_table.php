@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             
             $table->string('first_name')->index()->nullable();
+            $table->string('user_role')->index()->nullable();
             $table->string('last_name')->index()->nullable();
             $table->string('address')->index()->nullable();
             $table->string('phone')->index()->nullable();

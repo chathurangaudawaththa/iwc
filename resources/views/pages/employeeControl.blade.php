@@ -5,20 +5,13 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>Issue of items to Employees
-        <small><b> | Iron Wood Craft </b>| Stock Management System</small>
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Stock Controll Unit</li>
-        </ol>
       </section>
 
       <!-- Main content -->
       <section class="content col-md-6">
 
         <!-- Default box -->
-        <div class="box">
+        <div class="box collapsed-box">
           <div class="box-header with-border" style="color:#ffffff; background: #00adef;">
             <h3 class="box-title">Issue of items</h3>
 
@@ -29,7 +22,7 @@
                 <i class="fa fa-times"></i></button>
             </div>
           </div>
-          <div class="box-body">
+          <div class="box-body" style="display: none;">
             <!-- select item -->
             <div class="row add-padding">
             <div class="form-group  col-md-6">
@@ -65,6 +58,8 @@
               <div class="form-group has-error add-padding">
               <span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span>
               </div>
+              <div class="form-group  col-md-4 overviewImage2"><img src="../../dist/img/item-001-sample.png" alt=""></div>
+
             <div class="form-group col-md-12">
             <div class="form-group input-group min-margin">
                 <input type="text" class="form-control" placeholder="Reoson">
@@ -212,8 +207,8 @@
                 <tr>
                 <td>101</td>
                   <td>W.A.Senarath</td>
-                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
-                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
+                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
+                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
                   <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
                         aria-hidden="true"></i></a></td>
                   <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
@@ -222,8 +217,8 @@
                 <tr>
                   <td>102</td>
                   <td>W.A.Senarath</td>
-                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
-                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
+                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
+                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
                   <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
                         aria-hidden="true"></i></a></td>
                   <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
@@ -291,8 +286,8 @@
                     <td>2019/06/11</td>
                     <td>102</td>
                     <td>A.P.Amarasekara</td>
-                    <td>Drill</td>
-                    <td>1</td>
+                    <td>Anchor Bolt Drop In Anchor</td>
+                    <td>20</td>
                     <td>Bacon ipsum dolor sit amet	</td>
                     <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
                         aria-hidden="true"></i></a></td>
@@ -303,8 +298,8 @@
                   <td>2019/07/11</td>
                   <td>101</td>
                   <td>W.A.Senarath</td>
-                  <td>Glinder</td>
-                  <td>1</td>
+                  <td>Double End Stud</td>
+                  <td>10</td>
                   <td>Bacon ipsum dolor sit amet</td>
                   <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
                         aria-hidden="true"></i></a></td>
