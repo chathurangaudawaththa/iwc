@@ -42,8 +42,9 @@
                                     </a>
                                 </div>
                                 <div class="login-form">
-                                    <form action="conf" method="post">
-                                        {{csrf_field()}}
+                                    <form action="{!! route('login.doLogin') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+                                        <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+                                        @csrf
                                         <div class="form-group">
                                             <br><br>
                                             @if (session()->has('message'))
@@ -85,6 +86,21 @@
     <script src="login/jquery-3.2.1.min.js"></script>
     <script src="login/animsition/animsition.min.js"></script>
     <script src="login/js/main.js"></script>
+    
+    <script src="{{ asset('plugins/sweetalert/dist/sweetalert.min.js') }}"></script>
+    @if (notify()->ready())
+        <script>
+            swal({
+                title: "{!! notify()->message() !!}",
+                text: "{!! notify()->option('text') !!}",
+                type: "{{ notify()->type() }}",
+                @if (notify()->option('timer'))
+                    timer: {{ notify()->option('timer') }},
+                    showConfirmButton: false
+                @endif
+            });
+        </script>
+    @endif
 
 </body>
 

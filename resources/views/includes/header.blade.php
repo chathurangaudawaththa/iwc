@@ -26,7 +26,9 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">{{ Auth::user()->first_name }}</span>
+                @isset($auth_user)
+                    <span class="hidden-xs">{{ $auth_user->first_name }}</span>
+                @endisset
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -34,9 +36,11 @@
                 <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
 
                 <p>
-                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} 
-                <small>{{ Auth::user()->user_role }} </small>
-                  <small>Register since {{ Auth::user()->created_at }}</small>
+                @isset($auth_user)
+                {{ $auth_user->first_name }} {{ $auth_user->last_name }} 
+                <small>{{ $auth_user->user_role }} </small>
+                <small>Register since {{ $auth_user->created_at }}</small>
+                @endisset
                 </p>
               </li>
               <!-- Menu Footer-->

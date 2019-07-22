@@ -7,4 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class MeasuringUnit extends Model
 {
     //
+    //protected $table = "table";
+    //protected $primaryKey = "id";
+    //protected $keyType = 'int';
+    //public $incrementing = false;
+    //protected $connection = "mysql";
+    //$this->setConnection("mysql");
+    
+    //protected $fillable = array();
+    //protected $hidden = array();
+    //protected $casts = array();
+    
+    //one to many
+    public function items(){
+        return $this->hasMany('App\Item', 'measuring_unit_id', 'id');
+    }
+    
+    //one to many
+    public function stocks(){
+        return $this->hasMany('App\Stock', 'measuring_unit_id', 'id');
+    }
+    
 }

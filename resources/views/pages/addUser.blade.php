@@ -23,15 +23,15 @@
             </div>
           </div>
           <div class="box-body" style="display: none;">
-            <form action="add-user" method="post">
+            <form action="{!! route('user.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+                <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+                @csrf
 
                 <input type="text" name="first_name" placeholder="first_name">
                 <input type="text" name="last_name" placeholder="last_name">
-                <input type="text" name="user_role" placeholder="user_role">
                 <input type="text" name="username" placeholder="username">
                 <input type="text" name="password" placeholder="password">
-                    <button type="submit" value="submit">Save</button>
-                    {{csrf_field()}}
+                <button type="submit" value="submit">Save</button>
             </form>
 
                 @if ($errors->any())

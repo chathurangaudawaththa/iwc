@@ -16,14 +16,20 @@ class UserTypeSeeder extends Seeder
         //
         UserType::create([
             'id' => 1,
-            'name' => 'EMPLOYEE',
-            'is_visible' => 1
+            'name' => 'DEFAULT',
+            'is_visible' => false
         ]);
         
         UserType::create([
             'id' => 2,
+            'name' => 'EMPLOYEE',
+            'is_visible' => true
+        ]);
+        
+        UserType::create([
+            'id' => 3,
             'name' => 'CUSTOMER',
-            'is_visible' => 1
+            'is_visible' => true
         ]);
     }
 }

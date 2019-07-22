@@ -16,8 +16,14 @@ class CompanySeeder extends Seeder
         //
         Company::create([
             'id' => 1,
+            'name' => 'DEFAULT',
+            'is_visible' => false
+        ]);
+        
+        Company::create([
+            'id' => 2,
             'name' => 'IWC',
-            'is_visible' => 1
+            'is_visible' => true
         ]);
     }
 }

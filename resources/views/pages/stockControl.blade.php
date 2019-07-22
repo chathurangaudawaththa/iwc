@@ -78,7 +78,9 @@
             </div>
           </div>
           <div class="box-body" style="display: none;">
-          <form action="">
+          <form action="{!! route('item.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+              <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+              @csrf
             <!-- select category -->
             <!-- <div class="form-group col-md-6">
               <label>Select Category</label>
@@ -107,23 +109,24 @@
             <div class="col-md-12 row">
             <div class="form-group has-warning col-md-4">
               <label class="control-label" for="inputWarning">Item Code</label>
-              <input type="text" class="form-control" id="inputWarning" placeholder="Item Code">
+              <input type="text" class="form-control" id="inputWarning" placeholder="Item Code" name="code"/>
             </div>
             <div class="form-group has-warning col-md-8">
               <label class="control-label" for="inputWarning"> Use only to add a new
                 item.</label>
-              <input type="text" class="form-control" id="inputWarning" placeholder="Item Name"></div>
+              <input type="text" class="form-control" id="inputWarning" placeholder="Item Name" name="name"/>
             </div>
-            <div class="form-group col-md-6">
+            </div>
+            <!-- div class="form-group col-md-6">
             <label class="control-label" for="inputError">
               <i class="fa fa-fw fa-stack-overflow"></i> Input quantity
             </label>
-              <input type="number" class="form-control" id="inputError" placeholder="Quantity">
-            </div>
+              <input type="number" class="form-control" id="inputError" placeholder="Quantity"/>
+            </div -->
             <div class="form-group has-error col-md-6">
               <label class="control-label" for="inputError"><i class="fa fa-fw fa-stack-overflow"></i> Input low quantity
                 rate</label>
-              <input type="number" class="form-control" id="inputError" placeholder="Low quantity rate">
+              <input type="number" class="form-control" id="inputError" placeholder="Low quantity rate" name="quantity_low"/>
               <span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span>
             </div>
 
@@ -131,7 +134,7 @@
               <label class="custom-file-label" for="exampleInputFile">Add Item Image</label>
 
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="exampleInputFile" name="images[]" multiple="true"
+                <input type="file" class="custom-file-input" id="exampleInputFile" name="image_uri" multiple="false"
                   onchange="readURL(this);">
               </div>
               <div class="input-group-append">
@@ -145,22 +148,22 @@
               <label style="font-size: 13px;margin-top: 10px;">Stock Status</label>
               <div class="radio">
                 <label>
-                  <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
+                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="2"/>
                   Piece (s)
                 </label>
                 <br>
                 <label>
-                  <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
+                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="3"/>
                   Packet (s)
                 </label>
                 <br>
                 <label>
-                  <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
+                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="4"/>
                   ml (Liquid)
                 </label>
                 <br>
                 <label>
-                  <input type="radio" name="optionsRadioStatus" id="optionsRadios1" value="option1">
+                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="5"/>
                   m (meters)
                 </label>
 
@@ -170,23 +173,23 @@
               <label style="font-size: 13px;margin-top: 10px;">Rack</label>
               <div class="radio">
                   <label>
-                    <input type="radio" name="optionsRadiosDeck" id="optionsRadios3" value="option1">
-                    A
+                    <input type="radio" name="rack_id" id="rack_id" value="2"/>
+                    R1
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="optionsRadiosDeck" id="optionsRadios3" value="option1">
-                    B
+                    <input type="radio" name="rack_id" id="rack_id" value="3"/>
+                    R2
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="optionsRadiosDeck" id="optionsRadios3" value="option1">
-                    C
+                    <input type="radio" name="rack_id" id="rack_id" value="4"/>
+                    R3
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="optionsRadiosDeck" id="optionsRadios3" value="option1">
-                    D
+                    <input type="radio" name="rack_id" id="rack_id" value="5"/>
+                    R4
                   </label> 
                 </div>
             </div>
@@ -194,25 +197,24 @@
               <label style="font-size: 13px;margin-top: 10px;">Shelving deck</label>
               <div class="radio">
                   <label>
-                    <input type="radio" name="optionsRadiosRack" id="optionsRadios2" value="option1">
-                    1
+                    <input type="radio" name="deck_id" id="deck_id" value="2"/>
+                    D1
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="optionsRadiosRack" id="optionsRadios2" value="option1">
-                    2
+                    <input type="radio" name="deck_id" id="deck_id" value="3"/>
+                    D2
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="optionsRadiosRack" id="optionsRadios2" value="option1">
-                    3
+                    <input type="radio" name="deck_id" id="deck_id" value="4"/>
+                    D3
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="optionsRadiosRack" id="optionsRadios2" value="option1">
-                    4
-                  </label>
-  
+                    <input type="radio" name="deck_id" id="deck_id" value="5"/>
+                    D4
+                  </label> 
                 </div>
             </div>
             </div>
@@ -225,15 +227,15 @@
                 </div>
                 <div class="form-group has-warning col-md-2">
                 <label style="display: table;margin: 0 auto;">
-                      <input type="checkbox" class="flat-red">
+                      <input type="checkbox" name="is_rentable" class="flat-red" value="1"/>
                     </label>
 
                 </div>
                 
                 <div class="form-group has-warning col-md-6">
                   <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-money"></i> Rental charge per
-                    day
-                    <input type="text" class="form-control" id="inputWarning" placeholder="Price">
+                      day</label>
+                    <input type="text" class="form-control" id="inputWarning" placeholder="Price" name="unit_price"/>
                     <span class="help-block">Currency auto selected (LKR)</span>
                 </div>
               </fieldset>
@@ -294,34 +296,46 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>iwc001</td>
-                  <td>Walding Plant</td>
-                  <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
-                  <th>350.00</th>
-                  <td>1000pcs</td>
-                  <td>100pcs</td>
-                  <td>Location : A3</td>
-                  <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
+                @isset($itemObjectArray)
+                  @foreach($itemObjectArray as $key => $value)
+                  
+                    <!-- style="background: rgb(255, 138, 138); color: #fff;" -->
+                    <tr>
+                        <td>{{ $value->code }}</td>
+                        <td>{{ $value->name }}</td>
+                        <td class="overviewImage">
+                            <img src="{!! asset(Storage::url($value->image_uri)) !!}" alt="">
+                        </td>
+                        <th>Rs. {{ $value->unit_price }}</th>
+                        <td>
+                            @isset($value->measuringUnit)
+                                {{ $value->stocksSum() }} {{ $value->measuringUnit->name }}
+                            @endisset
+                        </td>
+                        <td>
+                            @isset($value->measuringUnit)
+                                {{ $value->quantity_low }} {{ $value->measuringUnit->name }}
+                            @endisset
+                        </td>
+                        <td>
+                            Location : 
+                            @isset($value->rack)
+                                {{ $value->rack->name }}
+                            @endisset
+                            :
+                            @isset($value->deck)
+                                {{ $value->deck->name }}
+                            @endisset
+                        </td>
+                        <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
                         aria-hidden="true"></i></a></td>
-                  <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
+                        <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
                         aria-hidden="true"></i></a></td>
-                </tr>
-                <!-- IF itme quntity less than low rate, should be red this row  -->
-                <tr style="background: rgb(255, 138, 138); color: #fff;">
-                    <!-- IF itme quntity less than low rate, should be red this row  -->
-                    <td>iwc002</td>
-                    <td>Glinder</td>
-                    <td class="overviewImage"><img src="../../dist/img/item-001-sample.png" alt=""></td>
-                    <th>Not a rental item</th>
-                    <td>99pcs</td>
-                    <td>100pcs</td>
-                    <td>Location : D5</td>
-                    <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffffff" class="fa fa-pencil-square"
-                      aria-hidden="true"></i></a></td>
-                    <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #ffffff" class="fa fa-window-close"
-                      aria-hidden="true"></i></a></td>
-                  </tr>
+                    </tr>
+                  
+                  @endforeach
+                @endisset
+                
               </tbody>
             </table>
           </div>

@@ -1,6 +1,11 @@
 <?php
 
 return [
+    
+    /*
+    |custom data
+    */
+    'app_file_storage_uri' => env('APP_FILE_STORAGE_URI', 'file_input'),
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +179,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // custom service providers
+        App\Providers\AuthUserProvider::class,
+        // provider for flash message
+        Codecourse\Notify\NotifyServiceProvider::class,
 
     ],
 
@@ -225,6 +234,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        //custom alias
+        //alias for flash message
+        'Notify' => Codecourse\Notify\Facades\Notify::class,
 
     ],
 

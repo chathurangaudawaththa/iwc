@@ -7,28 +7,7 @@ Route::get('/adduser', function()
 Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
-// logout
-Route::get('/logout', function(){
-   Auth::logout();
-   return View::make('pages.login');
-});
-// home page
-Route::get('/', function()
-{
-    if (Auth::check()) {
-       return View::make('pages.Home');
-    }
-    return view('pages.login');
-});
 
-// stock control
-Route::get('/stock', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.stockControl');
-   }
-    return view('pages.login');
-});
 
 // employee control
 Route::get('/emp', function()
@@ -109,4 +88,27 @@ Route::get('/payments', function()
       return View::make('pages.paymentHistory');
    }
     return view('pages.login');
+});
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// show files
+Route::get('storage/{filename}', array('uses' => 'StorageController@showFile'))->where(['filename' => '.*']);
+// route to show the login form
+Route::get('logins', array('uses' => 'LoginController@showLogin'))->name('login.showLogin');
+// route to process the form
+Route::post('logins', array('uses' => 'LoginController@doLogin'))->name('login.doLogin');
+// route to procss logout
+Route::get('logout', array('uses' => 'LoginController@doLogout'))->name('login.doLogout');
+
+Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddleware')], function(){
+    // show home page
+    Route::get('/', array('uses' => 'HomeController@index'))->name('home');
+    // create user
+    Route::get('users/create', array('uses' => 'UserController@create'))->name('user.create');
+    // store user
+    Route::post('users/create', array('uses' => 'UserController@store'))->name('user.store');
+    //create item
+    Route::get('stock', array('uses' => 'ItemController@create'))->name('item.create');
+    //create item
+    Route::post('items/create', array('uses' => 'ItemController@store'))->name('item.store');
 });

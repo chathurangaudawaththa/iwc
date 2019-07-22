@@ -18,17 +18,18 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             
+            $table->boolean('is_visible')->default(1)->nullable();
             $table->string('first_name')->index()->nullable();
-            $table->string('user_role')->index()->nullable();
             $table->string('last_name')->index()->nullable();
             $table->string('address')->index()->nullable();
             $table->string('phone')->index()->nullable();
             $table->string('nic')->index()->nullable();
             $table->string('code')->index()->nullable();
-            $table->string('username')->index()->nullable();
+            $table->string('username')->unique()->index()->nullable();
             $table->string('password')->index()->nullable();
-            $table->text('nic_front')->nullable();
-            $table->text('nic_back')->nullable();
+            $table->text('image_uri')->nullable();
+            $table->text('image_uri_nic_front')->nullable();
+            $table->text('image_uri_nic_back')->nullable();
         });
     }
 
