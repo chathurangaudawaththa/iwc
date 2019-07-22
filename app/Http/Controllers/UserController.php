@@ -23,6 +23,13 @@ use App\User;
 class UserController extends Controller
 {
     //
+    function __construct(){
+        /*
+        $app_file_storage_uri = config('app.app_file_storage_uri');
+        $date_today = Carbon::now();//->format('Y-m-d');
+        */
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -82,6 +89,7 @@ class UserController extends Controller
             try {
                 
                 $app_file_storage_uri = config('app.app_file_storage_uri');
+                $date_today = Carbon::now();//->format('Y-m-d');
                 
                 //create directory
                 if(!Storage::exists($app_file_storage_uri)) {

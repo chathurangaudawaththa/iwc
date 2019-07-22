@@ -21,6 +21,13 @@ use Illuminate\Support\Facades\Storage;
 class StorageController extends Controller
 {
     //
+    function __construct(){
+        /*
+        $app_file_storage_uri = config('app.app_file_storage_uri');
+        $date_today = Carbon::now();//->format('Y-m-d');
+        */
+    }
+    
     public function showFile(Request $request, $filename){
         //$path = explode('/', $filename);
         //$path = storage_path($filename);

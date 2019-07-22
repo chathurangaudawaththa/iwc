@@ -19,6 +19,13 @@ use \Exception;
 class HomeController extends Controller
 {
     //
+    function __construct(){
+        /*
+        $app_file_storage_uri = config('app.app_file_storage_uri');
+        $date_today = Carbon::now();//->format('Y-m-d');
+        */
+    }
+    
     public function index()
     {
         //

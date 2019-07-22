@@ -22,6 +22,7 @@ class CreateStocksTable extends Migration
             //$table->dateTime('date_create')->index()->nullable();
             $table->timestamp('date_create')->index()->nullable();
             //$table->text('description')->nullable();
+            //$table->morphs('stockable');
             $table->unsignedBigInteger('item_id')->index()->unsigned()->nullable();
             $table->unsignedBigInteger('measuring_unit_id')->index()->unsigned()->nullable();
             $table->unsignedBigInteger('transaction_type_id')->index()->unsigned()->nullable();

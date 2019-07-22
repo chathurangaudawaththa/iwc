@@ -107,8 +107,10 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::get('users/create', array('uses' => 'UserController@create'))->name('user.create');
     // store user
     Route::post('users/create', array('uses' => 'UserController@store'))->name('user.store');
-    //create item
+    // create item
     Route::get('stock', array('uses' => 'ItemController@create'))->name('item.create');
-    //create item
+    // create item
     Route::post('items/create', array('uses' => 'ItemController@store'))->name('item.store');
+    // stock item store
+    Route::post('stocks/items/store', array('uses' => 'StockController@store'))->name('stock.store');
 });

@@ -17,9 +17,20 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use Carbon\Carbon;
 use \Exception;
+use Illuminate\Support\Facades\Storage;
+
+use App\Item;
 
 class StockController extends Controller
 {
+    //
+    function __construct(){
+        /*
+        $app_file_storage_uri = config('app.app_file_storage_uri');
+        $date_today = Carbon::now();//->format('Y-m-d');
+        */
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -49,6 +60,75 @@ class StockController extends Controller
     public function store(Request $request)
     {
         //
+        $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
+        // validate the info, create rules for the inputs
+        $rules = array(
+            'item_id'    => 'required'
+        );
+        // run the validation rules on the inputs from the form
+        $validator = Validator::make(Input::all(), $rules);
+        // if the validator fails, redirect back to the form
+        if ($validator->fails()) {
+            
+            notify()->flash(
+                'Error', 
+                'warning', [
+                'timer' => $data['timer'],
+                'text' => 'error',
+            ]);
+            
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+            
+        } else {
+            // do process
+            try {
+                
+                $app_file_storage_uri = config('app.app_file_storage_uri');
+                $date_today = Carbon::now();//->format('Y-m-d');
+                
+                $itemObject = new Item();
+                $itemObject = $itemObject->where('id', '=', $request->input('item_id'))->first();
+                
+                $dataArray = array(
+                    'is_visible' => true,
+                    'item_id' => $itemObject->id,
+                    'quantity' => $request->input('quantity'),
+                    //'date_create' => $request->input('date_create'),
+                    'date_create' => $date_today,
+                    'measuring_unit_id' => $itemObject->measuring_unit_id,
+                    'transaction_type_id' => $request->input('transaction_type_id')
+                );
+                
+                DB::transaction(function () use ($dataArray){
+                    Stock::create( $dataArray );
+                });
+                
+            }catch(Exception $e){
+                notify()->flash(
+                    'Error', 
+                    'warning', [
+                    'timer' => $data['timer'],
+                    'text' => 'error',
+                ]);
+                
+                return redirect()
+                    ->back()
+                    ->withInput();
+            }
+        }
+        
+        notify()->flash(
+            'Success', 
+            'success', [
+            'timer' => $data['timer'],
+            'text' => 'success',
+        ]);
+        
+        //return Response::json( $data );
+        return redirect()->back();
     }
 
     /**

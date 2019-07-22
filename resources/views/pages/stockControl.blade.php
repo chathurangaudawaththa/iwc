@@ -24,23 +24,28 @@
             </div>
           </div>
           <div class="box-body" style="display: none;">
+            <form action="{!! route('stock.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+            <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+            @csrf
+            <input type="hidden" id="transaction_type_id" name="transaction_type_id" value="2"/>
             <!-- select item -->
             <div class="form-group  col-md-8">
               <label>Select Item</label>
-              <select class="form-control select2" style="width: 100%;">
+              <select class="form-control select2" style="width: 100%;" id="item_id" name="item_id">
                 <option>Select Item</option>
-                <option>High Strenght Hex Bolt</option>
-                <option>Flange Bolt</option>
-                <option>Carriage Bolt</option>
-                <option>Drywall Screw</option>
-                <option>Nail 2"</option>
-                <option selected="selected">Drill</option>
+                @isset($itemObjectArray)
+                  @foreach($itemObjectArray as $key => $value)
+                    <option value="{!! $value->id !!}" data-image_uri-item="{!! asset(Storage::url($value->image_uri)) !!}">
+                        {{ $value->code }} | {{ $value->name }}
+                    </option>
+                  @endforeach
+                @endisset
               </select>
             </div>
-            <div class="form-group  col-md-4 overviewImage2"><img src="../../dist/img/item-001-sample.png" alt=""></div>
+            <div class="form-group  col-md-4 overviewImage2"><img id="image_uri_item" src="" alt=""></div>
 
             <div class="form-group has-warning  col-md-6">
-              <input type="number" class="form-control" id="inputWarning" placeholder="Add new quantity">
+              <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Add new quantity"/>
               <span class="help-block">Use only to update item count.</span>
             </div>
             <div class="col-md-3">
@@ -49,10 +54,11 @@
               </button>
             </div>
             <div class="col-md-3">
-            <button class="btn btn-app btn-app-marg-top" title="Save">
+            <button class="btn btn-app btn-app-marg-top" title="Save" type="submit">
                 <i class="fa fa-save"></i>
               </button>
             </div>
+            </form>
           </div>
           <!-- /.box-body -->
           <div class="box-footer" style="color:#fff; background: #00adef;">
@@ -351,4 +357,15 @@
       <!-- stock overview -->
       <!-- /.content -->
     </div>
+    <script>
+    $(function(){
+        "use strict";
+        //$('#item_id').select2({});
+        $('#item_id').on('select2:select', function (e) { 
+            var temp_image_uri = null;
+            temp_image_uri = $( e.target ).find(':selected').attr('data-image_uri-item');
+            $('#image_uri_item').attr('src', temp_image_uri);
+        });
+    });
+    </script>
 @stop

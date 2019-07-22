@@ -14,7 +14,7 @@ class Stock extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    //protected $fillable = array();
+    protected $fillable = array('is_visible', 'quantity', 'date_create', 'item_id', 'measuring_unit_id', 'transaction_type_id');
     //protected $hidden = array();
     //protected $casts = array();
     
