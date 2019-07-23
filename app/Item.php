@@ -39,6 +39,16 @@ class Item extends Model
     }
     
     //one to many
+    public function itemIssueDatas(){
+        return $this->hasMany('App\ItemIssueDatas', 'item_id', 'id');
+    }
+    
+    //one to many
+    public function itemReceiveDatas(){
+        return $this->hasMany('App\ItemReceiveDatas', 'item_id', 'id');
+    }
+    
+    //one to many
     public function stocksSum(){
         //->selectRaw('SUM(column) as sum')
         //->addSelect('SUM(column) as sum')

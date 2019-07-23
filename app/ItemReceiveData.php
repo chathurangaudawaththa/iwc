@@ -23,9 +23,21 @@ class ItemReceiveData extends Model
         return $this->belongsTo('App\ItemReceive', 'item_receive_id', 'id');
     }
     
+    /*
     //one to many (inverse)
     public function stock(){
         return $this->belongsTo('App\Stock', 'stock_id', 'id');
+    }
+    */
+    
+    //one to many (inverse)
+    public function item(){
+        return $this->belongsTo('App\Item', 'item_id', 'id');
+    }
+    
+    //one to many (inverse)
+    public function measuringUnit(){
+        return $this->belongsTo('App\MeasuringUnit', 'measuring_unit_id', 'id');
     }
     
 }

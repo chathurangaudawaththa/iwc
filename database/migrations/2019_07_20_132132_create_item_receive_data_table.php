@@ -20,11 +20,16 @@ class CreateItemReceiveDataTable extends Migration
             $table->boolean('is_visible')->default(1)->nullable();
             //$table->text('description')()->nullable();
             $table->unsignedBigInteger('item_receive_id')->index()->unsigned()->nullable();
-            $table->unsignedBigInteger('stock_id')->index()->unsigned()->nullable();
+            //$table->unsignedBigInteger('stock_id')->index()->unsigned()->nullable();
+            $table->decimal('quantity')->default(0)->nullable();
+            $table->unsignedBigInteger('item_id')->index()->unsigned()->nullable();
+            $table->unsignedBigInteger('measuring_unit_id')->index()->unsigned()->nullable();
             $table->decimal('unit_price')->default(0)->nullable();
             
             $table->foreign('item_receive_id')->references('id')->on('item_receives')->onUpdate('cascade');
-            $table->foreign('stock_id')->references('id')->on('stocks')->onUpdate('cascade');
+            //$table->foreign('stock_id')->references('id')->on('stocks')->onUpdate('cascade');
+            $table->foreign('item_id')->references('id')->on('items')->onUpdate('cascade');
+            $table->foreign('measuring_unit_id')->references('id')->on('measuring_units')->onUpdate('cascade');
         });
     }
 
