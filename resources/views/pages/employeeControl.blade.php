@@ -140,15 +140,18 @@
             </div>
           </div>
           <div class="box-body" style="display: none;">
-          <form action="">
+          <form action="{!! route('employee.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+            <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+            @csrf
+            <input type="hidden" id="user_type_id" name="user_type_id" value="2"/>
             <div class="col-md-12 row">
             <div class="form-group has-warning col-md-4">
               <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Emp ID</label>
-              <input type="text" class="form-control" id="inputWarning" placeholder="Emp ID">
+              <input type="text" class="form-control" id="code" name="code" placeholder="Emp ID"/>
             </div>
             <div class="form-group has-warning col-md-8">
             <label class="control-label" for="inputWarning"> Full Name with Initial</label>
-              <input type="text" class="form-control" id="inputWarning" placeholder="Emp Name">
+              <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Emp Name"/>
               <span class="help-block">Example : W.A.Senarath</span>
 
             </div>
@@ -157,8 +160,7 @@
               <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Front)</label>
 
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="exampleInputFile" name="images[]" multiple="true"
-                  onchange="readURL(this);">
+                <input type="file" class="custom-file-input" id="image_uri_nic_front" name="image_uri_nic_front" multiple="false" onchange="readURL(this);">
               </div>
               <div class="input-group-append">
                 <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
@@ -168,8 +170,7 @@
               <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Back)</label>
 
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="exampleInputFile" name="images[]" multiple="true"
-                  onchange="readURL(this);">
+                <input type="file" class="custom-file-input" id="image_uri_nic_back" name="image_uri_nic_back" multiple="true" onchange="readURL(this);"/>
               </div>
               <div class="input-group-append">
                 <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
@@ -178,12 +179,12 @@
             <div class="add-padding">
             <div class="col-md-6"></div>
             <div class="col-md-3">
-            <button class="btn btn-app btn-app-marg-bot" title="Cancel">
+            <button class="btn btn-app btn-app-marg-bot" title="Cancel" type="reset">
                 <i class="fa fa-repeat"></i>
               </button>
             </div>
             <div class="col-md-3">
-            <button class="btn btn-app btn-app-marg-bot" title="Save">
+            <button class="btn btn-app btn-app-marg-bot" title="Save" type="submit">
                 <i class="fa fa-save"></i>
               </button>
             </div>
@@ -204,26 +205,30 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                <td>101</td>
-                  <td>W.A.Senarath</td>
-                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
-                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
-                  <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
-                        aria-hidden="true"></i></a></td>
-                  <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
-                        aria-hidden="true"></i></a></td>
-                </tr>
-                <tr>
-                  <td>102</td>
-                  <td>W.A.Senarath</td>
-                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
-                  <td class="overviewImage"><img src="../../dist/img/id.jpg" alt=""></td>
-                  <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
-                        aria-hidden="true"></i></a></td>
-                  <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
-                        aria-hidden="true"></i></a></td>
-                  </tr>
+                  
+                @isset($customerObjectArray)
+                  @foreach($customerObjectArray as $key => $value)
+                  
+                    <tr>
+                        <td>{{ $value->code }}</td>
+                        <td>{{ $value->first_name }}</td>
+                        <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_front)) !!}" alt=""></td>
+                        <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_back)) !!}" alt=""></td>
+                        <td class="article-btn edit" style="text-align:center">
+                            <a href="#" title="Update item">
+                                <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td class="article-btn delete" style="text-align:center">
+                            <a href="#" title="Delete item">
+                                <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                  
+                  @endforeach
+                @endisset
+                  
               </tbody>
             </table>
               </fieldset>

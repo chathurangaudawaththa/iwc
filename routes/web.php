@@ -8,25 +8,6 @@ Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
 
-
-// employee control
-Route::get('/emp', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.employeeControl');
-   }
-    return view('pages.login');
-});
-
-// stock control
-Route::get('/rent', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.rentControl');
-   }
-    return view('pages.login');
-});
-
 // stock control
 Route::get('/id', function()
 {
@@ -113,4 +94,12 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::post('items/create', array('uses' => 'ItemController@store'))->name('item.store');
     // stock item store
     Route::post('stocks/items/store', array('uses' => 'StockController@store'))->name('stock.store');
+    // create employee
+    Route::get('emp', array('uses' => 'EmployeeController@create'))->name('employee.create');
+    // create employee
+    Route::post('emp', array('uses' => 'EmployeeController@store'))->name('employee.store');
+    // create customer
+    Route::get('rent', array('uses' => 'CustomerController@create'))->name('customer.create');
+    // create customer
+    Route::post('rent', array('uses' => 'CustomerController@store'))->name('customer.store');
 });

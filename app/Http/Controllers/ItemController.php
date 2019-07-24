@@ -53,7 +53,7 @@ class ItemController extends Controller
         $query = $itemObject->with( array('rack', 'deck', 'measuringUnit', 'stocks') )
             ->where('is_visible', '=', true);
         
-        //$query = $query->whereHas('stocks', function($query){});
+        //$query = $query->whereHas('tables', function($query){});
         
         $itemObjectArray = $query->get();
         

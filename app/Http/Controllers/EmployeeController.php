@@ -19,7 +19,7 @@ use Carbon\Carbon;
 use \Exception;
 use Illuminate\Support\Facades\Storage;
 
-class CustomerController extends Controller
+class EmployeeController extends Controller
 {
     //
     function __construct(){
@@ -52,14 +52,14 @@ class CustomerController extends Controller
         
         $query = $customerObject
             ->where('is_visible', '=', true)
-            ->where('user_type_id', '=', 3);
+            ->where('user_type_id', '=', 2);
         
         //$query = $query->whereHas('tables', function($query){});
         
         $customerObjectArray = $query->get();
         
-        if(view()->exists('pages.rentControl')){
-            return View::make('pages.rentControl', array('customerObjectArray' => $customerObjectArray));
+        if(view()->exists('pages.employeeControl')){
+            return View::make('pages.employeeControl', array('customerObjectArray' => $customerObjectArray));
         }
     }
 
@@ -75,7 +75,7 @@ class CustomerController extends Controller
         $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
         // validate the info, create rules for the inputs
         $rules = array(
-            'nic'    => 'required'
+            'code'    => 'required|unique:customers'
         );
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
