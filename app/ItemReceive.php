@@ -14,7 +14,7 @@ class ItemReceive extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    //protected $fillable = array();
+    protected $fillable = array('is_visible', 'is_active', 'date_create', 'description', 'amount', 'discount', 'user_id_create', 'item_issue_id', 'transaction_type_id');
     //protected $hidden = array();
     //protected $casts = array();
     

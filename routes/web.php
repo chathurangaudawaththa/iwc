@@ -102,4 +102,6 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::get('rent', array('uses' => 'CustomerController@create'))->name('customer.create');
     // create customer
     Route::post('rent', array('uses' => 'CustomerController@store'))->name('customer.store');
+    // create customer
+    Route::post('emp/issue', array('uses' => 'ItemIssueController@store'))->name('itemIssue.store');
 });

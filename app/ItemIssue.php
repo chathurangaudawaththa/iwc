@@ -14,7 +14,7 @@ class ItemIssue extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    //protected $fillable = array();
+    protected $fillable = array('is_visible', 'is_active', 'date_create', 'date_receive', 'description', 'user_id_create', 'customer_id_create', 'transaction_type_id');
     //protected $hidden = array();
     //protected $casts = array();
     

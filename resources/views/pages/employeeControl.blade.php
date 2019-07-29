@@ -23,51 +23,78 @@
             </div>
           </div>
           <div class="box-body" style="display: none;">
+          <form action="{!! route('itemIssue.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+            <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+            @csrf
+            <input type="hidden" id="transaction_type_id" name="transaction_type_id" value="4"/>
             <!-- select item -->
             <div class="row add-padding">
             <div class="form-group  col-md-6">
               <label>Select Employee</label>
-              <select class="form-control select2" style="width: 100%;">
-                <option>Select ID</option>
-                <option>101</option>
-                <option>102</option>
-                <option selected="selected">103</option>
-                <option>104</option>
-                <option>105</option>
-                <option>106</option>
+              <select class="form-control select2" style="width: 100%;" id="customer_id" name="customer_id">
+                <option>Select Employee</option>
+                @isset($customerObjectArray)
+                  @foreach($customerObjectArray as $key => $value)
+                    <option value="{!! $value->id !!}" 
+                            data-image_uri-customer="{!! asset(Storage::url($value->image_uri)) !!}"
+                            data-first_name-customer="{!! $value->first_name !!}"
+                            data-last_name-customer="{!! $value->last_name !!}"
+                            data-nic-customer="{!! $value->nic !!}"
+                            data-code-customer="{!! $value->code !!}"
+                    >
+                        {{ $value->code }} | {{ $value->first_name }}
+                    </option>
+                  @endforeach
+                @endisset
               </select>
-              <span class="help-block">W.A.Senarath (ID:745268452V)</span>
+              <!-- span class="help-block" id="info_customer_data">name (code)</span -->
             </div>
             <div class="form-group col-md-6 has-error add-padding">
-              <span class="help-block" style="margin-top: 24px;">*Can be issue of items only current date (2019/07/06)</span>
+              <!-- span class="help-block" style="margin-top: 24px;">*Can be issue of items only current date (2019/07/06)</span -->
             </div>
             </div>
             <div class="form-group has-error col-md-6 min-margin">
             <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Select Item</label>
-              <select class="form-control select2" style="width: 100%;">
+              <select class="form-control select2" style="width: 100%;" id="item_id_select" name="item_id_select">
                 <option>Select Item</option>
-                <option>Glinder</option>
-                <option>Drill</option>
-                <option>Welding Plant</option>
+                @isset($itemObjectArray)
+                  @foreach($itemObjectArray as $key => $value)
+                    <option value="{!! $value->id !!}" 
+                            data-image_uri-item="{!! asset(Storage::url($value->image_uri)) !!}"
+                            data-name-item="{!! $value->name !!}"
+                            data-rack-item="{!! !empty($value->rack) ? $value->rack->name  : null !!}"
+                            data-deck-item="{!! !empty($value->deck) ? $value->deck->name  : null !!}"
+                            data-measuring_unit-item="{!! !empty($value->measuringUnit) ? $value->measuringUnit->name  : null !!}"
+                    >
+                        {{ $value->code }} | {{ $value->name }}
+                    </option>
+                  @endforeach
+                @endisset
               </select>
             </div>
             <div class="form-group col-md-6 min-margin">
             <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Item Count</label>
-                <input type="number" class="form-control" placeholder="Item Count">
+                <input type="number" class="form-control" placeholder="Item Count" id="quantity_item_issue_data" name="quantity_item_issue_data"/>
               </div>
               <div class="form-group has-error add-padding">
-              <span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span>
+              <!-- span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span -->
+              <br/>
+              <span class="help-block" id="irack_item">Rack </span>
+              <br/>
+              <span class="help-block" id="ideck_item">Deck </span>
+              <br/>
+              <span class="help-block" id="imeasuring_unit_item">Measuring Unit </span>
               </div>
-              <div class="form-group  col-md-4 overviewImage2"><img src="../../dist/img/item-001-sample.png" alt=""></div>
+              <div class="form-group  col-md-4 overviewImage2"><img id="image_uri_item" src="" alt=""></div>
 
             <div class="form-group col-md-12">
             <div class="form-group input-group min-margin">
-                <input type="text" class="form-control" placeholder="Reoson">
+                    <input type="text" class="form-control" placeholder="Reoson" id="description_item_issue_data" name="description_item_issue_data"/>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-info btn-flat">Add</button>
+                      <button type="button" class="btn btn-info btn-flat" id="btn_add_item_data">Add</button>
                     </span>
               </div>
-              <span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span>
+              <!-- span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span -->
 
               </div>
               <div class="form-group col-md-12">
@@ -75,11 +102,10 @@
             <!-- /.box-header -->
             <div class="form-group col-md-12" style="background: #e8e1e1; padding-top:10px">
               <fieldset>
-                <legend class="has-warning"><label>W.A.Senarath (ID:745268452V)</label></legend>
+                <legend class="has-warning"><label id="info_customer_data">-</label></legend>
                 <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <th>Date</th>
                   <th>Item</th>
                   <th>Qty</th>
                   <th>Reason</th>
@@ -87,27 +113,7 @@
                   <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                <td>2019/07/11</td>
-                  <td>Glinder</td>
-                  <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
-                  <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
-                        aria-hidden="true"></i></a></td>
-                  <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
-                        aria-hidden="true"></i></a></td>
-                </tr>
-                <tr>
-                  <td>2019/07/11</td>
-                  <td>Drill</td>
-                  <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
-                  <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
-                        aria-hidden="true"></i></a></td>
-                  <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
-                        aria-hidden="true"></i></a></td>
-                  </tr>
+              <tbody id="tbody_item">
               </tbody>
             </table>
               </fieldset>
@@ -115,6 +121,16 @@
             <!-- /.box-body -->
          
               </div>
+              <!-- -->
+            <div class="form-group col-md-12">
+                <div class="form-group input-group min-margin">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-flat">Save</button>
+                    </span>
+                </div>
+            </div>
+              <!-- -->
+          </form>
           </div>
           <!-- /.box-body -->
           <div class="box-footer" style="color:#fff; background: #00adef;">
@@ -326,4 +342,84 @@
       <!-- stock overview -->
       <!-- /.content -->
     </div>
+    <script>
+    $(function(){
+        "use strict";
+        //$('#item_id').select2({});
+        $('#customer_id').on('select2:select', function (e) { 
+            //e.preventDefault();
+            var temp_image_uri = null;
+            var temp_first_name = null;
+            var temp_last_name = null;
+            var temp_nic = null;
+            var temp_code = null;
+            temp_image_uri = $( e.target ).find(':selected').attr('data-image_uri-customer');
+            temp_first_name = $( e.target ).find(':selected').attr('data-first_name-customer');
+            temp_last_name = $( e.target ).find(':selected').attr('data-last_name-customer');
+            temp_nic = $( e.target ).find(':selected').attr('data-nic-customer');
+            temp_code = $( e.target ).find(':selected').attr('data-code-customer');
+            $('#info_customer_data').text( temp_first_name + ' ' + temp_last_name + '(' + temp_code + ')' );
+        });
+        
+        //$('#item_id').select2({});
+        $('#item_id_select').on('select2:select', function (e) { 
+            //e.preventDefault();
+            var temp_image_uri = null;
+            var temp_rack_item = null;
+            var temp_deck_item = null;
+            var temp_measuring_unit_item = null;
+            temp_image_uri = $( e.target ).find(':selected').attr('data-image_uri-item');
+            temp_rack_item = $( e.target ).find(':selected').attr('data-rack-item');
+            temp_deck_item = $( e.target ).find(':selected').attr('data-deck-item');
+            temp_measuring_unit_item = $( e.target ).find(':selected').attr('data-measuring_unit-item');
+            $('#image_uri_item').attr('src', temp_image_uri);
+            $('#irack_item').text( 'Rack : ' + temp_rack_item );
+            $('#ideck_item').text( 'Deck : ' + temp_deck_item );
+            $('#imeasuring_unit_item').text( 'Measuring Unit : ' + temp_measuring_unit_item );
+        });
+    });
+        
+    $('#btn_add_item_data').on('click', function(e){
+        //e.preventDefault();
+        var item_id_select = $('#item_id_select');
+        var quantity_item_issue_data = $('#quantity_item_issue_data');
+        var description_item_issue_data = $('#description_item_issue_data');
+        var item_id_select_value = item_id_select.val();
+        var quantity_item_issue_data_value = quantity_item_issue_data.val();
+        var description_item_issue_data_value = description_item_issue_data.val();
+        item_id_select_value = Number(item_id_select_value);
+        if( isNaN(item_id_select_value) || (item_id_select_value == null) ){
+            
+        }else{
+            var tr_1 = $('<tr></tr>');
+            var td_1 = $('<td>' 
+                         + item_id_select.find(':selected').attr('data-name-item') 
+                         + '<input type="hidden" readonly name="item_id[]" value="' 
+                         + item_id_select_value 
+                         + '"/></td>');
+            var td_2 = $('<td>' 
+                         + quantity_item_issue_data_value 
+                         + '<input type="hidden" readonly name="quantity[]" value="' 
+                         + quantity_item_issue_data_value + '"/></td>');
+            var td_3 = $('<td>' 
+                         + description_item_issue_data_value 
+                         + '<input type="hidden" readonly name="description[]" value="' 
+                         + description_item_issue_data_value + '"/></td>');
+            var td_4 = $('<td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i></a></td>');
+            var td_5 = $('<td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i></a></td>');
+            tr_1.addClass('default');
+            tr_1.append(td_1);
+            tr_1.append(td_2);
+            tr_1.append(td_3);
+            tr_1.append(td_4);
+            tr_1.append(td_5);
+            
+            $('#tbody_item').append( tr_1 );
+        }
+        
+        item_id_select.val(null).trigger('change');
+        quantity_item_issue_data.val(null);
+        description_item_issue_data.val(null);
+    });
+    </script>
 @stop
