@@ -19,6 +19,8 @@ use Carbon\Carbon;
 use \Exception;
 use Illuminate\Support\Facades\Storage;
 
+use App\Item;
+
 class CustomerController extends Controller
 {
     //
@@ -48,18 +50,25 @@ class CustomerController extends Controller
     {
         //
         $customerObject = new Customer();
+        $itemObject = new Item();
         $customerObjectArray = array();
+        $itemObjectArray = array();
         
         $query = $customerObject
             ->where('is_visible', '=', true)
             ->where('user_type_id', '=', 3);
-        
         //$query = $query->whereHas('tables', function($query){});
-        
         $customerObjectArray = $query->get();
         
+        $query = $itemObject->with( array('rack', 'deck', 'measuringUnit', 'stocks') )
+            ->where('is_visible', '=', true);
+        $itemObjectArray = $query->get();
+        
         if(view()->exists('pages.rentControl')){
-            return View::make('pages.rentControl', array('customerObjectArray' => $customerObjectArray));
+            return View::make('pages.rentControl', array(
+                'customerObjectArray' => $customerObjectArray,
+                'itemObjectArray' => $itemObjectArray
+            ));
         }
     }
 

@@ -62,10 +62,12 @@ class ItemIssueController extends Controller
     public function store(Request $request)
     {
         //
+        $auth_user = auth()->user();
         $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
         // validate the info, create rules for the inputs
         $rules = array(
-            'transaction_type_id'    => 'required'
+            'transaction_type_id'    => 'required',
+            'customer_id'    => 'required'
         );
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
@@ -101,8 +103,8 @@ class ItemIssueController extends Controller
                     'is_active' => true,
                     'date_create' => ($request->input('date_create')) ? $request->input('date_create') : $date_today->format('Y-m-d'),
                     'date_receive' => ($request->input('date_receive')) ? $request->input('date_receive') : $date_today->format('Y-m-d'),
-                    'user_id_create' => $request->input('user_id_create'),
-                    'customer_id_create' => $request->input('customer_id_create'),
+                    'user_id_create' => $auth_user->id,
+                    'customer_id_create' => $request->input('customer_id'),
                     'transaction_type_id' => $request->input('transaction_type_id')
                 );
                 
@@ -145,14 +147,6 @@ class ItemIssueController extends Controller
                         Stock::create( $dataArray );
                     }
                     
-                    $dataArray = array(
-                        'is_visible' => true,
-                        'item_issue_id' => $newItemIssue->id,
-                        'quantity' => 'quantity',
-                        'item_id' => 'item_id',
-                        'measuring_unit_id' => 'measuring_unit_id',
-                        'unit_price' => 'unit_price',
-                    );
                 });
                 
             }catch(Exception $e){

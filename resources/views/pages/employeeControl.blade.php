@@ -85,7 +85,7 @@
               <br/>
               <span class="help-block" id="imeasuring_unit_item">Measuring Unit </span>
               </div>
-              <div class="form-group  col-md-4 overviewImage2"><img id="image_uri_item" src="" alt=""></div>
+              <div class="form-group  col-md-4 overviewImage2"><img id="image_uri_item" src="" alt=""/></div>
 
             <div class="form-group col-md-12">
             <div class="form-group input-group min-margin">
@@ -109,7 +109,7 @@
                   <th>Item</th>
                   <th>Qty</th>
                   <th>Reason</th>
-                  <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
+                  <!-- th class="th-sm" style="text-align:center;color: #d2c7c7;"></th -->
                   <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
                 </tr>
               </thead>
@@ -388,7 +388,7 @@
         var quantity_item_issue_data_value = quantity_item_issue_data.val();
         var description_item_issue_data_value = description_item_issue_data.val();
         item_id_select_value = Number(item_id_select_value);
-        if( isNaN(item_id_select_value) || (item_id_select_value == null) ){
+        if( isNaN(item_id_select_value) || (item_id_select_value == 0) ){
             
         }else{
             var tr_1 = $('<tr></tr>');
@@ -405,13 +405,18 @@
                          + description_item_issue_data_value 
                          + '<input type="hidden" readonly name="description[]" value="' 
                          + description_item_issue_data_value + '"/></td>');
-            var td_4 = $('<td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i></a></td>');
+            //var td_4 = $('<td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i></a></td>');
             var td_5 = $('<td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i></a></td>');
+            
+            td_5.bind('click', null, function(){
+                $( this ).closest('tr').remove();
+            });
+            
             tr_1.addClass('default');
             tr_1.append(td_1);
             tr_1.append(td_2);
             tr_1.append(td_3);
-            tr_1.append(td_4);
+            //tr_1.append(td_4);
             tr_1.append(td_5);
             
             $('#tbody_item').append( tr_1 );
@@ -420,6 +425,11 @@
         item_id_select.val(null).trigger('change');
         quantity_item_issue_data.val(null);
         description_item_issue_data.val(null);
+        
+        $('#image_uri_item').attr('src', null);
+        $('#irack_item').text( null);
+        $('#ideck_item').text( null );
+        $('#imeasuring_unit_item').text( null );
     });
     </script>
 @stop
