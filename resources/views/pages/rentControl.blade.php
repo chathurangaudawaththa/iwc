@@ -300,40 +300,66 @@
           <div class="box-body">
             <table id="example1" class="table table-bordered table-hover">
               <thead>
-                <tr>
+                <!-- tr>
                   <th>Get Date</th>
                   <th style="background: rgb(255, 138, 138)">Submit Date</th>
                   <th>NID</th>
                   <th>Cient Name</th>
                   <th>Item name</th>
                   <th>Quantity</th>
+                  <th class="th-sm" style="text-align:center"></th>
+                  <th class="th-sm" style="text-align:center"></th>
+                  <th class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i></a></th>
+                  <th class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i></a></th>
+                </tr -->
+                <tr>
+                    <th>Billed Date</th>
+                    <th>Submit Date</th>
+                    <th>NIC</th>
+                    <th>Client Name</th>
+                    <th>Issue ID</th>
+                    <th>Created User</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>2019/07/01</td>
-                  <td>2019/07/11</td>
-                  <td><a href="id" title="Click to view Client Details">922251568V</a></td>
-                  <td>W.A.Senarath</td>
-                  <td>Glinder</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>2019/07/01</td>
-                  <td>2019/07/11</td>
-                  <td><a href="id" title="Click to view Client Details">922251568V</a></td>
-                  <td>W.A.Senarath</td>
-                  <td>Drill</td>
-                  <td>1</td>
-                </tr>
-                <tr style="background: rgb(253, 8, 8); color: #fff;">
-                  <td>2019/07/01</td>
-                  <td>2019/07/10</td>
-                  <td><a style="color: #ffffff" href="id" title="Click to view Client Details">882251568V</a></td>
-                  <td>W.A.Senarath</td>
-                  <td>Glinder</td>
-                  <td>1</td>
-                </tr>
+                @isset($itemIssueObjectArray)
+                  @foreach($itemIssueObjectArray as $key => $value)
+                  
+                    @php
+                        $date_today = Carbon\Carbon::now()->startOfDay();
+                        $date_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_create)->startOfDay();
+                        $date_receive = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_receive)->startOfDay();
+                    @endphp
+                    <tr
+                        @if( $date_today->greaterThanOrEqualTo( $date_receive ) )
+                            {!! 'style="background: rgb(253, 8, 8); color: #fff;"' !!}
+                        @endif
+                    >
+                        <!-- {!! 'style="background: rgb(253, 8, 8); color: #fff;"' !!} -->
+                        <td>{{ $date_create->format('Y-m-d') }}</td>
+                        <td>{{ $date_receive->format('Y-m-d') }}</td>
+                        <td>
+                            @if(isset($value->customer))
+                                {{ $value->customer->nic }}
+                            @endif
+                        </td>
+                        <td>
+                            @if(isset($value->customer))
+                                {{ $value->customer->first_name }}
+                            @endif
+                        </td>
+                        <td>
+                            {{ $value->id }}
+                        </td>
+                        <td>
+                            @if(isset($value->user))
+                                {{ $value->user->first_name }}
+                            @endif
+                        </td>
+                    </tr>
+                  
+                  @endforeach
+                @endisset
               </tbody> 
             </table>
           </div>
@@ -366,7 +392,7 @@ $(function(){
         temp_last_name = $( e.target ).find(':selected').attr('data-last_name-customer');
         temp_nic = $( e.target ).find(':selected').attr('data-nic-customer');
         temp_code = $( e.target ).find(':selected').attr('data-code-customer');
-        $('#info_customer_data').text( temp_first_name + ' ' + temp_last_name + '(' + temp_code + ')' );
+        $('#info_customer_data').text( temp_first_name + ' ' + temp_last_name );
     });
 
     //$('#item_id').select2({});
@@ -408,8 +434,8 @@ $('#btn_add_item_data').on('click', function(e){
                      + '<input type="hidden" readonly name="quantity[]" value="' 
                      + quantity_item_issue_data_value + '"/></td>');
         var td_3 = $('<td>' 
-                     + '<img id="image_uri_item" src="' 
-                     + item_id_select.find(':selected').attr('data-image_uri-item') + '" alt=""/></td>');
+                     + '<!-- img id="image_uri_item" src="' 
+                     + item_id_select.find(':selected').attr('data-image_uri-item') + '" alt=""/ --></td>');
         
         //var td_4 = $('<td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i></a></td>');
         var td_5 = $('<td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i></a></td>');

@@ -101,8 +101,8 @@ class ItemIssueController extends Controller
                 $dataArray = array(
                     'is_visible' => true,
                     'is_active' => true,
-                    'date_create' => ($request->input('date_create')) ? $request->input('date_create') : $date_today->format('Y-m-d'),
-                    'date_receive' => ($request->input('date_receive')) ? $request->input('date_receive') : $date_today->format('Y-m-d'),
+                    'date_create' => ($request->input('date_create')) ? Carbon::createFromFormat('m/d/Y', $request->input('date_create'))->toDateTimeString() : $date_today->format('Y-m-d'),
+                    'date_receive' => ($request->input('date_receive')) ? Carbon::createFromFormat('m/d/Y', $request->input('date_receive'))->toDateTimeString() : $date_today->format('Y-m-d'),
                     'user_id_create' => $auth_user->id,
                     'customer_id_create' => $request->input('customer_id'),
                     'transaction_type_id' => $request->input('transaction_type_id')
@@ -126,11 +126,11 @@ class ItemIssueController extends Controller
                             'is_visible' => true,
                             'is_active' => true,
                             'item_issue_id' => $newItemIssue->id,
-                            'quantity' => $quantityArray[$key],
+                            'quantity' => (isset($quantityArray[$key]))?$quantityArray[$key]:0,
                             'item_id' => $tempItem->id,
                             'measuring_unit_id' => $tempItem->measuring_unit_id,
                             'unit_price' => $tempItem->unit_price,
-                            'description' => $descriptionArray[$key]
+                            'description' => (isset($descriptionArray[$key]))?$descriptionArray[$key]:null
                         );
                         
                         $newItemIssueData = ItemIssueData::create( $dataArray );
@@ -149,7 +149,7 @@ class ItemIssueController extends Controller
                     
                 });
                 
-            }catch(Exception $e){
+            }catch(Exception $e){dd($e);
                 notify()->flash(
                     'Error', 
                     'warning', [

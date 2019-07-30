@@ -19,7 +19,10 @@ use Carbon\Carbon;
 use \Exception;
 use Illuminate\Support\Facades\Storage;
 
+use App\ItemIssue;
+use App\ItemIssueData;
 use App\Item;
+use App\Stock;
 
 class EmployeeController extends Controller
 {
@@ -51,8 +54,10 @@ class EmployeeController extends Controller
         //
         $customerObject = new Customer();
         $itemObject = new Item();
+        $itemIssueObject = new ItemIssue();
         $customerObjectArray = array();
         $itemObjectArray = array();
+        $itemIssueObjectArray = array();
         
         $query = $customerObject
             ->where('is_visible', '=', true)
@@ -64,10 +69,16 @@ class EmployeeController extends Controller
             ->where('is_visible', '=', true);
         $itemObjectArray = $query->get();
         
+        $query = $itemIssueObject->with( array('transactionType', 'customer', 'user', 'itemReceives', 'itemIssueDatas') )
+            ->where('is_visible', '=', true)
+            ->where('transaction_type_id', '=', 4);
+        $itemIssueObjectArray = $query->get();
+        
         if(view()->exists('pages.employeeControl')){
             return View::make('pages.employeeControl', array(
                 'customerObjectArray' => $customerObjectArray,
-                'itemObjectArray' => $itemObjectArray
+                'itemObjectArray' => $itemObjectArray,
+                'itemIssueObjectArray' => $itemIssueObjectArray
             ));
         }
     }

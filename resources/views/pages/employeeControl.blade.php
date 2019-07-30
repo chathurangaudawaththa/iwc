@@ -278,7 +278,7 @@
           <div class="box-body">
             <table id="example1" class="table table-bordered table-hover">
               <thead>
-                <tr>
+                <!-- tr>
                   <th>Date</th>
                   <th>Emp ID</th>
                   <th>Emp Name</th>
@@ -287,46 +287,55 @@
                   <th>Reason</th>
                   <th class="th-sm" style="text-align:center"></th>
                   <th class="th-sm" style="text-align:center"></th>
-
+                  <th class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i></a></th>
+                  <th class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i></a></th>
+                </tr -->
+                <tr>
+                    <th>Date</th>
+                    <th>Emp ID</th>
+                    <th>Emp Name</th>
+                    <th>Issue ID</th>
+                    <th>Created User</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>2019/07/11</td>
-                  <td>101</td>
-                  <td>W.A.Senarath</td>
-                  <td>Glinder</td>
-                  <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
-                  <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
-                        aria-hidden="true"></i></a></td>
-                  <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
-                        aria-hidden="true"></i></a></td>
-                </tr>
-                <tr>
-                    <td>2019/06/11</td>
-                    <td>102</td>
-                    <td>A.P.Amarasekara</td>
-                    <td>Anchor Bolt Drop In Anchor</td>
-                    <td>20</td>
-                    <td>Bacon ipsum dolor sit amet	</td>
-                    <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
-                        aria-hidden="true"></i></a></td>
-                  <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
-                        aria-hidden="true"></i></a></td>
-                  </tr>
-                  <tr>
-                  <td>2019/07/11</td>
-                  <td>101</td>
-                  <td>W.A.Senarath</td>
-                  <td>Double End Stud</td>
-                  <td>10</td>
-                  <td>Bacon ipsum dolor sit amet</td>
-                  <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
-                        aria-hidden="true"></i></a></td>
-                  <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
-                        aria-hidden="true"></i></a></td>
-                </tr>
+                @isset($itemIssueObjectArray)
+                  @foreach($itemIssueObjectArray as $key => $value)
+                  
+                    @php
+                        $date_today = Carbon\Carbon::now()->startOfDay();
+                        $date_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_create)->startOfDay();
+                        $date_receive = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_receive)->startOfDay();
+                    @endphp
+                    <tr
+                        @if( $date_today->greaterThanOrEqualTo( $date_receive ) )
+                            {{ null }}
+                        @endif
+                    >
+                        <!-- {!! 'style="background: rgb(253, 8, 8); color: #fff;"' !!} -->
+                        <td>{{ $date_create->format('Y-m-d') }}</td>
+                        <td>
+                            @if(isset($value->customer))
+                                {{ $value->customer->code }}
+                            @endif
+                        </td>
+                        <td>
+                            @if(isset($value->customer))
+                                {{ $value->customer->first_name }}
+                            @endif
+                        </td>
+                        <td>
+                            {{ $value->id }}
+                        </td>
+                        <td>
+                            @if(isset($value->user))
+                                {{ $value->user->first_name }}
+                            @endif
+                        </td>
+                    </tr>
+                  
+                  @endforeach
+                @endisset
               </tbody>
             </table>
           </div>

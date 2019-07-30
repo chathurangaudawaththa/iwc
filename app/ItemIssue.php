@@ -43,4 +43,12 @@ class ItemIssue extends Model
         return $this->hasMany('App\ItemIssueData', 'item_issue_id', 'id');
     }
     
+    //one to many
+    public function itemIssueDatasSum(){
+        //->selectRaw('SUM(column) as sum')
+        //->addSelect('SUM(column) as sum')
+        //->selectRaw('SUM(column) as sum')
+        return $this->hasMany('App\ItemIssueData', 'item_issue_id', 'id')->sum('quantity');
+    }
+    
 }
