@@ -14,7 +14,7 @@ class Status extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    //protected $fillable = array();
+    protected $fillable = array('is_visible', 'is_active', 'slug', 'name', 'icon_uri');
     //protected $hidden = array();
     //protected $casts = array();
 }

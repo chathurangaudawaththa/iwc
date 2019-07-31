@@ -14,7 +14,7 @@ class RackDeck extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    //protected $fillable = array();
+    protected $fillable = array('rack_id', 'deck_id');
     //protected $hidden = array();
     //protected $casts = array();
     

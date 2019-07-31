@@ -19,6 +19,13 @@ class Stock extends Model
     //protected $casts = array();
     
     //one to many (inverse)
+    /*
+    public function stockable(){
+        return $this->morphTo('stockable', 'stockable_type', 'stockable_id');
+    }
+    */
+    
+    //one to many (inverse)
     public function item(){
         return $this->belongsTo('App\Item', 'item_id', 'id');
     }

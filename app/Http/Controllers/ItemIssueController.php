@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use Carbon\Carbon;
 use \Exception;
+use Illuminate\Support\Facades\Storage;
+
+use App\ItemIssueData;
+use App\Item;
+use App\Stock;
 
 class ItemIssueController extends Controller
 {
@@ -57,6 +62,116 @@ class ItemIssueController extends Controller
     public function store(Request $request)
     {
         //
+        $auth_user = auth()->user();
+        $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
+        // validate the info, create rules for the inputs
+        $rules = array(
+            'transaction_type_id'    => 'required',
+            'customer_id'    => 'required'
+        );
+        // run the validation rules on the inputs from the form
+        $validator = Validator::make(Input::all(), $rules);
+        // if the validator fails, redirect back to the form
+        if ($validator->fails()) {
+            
+            notify()->flash(
+                'Error', 
+                'warning', [
+                'timer' => $data['timer'],
+                'text' => 'error',
+            ]);
+            
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+            
+        } else {
+            // do process
+            try {
+                
+                $app_file_storage_uri = config('app.app_file_storage_uri');
+                $date_today = Carbon::now();//->format('Y-m-d');
+                
+                //create directory
+                if(!Storage::exists($app_file_storage_uri)) {
+                    Storage::makeDirectory($app_file_storage_uri, 0775, true); //creates directory
+                }
+                
+                $dataArray = array(
+                    'is_visible' => true,
+                    'is_active' => true,
+                    'date_create' => ($request->input('date_create')) ? Carbon::createFromFormat('m/d/Y', $request->input('date_create'))->toDateTimeString() : $date_today->format('Y-m-d'),
+                    'date_receive' => ($request->input('date_receive')) ? Carbon::createFromFormat('m/d/Y', $request->input('date_receive'))->toDateTimeString() : $date_today->format('Y-m-d'),
+                    'user_id_create' => $auth_user->id,
+                    'customer_id_create' => $request->input('customer_id'),
+                    'transaction_type_id' => $request->input('transaction_type_id')
+                );
+                
+                $itemIdArray = array();
+                $quantityArray = array();
+                $descriptionArray = array();
+                
+                DB::transaction(function () use ($dataArray, $request){
+                    $newItemIssue = ItemIssue::create( $dataArray );
+                    
+                    unset($dataArray);
+                    $itemIdArray = (array) $request->input('item_id');
+                    $quantityArray = (array) $request->input('quantity');
+                    $descriptionArray = (array) $request->input('description');
+                    
+                    foreach($itemIdArray as $key => $value){
+                        $tempItem = Item::find( $value );
+                        $dataArray = array(
+                            'is_visible' => true,
+                            'is_active' => true,
+                            'item_issue_id' => $newItemIssue->id,
+                            'quantity' => (isset($quantityArray[$key]))?$quantityArray[$key]:0,
+                            'item_id' => $tempItem->id,
+                            'measuring_unit_id' => $tempItem->measuring_unit_id,
+                            'unit_price' => $tempItem->unit_price,
+                            'description' => (isset($descriptionArray[$key]))?$descriptionArray[$key]:null
+                        );
+                        
+                        $newItemIssueData = ItemIssueData::create( $dataArray );
+                        unset($dataArray);
+                        
+                        $dataArray = array(
+                            'is_visible' => true,
+                            'quantity' => (-1 * $newItemIssueData->quantity),
+                            'date_create' => $newItemIssue->date_create,
+                            'item_id' => $newItemIssueData->item_id,
+                            'measuring_unit_id' => $newItemIssueData->measuring_unit_id
+                        );
+                        
+                        Stock::create( $dataArray );
+                    }
+                    
+                });
+                
+            }catch(Exception $e){dd($e);
+                notify()->flash(
+                    'Error', 
+                    'warning', [
+                    'timer' => $data['timer'],
+                    'text' => 'error',
+                ]);
+                
+                return redirect()
+                    ->back()
+                    ->withInput();
+            }
+        }
+        
+        notify()->flash(
+            'Success', 
+            'success', [
+            'timer' => $data['timer'],
+            'text' => 'success',
+        ]);
+        
+        //return Response::json( $data );
+        return redirect()->back();
     }
 
     /**

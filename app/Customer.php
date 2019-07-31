@@ -14,7 +14,7 @@ class Customer extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    //protected $fillable = array();
+    protected $fillable = array('is_visible', 'first_name', 'last_name', 'address', 'phone', 'nic', 'code', 'image_uri', 'image_uri_nic_front', 'image_uri_nic_back', 'user_type_id');
     //protected $hidden = array();
     //protected $casts = array();
     

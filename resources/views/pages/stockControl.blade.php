@@ -306,7 +306,11 @@
                   @foreach($itemObjectArray as $key => $value)
                   
                     <!-- style="background: rgb(255, 138, 138); color: #fff;" -->
-                    <tr>
+                    <tr
+                        @if( intval($value->stocksSum()) <= intval($value->quantity_low) )
+                        {!! 'style="background: rgb(255, 138, 138); color: #fff;"' !!}
+                        @endif
+                    >
                         <td>{{ $value->code }}</td>
                         <td>{{ $value->name }}</td>
                         <td class="overviewImage">

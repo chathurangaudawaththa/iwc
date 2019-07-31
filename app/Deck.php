@@ -14,7 +14,7 @@ class Deck extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    //protected $fillable = array();
+    protected $fillable = array('is_visible', 'name');
     //protected $hidden = array();
     //protected $casts = array();
     
