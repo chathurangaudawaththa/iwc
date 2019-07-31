@@ -433,9 +433,9 @@ $('#btn_add_item_data').on('click', function(e){
                      + quantity_item_issue_data_value 
                      + '<input type="hidden" readonly name="quantity[]" value="' 
                      + quantity_item_issue_data_value + '"/></td>');
-        var td_3 = $('<td>' 
-                     + '<!-- img id="image_uri_item" src="' 
-                     + item_id_select.find(':selected').attr('data-image_uri-item') + '" alt=""/ --></td>');
+        var td_3 = $('<td class="overviewImage">' 
+                     + '<img id="image_uri_item" src="' 
+                     + item_id_select.find(':selected').attr('data-image_uri-item') + '" alt=""/></td>');
         
         //var td_4 = $('<td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i></a></td>');
         var td_5 = $('<td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i></a></td>');
