@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class ItemIssueData extends Model
 {
     //
@@ -38,6 +40,35 @@ class ItemIssueData extends Model
     //one to many (inverse)
     public function measuringUnit(){
         return $this->belongsTo('App\MeasuringUnit', 'measuring_unit_id', 'id');
+    }
+    
+    //one to many
+    public function itemReceiveDatasSum(){
+        //->selectRaw('SUM(column) as sum')
+        //->addSelect('SUM(column) as sum')
+        //->selectRaw('SUM(column) as sum')
+        /*
+        $itemIssueObject = $this->belongsTo('App\ItemIssue', 'item_issue_id', 'id')
+            //->with(['itemReceiveDatas' => function($query){}])
+            ->with(['itemReceiveDatas'])
+            ->whereHas('itemReceiveDatas', function(Builder $query){
+                $query->where('item_id', '=', $this->item_id);
+            })->first();
+        $itemReceiveDatas = $itemIssueObject->itemReceiveDatas;
+        dd(collect($itemReceiveDatas)->sum('quantity'));
+        */
+        $itemIssueObject = $this->itemReceiveDatas;
+        return ($itemIssueObject) ? ( collect($itemIssueObject->itemReceiveDatas)->sum('quantity') ) : 0;
+    }
+    
+    //one to many
+    public function itemReceiveDatas(){
+        return $this->belongsTo('App\ItemIssue', 'item_issue_id', 'id')
+            //->with(['itemReceiveDatas' => function($query){}])
+            ->with(['itemReceiveDatas'])
+            ->whereHas('itemReceiveDatas', function(Builder $query){
+                $query->where('item_id', '=', $this->item_id);
+            });
     }
     
 }

@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class ItemIssue extends Model
 {
     //
@@ -49,6 +51,36 @@ class ItemIssue extends Model
         //->addSelect('SUM(column) as sum')
         //->selectRaw('SUM(column) as sum')
         return $this->hasMany('App\ItemIssueData', 'item_issue_id', 'id')->sum('quantity');
+    }
+    
+    //one to many
+    public function itemReceiveDatas(){
+        //->selectRaw('SUM(column) as sum')
+        //->addSelect('SUM(column) as sum')
+        //->selectRaw('SUM(column) as sum')
+        return $this->hasManyThrough(
+            'App\ItemReceiveData',
+            'App\ItemReceive',
+            'item_issue_id',
+            'item_receive_id',
+            'id',//this table's primary key
+            'id'//other table's primary key
+        );
+    }
+    
+    //one to many
+    public function itemReceiveDatasSum(){
+        //->selectRaw('SUM(column) as sum')
+        //->addSelect('SUM(column) as sum')
+        //->selectRaw('SUM(column) as sum')
+        return $this->hasManyThrough(
+            'App\ItemReceiveData',
+            'App\ItemReceive',
+            'item_issue_id',
+            'item_receive_id',
+            'id',//this table's primary key
+            'id'//other table's primary key
+        )->sum('quantity');
     }
     
 }

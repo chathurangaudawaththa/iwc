@@ -1,4 +1,15 @@
 <?php
+//test
+Route::get('/test', function(){
+    $newItemIssue = App\ItemIssue::find(1);
+    //dd($newItemIssue->itemReceiveDatasSum());
+    $iemIssueData = $newItemIssue->itemIssueDatas;
+    //dd($iemIssueData);
+    foreach($iemIssueData as $key => $value){
+        dd($value->itemReceiveDatasSum());
+    }
+});
+
 // user registration
 Route::get('/adduser', function()
 {
