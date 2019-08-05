@@ -33,38 +33,57 @@
               <thead>
                 <tr>
                   <th>Date</th>
-                  <th>Invoice No</th>
-                  <th>NID</th>
-                  <th>Cient Name</th>
-                  <th>Item name</th>
-                  <th>Quantity</th>
-                  <th>Note</th>
+                  <th>Emp ID</th>
+                  <th>Employee Name</th>
+                  <th>Bill</th>
                   <th></th>
-                </tr>
+                </tr> 
               </thead>
               <tbody>
-                <tr>
-                  <td>2019/07/01</td>
-                  <td>2019/07/11</td>
-                  <td>922251568V</td>
-                  <td>W.A.Senarath</td>
-                  <td>Drill</td>
-                  <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
-                  <td class="article-btn delete" style="text-align:center"><a href="/id" title="Delete item"><i style="color: #19ab09" class="fa fa-share-square-o"
-                      aria-hidden="true"></i></a></td>
-                </tr>
-                <tr>
-                  <td>2019/07/01</td>
-                  <td>2019/07/10</td>
-                  <td>882251568V</td>
-                  <td>W.A.Sarath</td>
-                  <td>Glinder</td>
-                  <td>1</td>
-                  <td>Bacon ipsum dolor sit amet</td>
-                  <td class="article-btn delete" style="text-align:center"><a href="/id" title="Delete item"><i style="color: #19ab09" class="fa fa-share-square-o"
-                      aria-hidden="true"></i></a></td>
-                </tr>
+                
+                @isset($itemIssueObjectArray)
+                  @foreach($itemIssueObjectArray as $key => $value)
+                  
+                    @php
+                        $date_today = Carbon\Carbon::now()->startOfDay();
+                        $date_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_create)->startOfDay();
+                        $date_receive = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_receive)->startOfDay();
+                    @endphp
+                    <tr
+                        @if( $date_today->greaterThanOrEqualTo( $date_receive ) )
+                            {{ null }}
+                        @endif
+                    >
+                        <!-- {!! 'style="background: rgb(253, 8, 8); color: #fff;"' !!} -->
+                        <td>{{ $date_create->format('Y-m-d') }}</td>
+                        <td>
+                            @if(isset($value->customer))
+                                {{ $value->customer->code }}
+                            @endif
+                        </td>
+                        <td>
+                            @if(isset($value->customer))
+                                {{ $value->customer->first_name }}
+                            @endif
+                        </td>
+                        <td>
+                            {{ $value->id }}
+                        </td>
+                        <td>
+                            @if(isset($value->user))
+                                {{ $value->user->first_name }}
+                            @endif
+                        </td>
+                        <td class="article-btn delete" style="text-align:center">
+                            <a href="/id" title="Delete item">
+                                <i style="color: #19ab09" class="fa fa-share-square-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                  
+                  @endforeach
+                @endisset
+                
               </tbody>
             </table>
           </div>

@@ -56,24 +56,6 @@ Route::get('/print', function()
 });
 
 // stock control
-Route::get('/handover', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.handoverItems');
-   }
-    return view('pages.login');
-});
-
-// stock control
-Route::get('/handoveremp', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.handoveremp');
-   }
-    return view('pages.login');
-});
-
-// stock control
 Route::get('/payments', function()
 {
     if (Auth::check()) {
@@ -115,4 +97,8 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::post('rent', array('uses' => 'CustomerController@store'))->name('customer.store');
     // create customer
     Route::post('emp/issue', array('uses' => 'ItemIssueController@store'))->name('itemIssue.store');
+    // item return employee
+    Route::get('handoveremp', array('uses' => 'ItemReceiveEmplyeeController@index'))->name('itemReceiveEmployee.index');
+    // item return customer
+    Route::get('handover', array('uses' => 'ItemReceiveCustomerController@index'))->name('itemReceiveCustomer.index');
 });
