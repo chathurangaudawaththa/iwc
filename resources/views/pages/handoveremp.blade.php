@@ -67,7 +67,7 @@
                             @endif
                         </td>
                         <td class="article-btn delete" style="text-align:center">
-                            <a href="/eid" title="View Items">
+                            <a href="{!! route('itemReceiveEmployee.create', [$value->id]) !!}" title="View Items">
                                 <i style="color: #19ab09" class="fa fa-share-square-o" aria-hidden="true"></i>
                             </a>
                         </td>

@@ -24,6 +24,8 @@ class CreateItemReceivesTable extends Migration
             $table->text('description')->nullable();
             $table->decimal('amount')->default(0)->nullable();
             $table->decimal('discount')->default(0)->nullable();
+            $table->decimal('damage_charge')->default(0)->nullable();
+            $table->decimal('delivery_charge')->default(0)->nullable();
             $table->unsignedBigInteger('user_id_create')->index()->unsigned()->nullable();
             $table->unsignedBigInteger('item_issue_id')->index()->unsigned()->nullable();
             $table->unsignedBigInteger('transaction_type_id')->index()->unsigned()->nullable();

@@ -36,6 +36,9 @@ class ItemReceiveCustomerController extends Controller
     public function index()
     {
         //
+        $auth_user = auth()->user();
+        $date_today = Carbon::now();//->format('Y-m-d');
+        
         $itemIssueObject = new ItemIssue();
         $itemIssueObjectArray = array();
         
@@ -49,6 +52,54 @@ class ItemReceiveCustomerController extends Controller
                 'itemIssueObjectArray' => $itemIssueObjectArray
             ));
         }
+    }
+    
+    public function create(Request $request, ItemIssue $itemIssue){
+        $auth_user = auth()->user();
+        $date_today = Carbon::now();//->format('Y-m-d');
+        
+        $itemIssueObjectClone = clone $itemIssue;
+        
+        if(view()->exists('pages.clientView')){
+            return View::make('pages.clientView', array(
+                'itemIssueObject' => $itemIssueObjectClone
+            ));
+        }
+    }
+    
+    public function createInvoice(Request $request, ItemIssue $itemIssue){
+        
+        $auth_user = auth()->user();
+        $date_today = Carbon::now();//->format('Y-m-d');
+        
+        $itemIssueObjectClone = clone $itemIssue;
+        $quantity_key_temp = "quantity_";
+        $item_issue_data_id_array = (array) $request->input('item_issue_data_id');
+        
+        $itemReceiveDataArray = array();
+        
+        foreach($item_issue_data_id_array as $key => $value){
+            $quantity_key = $quantity_key_temp . $value;
+            
+            $itemReceiveDataArrayTemp = array(
+                'item_issue_data_object' => ItemIssueData::find( $value ),
+                'item_issue_data_quantity' => $request->input( $quantity_key )
+            );
+            
+            array_push( $itemReceiveDataArray, $itemReceiveDataArrayTemp );
+        }
+        
+        if(view()->exists('pages.invoice')){
+            return View::make('pages.invoice', array(
+                'date_today' => $date_today,
+                'itemIssueObject' => $itemIssueObjectClone,
+                'itemReceiveDataArray' => $itemReceiveDataArray
+            ));
+        }
+    }
+    
+    public function store(Request $request, ItemIssue $itemIssue){
+        //
     }
     
 }

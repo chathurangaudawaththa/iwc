@@ -75,7 +75,7 @@
                             @endif
                         </td>
                         <td class="article-btn delete" style="text-align:center">
-                            <a href="/id" title="Delete item">
+                            <a href="{!! route('itemReceiveCustomer.create', [$value->id]) !!}" title="Delete item">
                                 <i style="color: #19ab09" class="fa fa-share-square-o" aria-hidden="true"></i>
                             </a>
                         </td>

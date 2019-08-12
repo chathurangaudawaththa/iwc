@@ -19,26 +19,9 @@ Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
 
-// stock control
-Route::get('/id', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.clientView');
-   }
-    return view('pages.login');
-});
 
 // stock control
-Route::get('/eid', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.empView');
-   }
-    return view('pages.login');
-});
-
-// stock control
-Route::get('/invoice', function()
+Route::get('/invoice_ooooooo', function()
 {
     if (Auth::check()) {
       return View::make('pages.invoice');
@@ -101,4 +84,12 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::get('handoveremp', array('uses' => 'ItemReceiveEmplyeeController@index'))->name('itemReceiveEmployee.index');
     // item return customer
     Route::get('handover', array('uses' => 'ItemReceiveCustomerController@index'))->name('itemReceiveCustomer.index');
+    // item return employee (list item)
+    Route::get('eid/{itemIssue}', array('uses' => 'ItemReceiveEmplyeeController@create'))->name('itemReceiveEmployee.create');
+    // item return customer (list item)
+    Route::get('id/{itemIssue}', array('uses' => 'ItemReceiveCustomerController@create'))->name('itemReceiveCustomer.create');
+    // item return employee (store)
+    Route::post('handoveremp/{itemIssue}', array('uses' => 'ItemReceiveEmplyeeController@store'))->name('itemReceiveEmployee.store');
+    // item return customer (store)
+    Route::post('invoice/{itemIssue}', array('uses' => 'ItemReceiveCustomerController@createInvoice'))->name('itemReceiveCustomer.createInvoice');
 });

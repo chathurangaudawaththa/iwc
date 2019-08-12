@@ -12,7 +12,11 @@
         <div class="col-xs-12">
           <h2 class="page-header">
             <img src="dist/img/user2-160x160.jpg" style="max-width: 45px;"> IWC Equipment Rentel Service.
-            <small class="pull-right">Billing Date: 10/07/2019</small>
+            <small class="pull-right">Billing Date: 
+                @isset( $date_today )
+                    {{ $date_today->format('Y-m-d') }}
+                @endisset
+            </small>
           </h2>
         </div>
         <!-- /.col --> 
@@ -33,18 +37,28 @@
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
           To
-          <address>
-            <strong>W.A.Senarath</strong><br>
-            795 Walpitamulla, Dewalapola.
-          </address>
+            @isset($itemIssueObject)
+                @isset($itemIssueObject->customer)
+                    <address>
+                        <strong>{{ $itemIssueObject->customer->first_name }}</strong>
+                        <br/>
+                        {{ $itemIssueObject->customer->address }}
+                    </address>
+                @endisset
+            @endisset
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          <b>Invoice #007612</b><br>
-          <br>
-          <b>National ID:</b> 882251568V<br>
-          <b>Order Date:</b> 01/07/2019<br>
-          <b>Payment Method:</b> Cash
+            @isset($itemIssueObject)
+                <b>Invoice #{{ $itemIssueObject->id }}</b>
+                <br/>
+                <br/>
+                @isset($itemIssueObject->customer)
+                    <b>National ID:</b> {{ $itemIssueObject->customer->nic }}<br>
+                    <b>Order Date:</b> {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $itemIssueObject->date_create)->format('Y-m-d') }}<br>
+                    <b>Payment Method:</b> Cash
+                @endisset
+            @endisset
         </div>
         <!-- /.col -->
       </div>
@@ -64,20 +78,34 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Drill</td>
-              <td>1</td>
-              <td>5</td>
-              <td>300</td>
-              <td>1500.00</td>
-            </tr>
-            <tr>
-              <td>Glinder</td>
-              <td>2</td>
-              <td>5</td>
-              <td>300</td>
-              <td>3000.00</td>
-            </tr>
+                @php
+                    $temp_total_sum = 0;
+                @endphp
+                
+                @isset( $itemReceiveDataArray )
+                    @foreach($itemReceiveDataArray as $key => $value)
+
+                        <tr>
+                            <td>{{ $value['item_issue_data_object']->item->name }}</td>
+                            <td>{!! $value['item_issue_data_quantity'] !!}</td>
+                            @php
+                                $date_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $itemIssueObject->date_create);
+                                $diff_in_days = $date_today->diffInDays($date_create, false);
+                                if( $diff_in_days <= 0 ){
+                                    $diff_in_days = 1;
+                                }
+                                $temp_total = ( $value['item_issue_data_object']->unit_price * $diff_in_days );
+                                $temp_total = ( $temp_total * $value['item_issue_data_quantity'] );
+                                $temp_total_sum = $temp_total_sum + $temp_total;
+                            @endphp
+                            <td>{!! $diff_in_days !!}</td>
+                            <td>{!! $value['item_issue_data_object']->unit_price !!}</td>
+                            <td>{!! number_format( $temp_total ) !!}</td>
+                        </tr>
+
+                    @endforeach
+                @endisset  
+                
             </tbody>
           </table>
         </div>
@@ -114,13 +142,17 @@
         <div class="col-xs-2"></div>
         <!-- /.col -->
         <div class="col-xs-6">
-          <p class="lead">Amount Due 10/7/2019</p>
+          <p class="lead">Amount Due 
+            @isset( $date_today )
+                {{ $date_today->format('Y-m-d') }}
+            @endisset
+          </p>
 
           <div class="table-responsive">
             <table class="table">
               <tr>
                 <th style="width:50%">Subtotal:</th>
-                <td style="text-align:right">4500.00</td>
+                <td style="text-align:right">{!! number_format( $temp_total_sum ) !!}</td>
               </tr>
               <tr>
                 <th>Deivery Charges</th>
