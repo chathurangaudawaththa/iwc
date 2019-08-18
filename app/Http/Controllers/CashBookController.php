@@ -36,6 +36,22 @@ class CashBookController extends Controller
     public function index()
     {
         //
+        $auth_user = auth()->user();
+        $date_today = Carbon::now();//->format('Y-m-d');
+        
+        $itemIssueObject = new ItemIssue();
+        $itemIssueObjectArray = array();
+        
+        $query = $itemIssueObject->with( array('transactionType', 'customer', 'user', 'itemReceives', 'itemIssueDatas') )
+            ->where('is_visible', '=', true)
+            ->where('transaction_type_id', '=', 5);
+        $itemIssueObjectArray = $query->get();
+        
+        if(view()->exists('pages.handoverItems')){
+            return View::make('pages.handoverItems', array(
+                'itemIssueObjectArray' => $itemIssueObjectArray
+            ));
+        }
     }
 
     /**

@@ -49,6 +49,8 @@
                         $date_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_create)->startOfDay();
                         $date_receive = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_receive)->startOfDay();
                     @endphp
+                    @if($value->itemIssueDatasSum() > $value->itemReceiveDatasSum())
+                  
                     <tr
                         @if( $date_today->greaterThanOrEqualTo( $date_receive ) )
                             {{ null }}
@@ -75,11 +77,13 @@
                             @endif
                         </td>
                         <td class="article-btn delete" style="text-align:center">
-                            <a href="{!! route('itemReceiveCustomer.create', [$value->id]) !!}" title="Delete item">
+                            <a href="{!! route('itemReceiveCustomer.create', [$value->id]) !!}" title="Delete item" target="_blank">
                                 <i style="color: #19ab09" class="fa fa-share-square-o" aria-hidden="true"></i>
                             </a>
                         </td>
                     </tr>
+                  
+                    @endif
                   
                   @endforeach
                 @endisset

@@ -41,6 +41,8 @@
                         $date_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_create)->startOfDay();
                         $date_receive = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_receive)->startOfDay();
                     @endphp
+                  
+                    @if($value->itemIssueDatasSum() > $value->itemReceiveDatasSum())
                     <tr
                         @if( $date_today->greaterThanOrEqualTo( $date_receive ) )
                             {{ null }}
@@ -72,6 +74,7 @@
                             </a>
                         </td>
                     </tr>
+                  @endif
                   
                   @endforeach
                 @endisset

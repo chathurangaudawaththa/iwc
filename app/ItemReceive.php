@@ -35,6 +35,11 @@ class ItemReceive extends Model
         return $this->belongsTo('App\User', 'user_id_create', 'id');
     }
     
+    //one to many (inverse)
+    public function itemIssue(){
+        return $this->belongsTo('App\ItemIssue', 'item_issue_id', 'id');
+    }
+    
     //one to many
     public function itemReceiveDatasSum(){
         //->selectRaw('SUM(column) as sum')

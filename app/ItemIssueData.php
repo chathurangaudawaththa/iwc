@@ -57,18 +57,13 @@ class ItemIssueData extends Model
         $itemReceiveDatas = $itemIssueObject->itemReceiveDatas;
         dd(collect($itemReceiveDatas)->sum('quantity'));
         */
-        $itemIssueObject = $this->itemReceiveDatas;
-        return ($itemIssueObject) ? ( collect($itemIssueObject->itemReceiveDatas)->sum('quantity') ) : 0;
+        $itemReceiveDatasObject = $this->itemReceiveDatas();
+        return ($itemReceiveDatasObject) ? ( collect($itemReceiveDatasObject)->sum('quantity') ) : 0;
     }
     
     //one to many
     public function itemReceiveDatas(){
-        return $this->belongsTo('App\ItemIssue', 'item_issue_id', 'id')
-            //->with(['itemReceiveDatas' => function($query){}])
-            ->with(['itemReceiveDatas'])
-            ->whereHas('itemReceiveDatas', function(Builder $query){
-                $query->where('item_id', '=', $this->item_id);
-            });
+        return $this->itemIssue->itemReceiveDatas->where('item_id', '=', $this->item_id);
     }
     
 }

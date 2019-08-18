@@ -22,10 +22,10 @@ class CreateItemReceivesTable extends Migration
             //$table->dateTime('date_create')->index()->nullable();
             $table->timestamp('date_create')->index()->nullable();
             $table->text('description')->nullable();
-            $table->decimal('amount')->default(0)->nullable();
-            $table->decimal('discount')->default(0)->nullable();
-            $table->decimal('damage_charge')->default(0)->nullable();
-            $table->decimal('delivery_charge')->default(0)->nullable();
+            $table->double('amount')->default(0)->nullable();
+            $table->double('discount')->default(0)->nullable();
+            $table->double('damage_charge')->default(0)->nullable();
+            $table->double('delivery_charge')->default(0)->nullable();
             $table->unsignedBigInteger('user_id_create')->index()->unsigned()->nullable();
             $table->unsignedBigInteger('item_issue_id')->index()->unsigned()->nullable();
             $table->unsignedBigInteger('transaction_type_id')->index()->unsigned()->nullable();

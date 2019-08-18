@@ -1,15 +1,4 @@
 <?php
-//test
-Route::get('/test', function(){
-    $newItemIssue = App\ItemIssue::find(1);
-    //dd($newItemIssue->itemReceiveDatasSum());
-    $iemIssueData = $newItemIssue->itemIssueDatas;
-    //dd($iemIssueData);
-    foreach($iemIssueData as $key => $value){
-        dd($value->itemReceiveDatasSum());
-    }
-});
-
 // user registration
 Route::get('/adduser', function()
 {
@@ -18,25 +7,6 @@ Route::get('/adduser', function()
 Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
-
-
-// stock control
-Route::get('/invoice_ooooooo', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.invoice');
-   }
-    return view('pages.login');
-});
-
-// stock control
-Route::get('/print', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.printInvoice');
-   }
-    return view('pages.login');
-});
 
 // stock control
 Route::get('/payments', function()
@@ -92,4 +62,6 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::post('handoveremp/{itemIssue}', array('uses' => 'ItemReceiveEmplyeeController@store'))->name('itemReceiveEmployee.store');
     // item return customer (store)
     Route::post('invoice/{itemIssue}', array('uses' => 'ItemReceiveCustomerController@createInvoice'))->name('itemReceiveCustomer.createInvoice');
+    // item return customer (store)
+    Route::post('invoice/store/{itemIssue}', array('uses' => 'ItemReceiveCustomerController@store'))->name('itemReceiveCustomer.store');
 });

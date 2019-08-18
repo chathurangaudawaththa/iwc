@@ -20,9 +20,9 @@ class CreateItemsTable extends Migration
             $table->boolean('is_visible')->default(1)->nullable();
             $table->string('name')->index()->nullable();
             $table->string('code')->index()->nullable();
-            $table->decimal('quantity_low')->default(0)->nullable();
+            $table->double('quantity_low')->default(0)->nullable();
             $table->boolean('is_rentable')->default(0)->nullable();
-            $table->decimal('unit_price')->default(0)->nullable();
+            $table->double('unit_price')->default(0)->nullable();
             $table->text('image_uri')->nullable();
             $table->unsignedBigInteger('measuring_unit_id')->index()->unsigned()->nullable();
             $table->unsignedBigInteger('rack_id')->index()->unsigned()->nullable();

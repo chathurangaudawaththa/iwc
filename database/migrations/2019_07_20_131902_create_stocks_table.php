@@ -18,7 +18,7 @@ class CreateStocksTable extends Migration
             $table->timestamps();
             
             $table->boolean('is_visible')->default(1)->nullable();
-            $table->decimal('quantity')->default(0)->nullable();
+            $table->double('quantity')->default(0)->nullable();
             //$table->dateTime('date_create')->index()->nullable();
             $table->timestamp('date_create')->index()->nullable();
             //$table->text('description')->nullable();
