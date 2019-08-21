@@ -27,6 +27,10 @@
                 <th>Invoice No</th>
                   <th>Date</th>
                   <th>Amount</th>
+                  <th>Delevery Charges</th>
+                  <th>Damage Charges</th>
+                  <th>Discount</th>
+                  <th>Total</th>
 
                 </tr>
               </thead>
@@ -35,18 +39,30 @@
                   <td><a href="/invoice">#007612</a></td>
                   <td>2019/07/11</td>
                   <td>5000.00</td>
+                  <td>5000.00</td>
+                  <td>5000.00</td>
+                  <td>5000.00</td>
+                  <td>5000.00</td>
 
                 </tr>
                 <tr>
                 <td><a href="/invoice">#007611</a></td>
                   <td>2019/07/11</td>
                   <td>4000.00</td>
+                  <td>5000.00</td>
+                  <td>5000.00</td>
+                  <td>5000.00</td>
+                  <td>5000.00</td>
 
                 </tr>
                 <tr>
                 <td><a href="/invoice">#007610</a></td>
                   <td>2019/07/10</td>
                   <td>3000.00</td>
+                  <td>5000.00</td>
+                  <td>5000.00</td>
+                  <td>5000.00</td>
+                  <td>5000.00</td>
 
                 </tr>
               </tbody>

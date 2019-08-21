@@ -11,7 +11,7 @@
       <section class="content col-md-6">
 
         <!-- Default box -->
-        <div class="box collapsed-box">
+        <div class="box">
           <div class="box-header with-border" style="color:#ffffff; background: #00adef;">
             <h3 class="box-title">Issue of items</h3>
 
@@ -22,7 +22,7 @@
                 <i class="fa fa-times"></i></button>
             </div>
           </div>
-          <div class="box-body" style="display: none;">
+          <div class="box-body">
           <form action="{!! route('itemIssue.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
             <!-- {{ csrf_field() }} || {{ Session::token() }} -->
             @csrf
@@ -78,11 +78,9 @@
               </div>
               <div class="form-group has-error add-padding">
               <!-- span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span -->
-              <br/>
+              <br/><br/>
               <span class="help-block" id="irack_item">Rack </span>
-              <br/>
               <span class="help-block" id="ideck_item">Deck </span>
-              <br/>
               <span class="help-block" id="imeasuring_unit_item">Measuring Unit </span>
               </div>
               <div class="form-group  col-md-4 overviewImage2"><img id="image_uri_item" src="" alt=""/></div>

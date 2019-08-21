@@ -4,6 +4,10 @@ Route::get('/adduser', function()
 {
    return View::make('pages.addUser');
 });
+Route::get('/item', function()
+{
+   return View::make('pages.addItem');
+});
 Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
