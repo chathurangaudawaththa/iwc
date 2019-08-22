@@ -22,6 +22,12 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
+        <li class="@isset($item){{$item}}@endisset"> 
+          <a href="/item"> 
+          <i class="fa fa-table"></i>
+            <span>Add New Item</span>
+          </a>
+        </li>
         <li class="@isset($nav_stock){{$nav_stock}}@endisset"> 
           <a href="/stock"> 
           <i class="fa fa-table"></i>
