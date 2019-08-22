@@ -43,5 +43,17 @@ class TransactionTypeSeeder extends Seeder
             'name' => 'RENT-CUSTOMER',
             'is_visible' => true
         ]);
+        
+        TransactionType::create([
+            'id' => 6,
+            'name' => 'RETURN-EMPLOYEE',
+            'is_visible' => true
+        ]);
+        
+        TransactionType::create([
+            'id' => 7,
+            'name' => 'RETURN-CUSTOMER',
+            'is_visible' => true
+        ]);
     }
 }

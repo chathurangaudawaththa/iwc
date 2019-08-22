@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class ItemReceive extends Model
 {
     //
@@ -14,7 +16,7 @@ class ItemReceive extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    protected $fillable = array('is_visible', 'is_active', 'date_create', 'description', 'amount', 'discount', 'user_id_create', 'item_issue_id', 'transaction_type_id');
+    protected $fillable = array('is_visible', 'is_active', 'date_create', 'description', 'amount', 'discount', 'damage_charge', 'delivery_charge', 'user_id_create', 'item_issue_id', 'transaction_type_id');
     //protected $hidden = array();
     //protected $casts = array();
     
@@ -31,6 +33,11 @@ class ItemReceive extends Model
     //one to many (inverse)
     public function user(){
         return $this->belongsTo('App\User', 'user_id_create', 'id');
+    }
+    
+    //one to many (inverse)
+    public function itemIssue(){
+        return $this->belongsTo('App\ItemIssue', 'item_issue_id', 'id');
     }
     
     //one to many

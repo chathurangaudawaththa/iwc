@@ -9,60 +9,6 @@ Route::post('/add-user', 'UserController@AddUser');
 Route::post('/conf', 'UserController@LogUser');
 
 // stock control
-Route::get('/id', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.clientView');
-   }
-    return view('pages.login');
-});
-
-// stock control
-Route::get('/eid', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.empView');
-   }
-    return view('pages.login');
-});
-
-// stock control
-Route::get('/invoice', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.invoice');
-   }
-    return view('pages.login');
-});
-
-// stock control
-Route::get('/print', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.printInvoice');
-   }
-    return view('pages.login');
-});
-
-// stock control
-Route::get('/handover', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.handoverItems');
-   }
-    return view('pages.login');
-});
-
-// stock control
-Route::get('/handoveremp', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.handoveremp');
-   }
-    return view('pages.login');
-});
-
-// stock control
 Route::get('/payments', function()
 {
     if (Auth::check()) {
@@ -104,4 +50,18 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::post('rent', array('uses' => 'CustomerController@store'))->name('customer.store');
     // create customer
     Route::post('emp/issue', array('uses' => 'ItemIssueController@store'))->name('itemIssue.store');
+    // item return employee
+    Route::get('handoveremp', array('uses' => 'ItemReceiveEmplyeeController@index'))->name('itemReceiveEmployee.index');
+    // item return customer
+    Route::get('handover', array('uses' => 'ItemReceiveCustomerController@index'))->name('itemReceiveCustomer.index');
+    // item return employee (list item)
+    Route::get('eid/{itemIssue}', array('uses' => 'ItemReceiveEmplyeeController@create'))->name('itemReceiveEmployee.create');
+    // item return customer (list item)
+    Route::get('id/{itemIssue}', array('uses' => 'ItemReceiveCustomerController@create'))->name('itemReceiveCustomer.create');
+    // item return employee (store)
+    Route::post('handoveremp/{itemIssue}', array('uses' => 'ItemReceiveEmplyeeController@store'))->name('itemReceiveEmployee.store');
+    // item return customer (store)
+    Route::post('invoice/{itemIssue}', array('uses' => 'ItemReceiveCustomerController@createInvoice'))->name('itemReceiveCustomer.createInvoice');
+    // item return customer (store)
+    Route::post('invoice/store/{itemIssue}', array('uses' => 'ItemReceiveCustomerController@store'))->name('itemReceiveCustomer.store');
 });

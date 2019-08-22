@@ -22,10 +22,10 @@ class CreateItemIssueDataTable extends Migration
             //$table->text('description')()->nullable();
             $table->unsignedBigInteger('item_issue_id')->index()->unsigned()->nullable();
             //$table->unsignedBigInteger('stock_id')->index()->unsigned()->nullable();
-            $table->decimal('quantity')->default(0)->nullable();
+            $table->double('quantity')->default(0)->nullable();
             $table->unsignedBigInteger('item_id')->index()->unsigned()->nullable();
             $table->unsignedBigInteger('measuring_unit_id')->index()->unsigned()->nullable();
-            $table->decimal('unit_price')->default(0)->nullable();
+            $table->double('unit_price')->default(0)->nullable();
             $table->text('description')->nullable();
             
             $table->foreign('item_issue_id')->references('id')->on('item_issues')->onUpdate('cascade');

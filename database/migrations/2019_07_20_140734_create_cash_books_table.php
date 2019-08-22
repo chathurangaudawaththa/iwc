@@ -18,7 +18,7 @@ class CreateCashBooksTable extends Migration
             $table->timestamps();
             
             $table->boolean('is_visible')->default(1)->nullable();
-            $table->decimal('amount')->default(0)->nullable();
+            $table->double('amount')->default(0)->nullable();
             //$table->morphs('cashable');
             //$table->dateTime('date_create')->index()->nullable();
             $table->timestamp('date_create')->index()->nullable();

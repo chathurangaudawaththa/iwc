@@ -15,7 +15,11 @@
     <div class="col-xs-12">
           <h2 class="page-header">
             <img src="dist/img/user2-160x160.jpg" style="max-width: 45px;"> IWC Equipment Rentel Service.
-            <small class="pull-right">Billing Date: 10/07/2019</small>
+            <small class="pull-right">Billing Date: 
+                @isset( $date_today )
+                    {{ $date_today->format('Y-m-d') }}
+                @endisset
+            </small>
           </h2>
         </div>
     </div>
@@ -34,18 +38,38 @@
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
           To
-          <address>
-            <strong>W.A.Senarath</strong><br>
-            795 Walpitamulla, Dewalapola.
-          </address>
+            @isset($itemReceiveObject)
+                @php
+                    $itemIssueObject = $itemReceiveObject->itemIssue;
+                @endphp
+                @isset($itemIssueObject->customer)
+                    <address>
+                        <strong>{{ $itemIssueObject->customer->first_name }}</strong>
+                        <br/>
+                        {{ $itemIssueObject->customer->address }}
+                    </address>
+                @endisset
+            @endisset
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          <b>Invoice #007612</b><br>
-          <br>
-          <b>National ID:</b> 882251568V<br>
-          <b>Order Date:</b> 01/07/2019<br>
-          <b>Payment Method:</b> Cash
+            @isset($itemReceiveObject)
+                @php
+                    $itemIssueObject = $itemReceiveObject->itemIssue;
+                @endphp
+                <b>Invoice #{{ $itemReceiveObject->id }}</b>
+                <br/>
+                @isset($itemIssueObject->customer)
+                    <br/>
+                    <b>National ID:</b> {{ $itemIssueObject->customer->nic }}<br/>
+                @endisset
+                <b>Order Date:</b> 
+                @isset( $itemIssueObject )
+                    {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $itemIssueObject->date_create)->format('Y-m-d') }}
+                @endisset
+                <br/>
+                <b>Payment Method:</b> Cash
+            @endisset
         </div>
         <!-- /.col -->
       </div>
@@ -62,20 +86,38 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Drill</td>
-              <td>1</td>
-              <td>5</td>
-              <td>300</td>
-              <td>1500.00</td>
-            </tr>
-            <tr>
-              <td>Glinder</td>
-              <td>2</td>
-              <td>5</td>
-              <td>300</td>
-              <td>3000.00</td>
-            </tr>
+                
+                @php
+                    $temp_total_sum = 0;
+                @endphp
+                
+                @isset( $itemReceiveDataArray )
+                    @foreach($itemReceiveDataArray as $key => $value)
+
+                        <tr>
+                            <td>{{ $value['item_receive_data_object']->item->name }}</td>
+                            <td>{!! $value['item_receive_data_object']->quantity !!}</td>
+                            @php
+                                $tempItemReceiveObject = $value['item_receive_data_object']->itemReceive;
+                                $tempItemIssueObject = $tempItemReceiveObject->itemIssue;
+                                $date_create_receive = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tempItemReceiveObject->date_create);
+                                $date_create_issue = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $tempItemIssueObject->date_create);
+                                $diff_in_days = $date_create_receive->diffInDays($date_create_issue, false);
+                                if( $diff_in_days <= 0 ){
+                                    $diff_in_days = 1;
+                                }
+                                $temp_total = ( $value['item_receive_data_object']->unit_price * $diff_in_days );
+                                $temp_total = ( $temp_total * $value['item_receive_data_object']->quantity );
+                                $temp_total_sum = $temp_total_sum + $temp_total;
+                            @endphp
+                            <td>{!! $diff_in_days !!}</td>
+                            <td>{!! $value['item_receive_data_object']->unit_price !!}</td>
+                            <td>{!! number_format( $temp_total ) !!}</td>
+                        </tr>
+
+                    @endforeach
+                @endisset
+                            
             </tbody>
           </table>
       </div>
@@ -84,35 +126,41 @@
       <div class="col-xs-6">
       </div>
       <div class="col-xs-6">
-          <p class="lead">Amount Due 10/7/2019</p>
+          <p class="lead">Amount Due 
+            @isset( $date_today )
+                {{ $date_today->format('Y-m-d') }}
+            @endisset
+          </p>
 
           <div class="table-responsive">
-            <table class="table">
-              <tr>
-                <th style="width:50%">Subtotal:</th>
-                <td style="text-align:right">4500.00</td>
-              </tr>
-              <tr>
-                <th>Deivery Charges</th>
-                <td style="text-align:right">00.00</td>
-              </tr>
-              <tr>
-                <th>Item Damage Charges:</th>
-                <td style="text-align:right;color:red">1000.00</td>
-              </tr>
-              <tr>
-                <th>Net Total:</th>
-                <td style="text-align:right"><b>5500.00</b></td>
-              </tr>
-              <tr>
-                <th>Discount:</th>
-                <td style="text-align:right;">(500.00)</td>
-              </tr>
-              <tr>
-                <th>Total:</th>
-                <td style="text-align:right"><b><u>5000.00</u></b></td>
-              </tr>
-            </table>
+            @isset($itemReceiveObject)
+                <table class="table">
+                    <tr>
+                        <th style="width:50%">Subtotal:</th>
+                        <td style="text-align:right"><span id="val_id_subtotal">{!! number_format( $itemReceiveObject->amount ) !!}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Deivery Charges</th>
+                        <td style="text-align:right"><span id="val_id_delivery">{!! number_format( $itemReceiveObject->delivery_charge ) !!}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Item Damage Charges:</th>
+                        <td style="text-align:right;color:red"><span id="val_id_damage">{!! number_format( $itemReceiveObject->damage_charge ) !!}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Net Total:</th>
+                        <td style="text-align:right"><b><span id="val_id_net">{!! number_format( $itemReceiveObject->amount + $itemReceiveObject->delivery_charge + $itemReceiveObject->damage_charge ) !!}</span></b></td>
+                    </tr>
+                    <tr>
+                        <th>Discount:</th>
+                        <td style="text-align:right;">(<span id="val_id_discount">{!! number_format( $itemReceiveObject->discount ) !!}</span>)</td>
+                    </tr>
+                    <tr>
+                        <th>Total:</th>
+                        <td style="text-align:right"><b><u><span id="val_id_total">{!! number_format( ( ( $itemReceiveObject->amount + $itemReceiveObject->delivery_charge + $itemReceiveObject->damage_charge ) - $itemReceiveObject->discount ) ) !!}</span></u></b></td>
+                    </tr>
+                </table>
+            @endisset
           </div>
         </div>
     </div>
