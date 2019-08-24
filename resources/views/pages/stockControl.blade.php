@@ -9,7 +9,7 @@
       </section>
 
       <!-- Main content -->
-      <section class="content col-md-6">
+      <section class="content col-md-12">
 
         <!-- Default box -->
         <div class="box">
@@ -27,7 +27,8 @@
             @csrf
             <input type="hidden" id="transaction_type_id" name="transaction_type_id" value="2"/>
             <!-- select item -->
-            <div class="form-group  col-md-8">
+            <div class="row add-padding">
+            <div class="form-group  col-md-4">
               <label>Select Item</label>
               <select class="form-control select2" style="width: 100%;" id="item_id" name="item_id">
                 <option>Select Item</option>
@@ -41,6 +42,7 @@
               </select>
             </div>
             <div class="form-group  col-md-4 overviewImage2"><img id="image_uri_item" src="" alt=""></div>
+            </div>
 
             <div class="form-group has-warning  col-md-6">
               <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Add new quantity"/>
@@ -65,10 +67,6 @@
           <!-- /.box-footer-->
         </div>
         <!-- /.box -->
-
-      </section>
-
-      <section class="content col-md-12">
 
         <!-- Default box -->
         <div class="box">
