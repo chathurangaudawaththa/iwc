@@ -36,14 +36,14 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     // stock item store
     Route::post('stocks/items/store', array('uses' => 'StockController@store'))->name('stock.store');
     // create employee
-    Route::get('emp/{itemIssue?}', array('uses' => 'EmployeeController@create'))->name('employee.create');
+    Route::get('emp/{itemIssue?}', array('uses' => 'EmployeeController@create'))->where('itemIssue', '[0-9]+')->name('employee.create');
     // create employee
     Route::post('emp', array('uses' => 'EmployeeController@store'))->name('employee.store');
     // create customer
     Route::get('rent/{itemIssue?}', array('uses' => 'CustomerController@create'))->where('itemIssue', '[0-9]+')->name('customer.create');
     // create customer
     Route::post('rent', array('uses' => 'CustomerController@store'))->name('customer.store');
-    // create customer
+    // create item issue
     Route::post('emp/issue', array('uses' => 'ItemIssueController@store'))->name('itemIssue.store');
     // item return employee
     Route::get('handoveremp', array('uses' => 'ItemReceiveEmplyeeController@index'))->name('itemReceiveEmployee.index');
@@ -68,6 +68,12 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     // item update
     Route::get('items/{item}/edit', array('uses' => 'ItemController@edit'))->name('item.edit');
     Route::post('items/{item}/edit', array('uses' => 'ItemController@update'))->name('item.update');
+    // item issue data delete
+    Route::get('item-issue-datas/{itemIssueData}/destroy', array('uses' => 'ItemIssueDataController@destroy'))->name('itemIssueData.destroy');
+    // update item issue
+    Route::post('emp/issue/{itemIssue}/update', array('uses' => 'ItemIssueController@update'))->name('itemIssue.update');
+    // dstroy item issue
+    Route::get('item-issues/{itemIssue}/destroy', array('uses' => 'ItemIssueController@destroy'))->name('itemIssue.destroy');
 });
 
 Route::get('storage/{filename}', array('uses' => 'AttachmentController@showFile'))->where(['filename' => '.*']);

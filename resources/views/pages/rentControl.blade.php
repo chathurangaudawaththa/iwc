@@ -9,10 +9,11 @@
       </section>
 
       <!-- Main content -->
+      @if((isset($itemIssueObject)) && ($itemIssueObject->id))
       <section class="content col-md-6">
 
         <!-- Default box -->
-        <div class="box collapsed-box">
+        <div class="box">
           <div class="box-header with-border" style="color:#ffffff; background: #00adef;">
             <h3 class="box-title">Issue of items</h3>
 
@@ -23,7 +24,186 @@
                 <i class="fa fa-times"></i></button>
             </div>
           </div>
-          <div class="box-body" style="display: none;">
+          <div class="box-body">
+            <form action="{!! route('itemIssue.update', ['itemIssue' => $itemIssueObject->id]) !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+            <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+            @csrf
+            <input type="hidden" id="transaction_type_id" name="transaction_type_id" value="5"/>
+            <!-- select item -->
+            <div class="row add-padding">
+            <div class="form-group  col-md-6">
+              <label>Select Client</label>
+              <select class="form-control select2" style="width: 100%;" id="customer_id" name="customer_id">
+                <option>Select Customer</option>
+                @isset($customerObjectArray)
+                  @foreach($customerObjectArray as $key => $value)
+                    <option value="{!! $value->id !!}" 
+                            data-image_uri-customer="{!! asset(Storage::url($value->image_uri)) !!}"
+                            data-first_name-customer="{!! $value->first_name !!}"
+                            data-last_name-customer="{!! $value->last_name !!}"
+                            data-nic-customer="{!! $value->nic !!}"
+                            data-code-customer="{!! $value->code !!}"
+                            @if($itemIssueObject->customer_id_create == $value->id)
+                            {!! "selected" !!}
+                            @endif
+                    >
+                        {{ $value->code }} | {{ $value->first_name }}
+                    </option>
+                  @endforeach
+                @endisset
+              </select>
+              <!-- span class="help-block" id="info_customer_data">name (code)</span -->
+            </div>
+            <!-- Date -->
+            <div class="form-group col-md-6 has-erro">
+                <label>Submit Date:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  @php
+                    $date_receive = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $itemIssueObject->date_receive)->startOfDay();
+                  @endphp
+                  <input type="text" class="form-control pull-right" id="datepicker" name="date_receive" value="{{ $date_receive->format('Y-m-d') }}"/>
+                </div>
+                <!-- /.input group -->
+              </div>
+            </div>
+            <div class="form-group has-error col-md-6 min-margin">
+              <select class="form-control select2" style="width: 100%;" id="item_id_select" name="item_id_select">
+                <option>Select Item</option>
+                @isset($itemObjectArray)
+                  @foreach($itemObjectArray as $key => $value)
+                    <option value="{!! $value->id !!}" 
+                            data-image_uri-item="{!! asset(Storage::url($value->image_uri)) !!}"
+                            data-name-item="{!! $value->name !!}"
+                            data-rack-item="{!! !empty($value->rack) ? $value->rack->name  : null !!}"
+                            data-deck-item="{!! !empty($value->deck) ? $value->deck->name  : null !!}"
+                            data-measuring_unit-item="{!! !empty($value->measuringUnit) ? $value->measuringUnit->name  : null !!}"
+                    >
+                        {{ $value->code }} | {{ $value->name }}
+                    </option>
+                  @endforeach
+                @endisset
+              </select>
+            </div>
+            <div class="form-group col-md-6 input-group min-margin">
+                <input type="number" class="form-control" placeholder="Item Count" id="quantity_item_issue_data" name="quantity_item_issue_data"/>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-info btn-flat" id="btn_add_item_data">Add</button>
+                    </span>
+              </div>
+              <div class="form-group has-error add-padding">
+              <!-- span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span -->
+              <br/>
+              <span class="help-block" id="irack_item">Rack </span>
+              <br/>
+              <span class="help-block" id="ideck_item">Deck </span>
+              <br/>
+              <span class="help-block" id="imeasuring_unit_item">Measuring Unit </span>
+              </div>
+              <div class="form-group  col-md-4 overviewImage2"><img id="image_uri_item" src="" alt=""/></div>
+
+              <br>
+              <div class="form-group col-md-12">
+
+            <!-- /.box-header -->
+            <div class="form-group col-md-12" style="background: #e8e1e1; padding-top:10px">
+              <fieldset>
+                <legend class="has-warning">
+                    <label id="info_customer_data">
+                        {{ $itemIssueObject->customer->first_name }} {{ $itemIssueObject->customer->last_name }}
+                    </label>
+                  </legend>
+                <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Qty</th>
+                  <th>Image</th>
+                  <!-- th class="th-sm" style="text-align:center;color: #d2c7c7;"></th -->
+                  <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
+                </tr>
+              </thead>
+              <tbody id="tbody_item">
+              @foreach($itemIssueObject->itemIssueDatas as $key => $value)
+              <tr>
+                  <td>
+                      {{ $value->item->name }}
+                      <input type="hidden" readonly name="item_id[]" value="{!! $value->item->id !!}"/>
+                  </td>
+                  <td>
+                      {{ $value->quantity }}
+                      <input type="hidden" readonly name="quantity[]" value="{!! $value->quantity !!}"/>
+                  </td>
+                  <td>
+                      {{ $value->description }}
+                      <input type="hidden" readonly name="description[]" value="{!! $value->description !!}"/>
+                  </td>
+                  <!-- td class="article-btn delete" style="text-align:center">
+                      <a href="#" title="Delete item">
+                          <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
+                      </a>
+                  </td -->
+                  <td class="article-btn delete" style="text-align:center">
+                      <a href="{!! route('itemIssueData.destroy', ['itemIssueData' => $value->id]) !!}" title="Delete item" onclick="return confirm('Are you sure?');">
+                          <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
+                      </a>
+                  </td>
+              </tr>
+              @endforeach
+              </tbody>
+            </table>
+              </fieldset>
+            </div>
+            <!-- /.box-body -->
+         
+              </div>
+              <!-- -->
+            <div class="form-group col-md-12">
+                <div class="form-group input-group min-margin">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-flat">Save</button>
+                    </span>
+                </div>
+            </div>
+              <!-- -->
+              </form>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer" style="color:#fff; background: #00adef;">
+            Issue of items
+          </div>
+          <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+
+      </section>
+        
+     <script>
+      $(function(){
+          "use strict";
+          
+          $('#customer_id').select2().val("{!! $itemIssueObject->customer_id_create !!}").trigger('change');
+      });
+      </script>
+      @else
+      <section class="content col-md-6">
+
+        <!-- Default box -->
+        <div class="box">
+          <div class="box-header with-border" style="color:#ffffff; background: #00adef;">
+            <h3 class="box-title">Issue of items</h3>
+
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i></button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i></button>
+            </div>
+          </div>
+          <div class="box-body">
             <form action="{!! route('itemIssue.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
             <!-- {{ csrf_field() }} || {{ Session::token() }} -->
             @csrf
@@ -143,6 +323,7 @@
         <!-- /.box -->
 
       </section>
+      @endif
       <section class="content col-md-6">
 
         <!-- Default box -->
@@ -358,6 +539,16 @@
                                 {{ $value->user->first_name }}
                             @endif
                         </td>
+                        <td class="article-btn delete" style="text-align:center">
+                              <a href="{!! route('customer.create', ['itemIssue' => $value->id]) !!}" title="Edit item">
+                                  <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
+                              </a>
+                          </td>
+                          <td class="article-btn delete" style="text-align:center">
+                              <a href="{!! route('itemIssue.destroy', ['itemIssue' => $value->id]) !!}" title="Delete item" onclick="return confirm('Are you sure?');">
+                                  <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
+                              </a>
+                          </td>
                     </tr>
                   
                     @endif

@@ -102,5 +102,37 @@ class ItemIssueDataController extends Controller
     public function destroy(ItemIssueData $itemIssueData)
     {
         //
+        $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
+        
+        $itemIssueDataClone = clone $itemIssueData;
+        
+        try {
+
+            DB::transaction(function () use ($itemIssueDataClone){
+                $itemIssueDataClone->delete();
+            });
+
+        }catch(Exception $e){
+            notify()->flash(
+                'Error', 
+                'warning', [
+                'timer' => $data['timer'],
+                'text' => 'error',
+            ]);
+
+            return redirect()
+                ->back()
+                ->withInput();
+        }
+        
+        notify()->flash(
+            'Success', 
+            'success', [
+            'timer' => $data['timer'],
+            'text' => 'success',
+        ]);
+        
+        //return Response::json( $data );
+        return redirect()->back();
     }
 }

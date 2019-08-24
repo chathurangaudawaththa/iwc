@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="box-body">
-          <form action="{!! route('itemIssue.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+          <form action="{!! route('itemIssue.update', ['itemIssue' => $itemIssueObject->id]) !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
             <!-- {{ csrf_field() }} || {{ Session::token() }} -->
             @csrf
             
@@ -110,7 +110,11 @@
             <!-- /.box-header -->
             <div class="form-group col-md-12" style="background: #e8e1e1; padding-top:10px">
               <fieldset>
-                <legend class="has-warning"><label id="info_customer_data">-</label></legend>
+                <legend class="has-warning">
+                    <label id="info_customer_data">
+                        {{ $itemIssueObject->customer->first_name }} {{ $itemIssueObject->customer->last_name }} ( {{ $itemIssueObject->customer->code }} )
+                    </label>
+                  </legend>
                 <table class="table table-bordered table-hover">
               <thead>
                 <tr>
@@ -122,6 +126,32 @@
                 </tr>
               </thead>
               <tbody id="tbody_item">
+              @foreach($itemIssueObject->itemIssueDatas as $key => $value)
+              <tr>
+                  <td>
+                      {{ $value->item->name }}
+                      <input type="hidden" readonly name="item_id[]" value="{!! $value->item->id !!}"/>
+                  </td>
+                  <td>
+                      {{ $value->quantity }}
+                      <input type="hidden" readonly name="quantity[]" value="{!! $value->quantity !!}"/>
+                  </td>
+                  <td>
+                      {{ $value->description }}
+                      <input type="hidden" readonly name="description[]" value="{!! $value->description !!}"/>
+                  </td>
+                  <!-- td class="article-btn delete" style="text-align:center">
+                      <a href="#" title="Delete item">
+                          <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
+                      </a>
+                  </td -->
+                  <td class="article-btn delete" style="text-align:center">
+                      <a href="{!! route('itemIssueData.destroy', ['itemIssueData' => $value->id]) !!}" title="Delete item" onclick="return confirm('Are you sure?');">
+                          <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
+                      </a>
+                  </td>
+              </tr>
+              @endforeach
               </tbody>
             </table>
               </fieldset>
@@ -149,6 +179,14 @@
         <!-- /.box -->
 
       </section>
+        
+      <script>
+      $(function(){
+          "use strict";
+          
+          $('#customer_id').select2().val("{!! $itemIssueObject->customer_id_create !!}").trigger('change');
+      });
+      </script>
       <!-- --- -->
       @else
       <!-- --- -->
@@ -433,6 +471,8 @@
                     <th>Emp ID</th>
                     <th>Emp Name</th>
                     <th>Items</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
@@ -470,6 +510,16 @@
                                 {{ $value->user->first_name }}
                             @endif
                         </td>
+                        <td class="article-btn delete" style="text-align:center">
+                              <a href="{!! route('employee.create', ['itemIssue' => $value->id]) !!}" title="Edit item">
+                                  <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
+                              </a>
+                          </td>
+                          <td class="article-btn delete" style="text-align:center">
+                              <a href="{!! route('itemIssue.destroy', ['itemIssue' => $value->id]) !!}" title="Delete item" onclick="return confirm('Are you sure?');">
+                                  <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
+                              </a>
+                          </td>
                     </tr>
                     @endif
                   @endforeach
