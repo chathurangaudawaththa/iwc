@@ -36,7 +36,7 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     // stock item store
     Route::post('stocks/items/store', array('uses' => 'StockController@store'))->name('stock.store');
     // create employee
-    Route::get('emp', array('uses' => 'EmployeeController@create'))->name('employee.create');
+    Route::get('emp/{itemIssue?}', array('uses' => 'EmployeeController@create'))->name('employee.create');
     // create employee
     Route::post('emp', array('uses' => 'EmployeeController@store'))->name('employee.store');
     // create customer

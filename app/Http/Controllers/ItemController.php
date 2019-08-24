@@ -79,6 +79,7 @@ class ItemController extends Controller
         $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
         // validate the info, create rules for the inputs
         $rules = array(
+            'code'    => 'required|unique:items',
             'name'    => 'required|unique:items'
         );
         // run the validation rules on the inputs from the form

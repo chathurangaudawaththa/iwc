@@ -49,7 +49,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ItemIssue $itemIssue, Request $request)
     {
         //
         $customerObject = new Customer();
@@ -78,7 +78,8 @@ class EmployeeController extends Controller
             return View::make('pages.employeeControl', array(
                 'customerObjectArray' => $customerObjectArray,
                 'itemObjectArray' => $itemObjectArray,
-                'itemIssueObjectArray' => $itemIssueObjectArray
+                'itemIssueObjectArray' => $itemIssueObjectArray,
+                'itemIssueObject' => $itemIssue
             ));
         }
     }

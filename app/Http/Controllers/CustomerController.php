@@ -78,7 +78,8 @@ class CustomerController extends Controller
             return View::make('pages.rentControl', array(
                 'customerObjectArray' => $customerObjectArray,
                 'itemObjectArray' => $itemObjectArray,
-                'itemIssueObjectArray' => $itemIssueObjectArray
+                'itemIssueObjectArray' => $itemIssueObjectArray,
+                'itemIssueObject' => $itemIssue
             ));
         }
     }
