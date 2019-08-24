@@ -7,6 +7,11 @@ Route::get('/adduser', function()
 Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
+/*
+Route::get('user/{name?}', function ($name = null) {
+    return $name;
+});
+*/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // show files
 Route::get('storage/{filename}', array('uses' => 'StorageController@showFile'))->where(['filename' => '.*']);
@@ -35,7 +40,7 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     // create employee
     Route::post('emp', array('uses' => 'EmployeeController@store'))->name('employee.store');
     // create customer
-    Route::get('rent', array('uses' => 'CustomerController@create'))->name('customer.create');
+    Route::get('rent/{itemIssue?}', array('uses' => 'CustomerController@create'))->where('itemIssue', '[0-9]+')->name('customer.create');
     // create customer
     Route::post('rent', array('uses' => 'CustomerController@store'))->name('customer.store');
     // create customer

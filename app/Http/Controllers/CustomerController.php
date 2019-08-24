@@ -49,7 +49,7 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ItemIssue $itemIssue, Request $request)
     {
         //
         $customerObject = new Customer();
