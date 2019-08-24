@@ -14,25 +14,25 @@
         <!-- Default box -->
         <div class="box">
           <div class="box-header with-border" style="color:#fff; background: #222d32;">
-            <h3 class="box-title">Add New Item</h3>
+            <h3 class="box-title">Edit Item</h3>
           </div>
           <div class="box-body">
-          <form action="{!! route('item.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+          <form action="{!! route('item.update', ['item' => $itemObject->id]) !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
               <!-- {{ csrf_field() }} || {{ Session::token() }} -->
               @csrf
             <div class="col-md-12 row">
             <div class="form-group has-warning col-md-4">
               <label class="control-label" for="inputWarning">Item Code</label>
-              <input type="text" class="form-control" id="inputWarning" placeholder="Item Code" name="code"/>
+              <input type="text" class="form-control" id="inputWarning" placeholder="Item Code" name="code" value="{{ $itemObject->code }}"/>
             </div>
             <div class="form-group has-warning col-md-4">
               <label class="control-label" for="inputWarning"> Use only to add a new
                 item.</label>
-              <input type="text" class="form-control" id="inputWarning" placeholder="Item Name" name="name"/>
+              <input type="text" class="form-control" id="inputWarning" placeholder="Item Name" name="name" value="{{ $itemObject->name }}"/>
             </div>
             <div class="form-group has-warning  col-md-4">
             <label class="control-label" for="inputWarning">Insert Item Count</label>
-              <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item quantity"/>
+              <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item quantity" value="{{ $itemObject->stocksSum() }}"/>
             </div>
             </div>
 
@@ -42,7 +42,7 @@
                 <div class="form-group has-error col-md-4">
                     <label class="control-label" for="inputError"><i class="fa fa-fw fa-stack-overflow"></i> Input low quantity
                         rate</label>
-                    <input type="number" class="form-control" id="inputError" placeholder="Low quantity rate" name="quantity_low"/>
+                    <input type="number" class="form-control" id="inputError" placeholder="Low quantity rate" name="quantity_low" value="{{ $itemObject->quantity_low }}"/>
                     <span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span>
                 </div>
                 <div class="form-group has-error col-md-4">
@@ -57,7 +57,7 @@
               </div>
                 </div>
                 <div class="form-group has-error col-md-4" style="max-height: 10em !important;min-height: 10em;">
-                    <img src="" id="image_uri_preview" style="min-height:-webkit-fill-available;max-height:-webkit-fill-available;">
+                    <img src="{{ Storage::url($itemObject->image_uri) }}" id="image_uri_preview" style="min-height:-webkit-fill-available;max-height:-webkit-fill-available;">
                 </div>
             </div>
             <br>
@@ -66,22 +66,22 @@
               <label style="font-size: 13px;margin-top: 10px;">Stock Status</label>
               <div class="radio">
                 <label>
-                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="2"/>
+                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="2" {!! ($itemObject->measuring_unit_id == 2) ?"checked":null; !!}/>
                   Piece (s)
                 </label>
                 <br>
                 <label>
-                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="3"/>
+                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="3" {!! ($itemObject->measuring_unit_id == 3) ?"checked":null; !!}/>
                   Packet (s)
                 </label>
                 <br>
                 <label>
-                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="4"/>
+                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="4" {!! ($itemObject->measuring_unit_id == 4) ?"checked":null; !!}/>
                   ml (Liquid)
                 </label>
                 <br>
                 <label>
-                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="5"/>
+                  <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="5" {!! ($itemObject->measuring_unit_id == 5) ?"checked":null; !!}/>
                   m (meters)
                 </label>
 
@@ -91,22 +91,22 @@
               <label style="font-size: 13px;margin-top: 10px;">Rack</label>
               <div class="radio">
                   <label>
-                    <input type="radio" name="rack_id" id="rack_id" value="2"/>
+                    <input type="radio" name="rack_id" id="rack_id" value="2" {!! ($itemObject->rack_id == 2) ?"checked":null; !!}/>
                     R1
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="rack_id" id="rack_id" value="3"/>
+                    <input type="radio" name="rack_id" id="rack_id" value="3" {!! ($itemObject->rack_id == 3) ?"checked":null; !!}/>
                     R2
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="rack_id" id="rack_id" value="4"/>
+                    <input type="radio" name="rack_id" id="rack_id" value="4" {!! ($itemObject->rack_id == 4) ?"checked":null; !!}/>
                     R3
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="rack_id" id="rack_id" value="5"/>
+                    <input type="radio" name="rack_id" id="rack_id" value="5" {!! ($itemObject->rack_id == 5) ?"checked":null; !!}/>
                     R4
                   </label> 
                 </div>
@@ -115,22 +115,22 @@
               <label style="font-size: 13px;margin-top: 10px;">Deck</label>
               <div class="radio">
                   <label>
-                    <input type="radio" name="deck_id" id="deck_id" value="2"/>
+                    <input type="radio" name="deck_id" id="deck_id" value="2" {!! ($itemObject->deck_id == 2) ?"checked":null; !!}/>
                     D1
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="deck_id" id="deck_id" value="3"/>
+                    <input type="radio" name="deck_id" id="deck_id" value="3" {!! ($itemObject->deck_id == 3) ?"checked":null; !!}/>
                     D2
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="deck_id" id="deck_id" value="4"/>
+                    <input type="radio" name="deck_id" id="deck_id" value="4" {!! ($itemObject->deck_id == 4) ?"checked":null; !!}/>
                     D3
                   </label>
                   <br>
                   <label>
-                    <input type="radio" name="deck_id" id="deck_id" value="5"/>
+                    <input type="radio" name="deck_id" id="deck_id" value="5" {!! ($itemObject->deck_id == 5) ?"checked":null; !!}/>
                     D4
                   </label> 
                 </div>
@@ -141,7 +141,7 @@
                 <div class="form-group has-warning col-md-4">
                     <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-money"></i> Rental charge per
                       day</label>
-                    <input type="text" class="form-control" id="inputWarning" placeholder="Price" name="unit_price"/>
+                    <input type="text" class="form-control" id="inputWarning" placeholder="Price" name="unit_price" value="{{ $itemObject->unit_price }}"/>
                     <span class="help-block">Currency auto selected (LKR)</span>
 
                 </div>

@@ -35,36 +35,27 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><a href="/invoice">#007612</a></td>
-                  <td>2019/07/11</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
+               @isset($itemReceiveObjectArray)
+                  @foreach($itemReceiveObjectArray as $key => $value)
 
-                </tr>
-                <tr>
-                <td><a href="/invoice">#007611</a></td>
-                  <td>2019/07/11</td>
-                  <td>4000.00</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
+                    @php
+                        $date_today = Carbon\Carbon::now()->startOfDay();
+                        $date_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_create)->startOfDay();
+                    @endphp
 
-                </tr>
-                <tr>
-                <td><a href="/invoice">#007610</a></td>
-                  <td>2019/07/10</td>
-                  <td>3000.00</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
-                  <td>5000.00</td>
+                    <tr>
+                        <!-- {!! 'style="background: rgb(253, 8, 8); color: #fff;"' !!} -->
+                        <td>#{{ $value->id }}</td>
+                        <td>{{ $date_create->format('Y-m-d') }}</td>
+                        <td>{{ number_format($value->amount) }}</td>
+                        <td>{{ number_format($value->delivery_charge) }}</td>
+                        <td>{{ number_format($value->damage_charge) }}</td>
+                        <td>{{ number_format($value->discount) }}</td>
+                        <td>{{ number_format( (($value->amount + $value->delivery_charge + $value->damage_charge) - $value->discount) ) }}</td>
+                    </tr>
 
-                </tr>
+                  @endforeach
+                @endisset
               </tbody>
             </table>
           </div>

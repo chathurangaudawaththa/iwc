@@ -26,7 +26,7 @@
                     <form method="POST" action="{!! route('itemReceiveEmployee.store', [$itemIssueObject->id]) !!}" enctype="multipart/form-data">
                     @csrf
                         
-                    <input type="hidden" id="transaction_type_id" name="transaction_type_id" value="4"/>
+                    <input type="hidden" id="transaction_type_id" name="transaction_type_id" value="6"/>
                     <!-- -->
                 <table id="example1" class="table table-bordered table-hover">
               <thead>

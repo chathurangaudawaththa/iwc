@@ -5,7 +5,7 @@ return [
     /*
     |custom data
     */
-    'app_file_storage_uri' => env('APP_FILE_STORAGE_URI', 'file_input'),
+    'app_file_storage_uri' => env('APP_FILE_STORAGE_URI', 'public/file_input'),
 
     /*
     |--------------------------------------------------------------------------

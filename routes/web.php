@@ -4,23 +4,9 @@ Route::get('/adduser', function()
 {
    return View::make('pages.addUser');
 });
-Route::get('/item', function()
-{
-   return View::make('pages.addItem');
-});
 Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
-
-// stock control
-Route::get('/payments', function()
-{
-    if (Auth::check()) {
-      return View::make('pages.paymentHistory');
-   }
-    return view('pages.login');
-});
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // show files
 Route::get('storage/{filename}', array('uses' => 'StorageController@showFile'))->where(['filename' => '.*']);
@@ -68,4 +54,15 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::post('invoice/{itemIssue}', array('uses' => 'ItemReceiveCustomerController@createInvoice'))->name('itemReceiveCustomer.createInvoice');
     // item return customer (store)
     Route::post('invoice/store/{itemIssue}', array('uses' => 'ItemReceiveCustomerController@store'))->name('itemReceiveCustomer.store');
+    // cash book
+    Route::get('payments', array('uses' => 'CashBookController@index'))->name('cashBook.index');
+    // item add
+    Route::get('item', array('uses' => 'ItemController@index'))->name('item.index');
+    // item delete
+    Route::get('items/{item}/destroy', array('uses' => 'ItemController@destroy'))->name('item.destroy');
+    // item update
+    Route::get('items/{item}/edit', array('uses' => 'ItemController@edit'))->name('item.edit');
+    Route::post('items/{item}/edit', array('uses' => 'ItemController@update'))->name('item.update');
 });
+
+Route::get('storage/{filename}', array('uses' => 'AttachmentController@showFile'))->where(['filename' => '.*']);

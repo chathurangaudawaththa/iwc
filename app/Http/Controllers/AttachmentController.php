@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Response;
-use Illuminate\Http\Response;
+//use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +17,7 @@ use DB;
 use Carbon\Carbon;
 use \Exception;
 use Storage;
+use \Response;
 
 
 class AttachmentController extends Controller
