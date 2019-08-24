@@ -14,7 +14,7 @@
         <!-- Default box -->
         <div class="box">
           <div class="box-header with-border" style="color:#fff; background: #222d32;">
-            <h3 class="box-title">Edit Item</h3>
+            <h3 class="box-title">Update Item</h3>
           </div>
           <div class="box-body">
           <form action="{!! route('item.update', ['item' => $itemObject->id]) !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
@@ -22,17 +22,18 @@
               @csrf
             <div class="col-md-12 row">
             <div class="form-group has-warning col-md-4">
-              <label class="control-label" for="inputWarning">Item Code</label>
+              <label class="control-label" for="inputWarning">Update Item Code</label>
               <input type="text" class="form-control" id="inputWarning" placeholder="Item Code" name="code" value="{{ $itemObject->code }}"/>
             </div>
             <div class="form-group has-warning col-md-4">
-              <label class="control-label" for="inputWarning"> Use only to add a new
-                item.</label>
+              <label class="control-label" for="inputWarning">Update Item Name</label>
               <input type="text" class="form-control" id="inputWarning" placeholder="Item Name" name="name" value="{{ $itemObject->name }}"/>
             </div>
             <div class="form-group has-warning  col-md-4">
-            <label class="control-label" for="inputWarning">Insert Item Count</label>
-              <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Item quantity" value="{{ $itemObject->stocksSum() }}"/>
+            <label class="control-label" for="inputWarning">Disabled Item Count</label>
+              <input readonly type="number" class="form-control" id="quantity" name="quantity" placeholder="Item quantity" value="{{ $itemObject->stocksSum() }}"/>
+              <span class="help-block">Please use the stock control unit to update the number of items</span>
+
             </div>
             </div>
 
@@ -40,13 +41,13 @@
             
             <div class=" col-md-12 row">
                 <div class="form-group has-error col-md-4">
-                    <label class="control-label" for="inputError"><i class="fa fa-fw fa-stack-overflow"></i> Input low quantity
+                    <label class="control-label" for="inputError"><i class="fa fa-fw fa-stack-overflow"></i> Update low quantity
                         rate</label>
                     <input type="number" class="form-control" id="inputError" placeholder="Low quantity rate" name="quantity_low" value="{{ $itemObject->quantity_low }}"/>
                     <span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span>
                 </div>
                 <div class="form-group has-error col-md-4">
-                <label class="custom-file-label" for="image_uri">Add Item Image</label>
+                <label class="custom-file-label" for="image_uri">Update Item Image</label>
 
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="image_uri" name="image_uri" multiple="false"
@@ -169,7 +170,7 @@
           </div>
           <!-- /.box-body -->
           <div class="box-footer" style="color:#fff; background: #222d32;">
-            Add new item to stock
+            Update item in stock
           </div>
           <!-- /.box-footer-->
         </div>

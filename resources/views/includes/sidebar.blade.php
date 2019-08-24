@@ -24,7 +24,7 @@
         </li>
         <li class="@isset($item){{$item}}@endisset"> 
           <a href="/item"> 
-          <i class="fa fa-table"></i>
+          <i class="fa fa-hdd-o"></i>
             <span>Add New Item</span>
           </a>
         </li>
