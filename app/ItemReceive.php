@@ -21,9 +21,11 @@ class ItemReceive extends Model
     //protected $casts = array();
     
     //one to many (morph)
+    /*
     public function cashBooks(){
         return $this->morphMany('App\CashBook', 'cashable');
     }
+    */
     
     //one to many
     public function itemReceiveDatas(){

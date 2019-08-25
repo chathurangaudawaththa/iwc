@@ -109,7 +109,7 @@
                         <td>{{ $value->code }}</td>
                         <td>{{ $value->name }}</td>
                         <td class="overviewImage">
-                            <img src="{!! asset(Storage::url($value->image_uri)) !!}" alt="">
+                            <img src="{!! asset(Storage::url($value->image_uri)) !!}" alt=""/>
                         </td>
                         <th>Rs. {{ $value->unit_price }}</th>
                         <td>
@@ -132,10 +132,16 @@
                                 {{ $value->deck->name }}
                             @endisset
                         </td>
-                        <td class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square"
-                        aria-hidden="true"></i></a></td>
-                        <td class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close"
-                        aria-hidden="true"></i></a></td>
+                        <td class="article-btn edit" style="text-align:center">
+                            <a href="{!! route('item.edit', ['item' => $value->id]) !!}" title="Update item">
+                                <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td class="article-btn delete" style="text-align:center">
+                            <a href="{!! route('item.destroy', ['item' => $value->id]) !!}" title="Delete item" onclick="return confirm('Are you sure?');">
+                                <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
+                            </a>
+                        </td>
                     </tr>
                   
                   @endforeach

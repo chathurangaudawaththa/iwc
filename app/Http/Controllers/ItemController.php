@@ -19,6 +19,8 @@ use Carbon\Carbon;
 use \Exception;
 use Illuminate\Support\Facades\Storage;
 
+use App\Stock;
+
 class ItemController extends Controller
 {
     //
@@ -37,6 +39,9 @@ class ItemController extends Controller
     public function index()
     {
         //
+        if(view()->exists('pages.addItem')){
+            return View::make('pages.addItem', array());
+        }
     }
 
     /**
@@ -98,6 +103,7 @@ class ItemController extends Controller
             try {
                 
                 $app_file_storage_uri = config('app.app_file_storage_uri');
+                $date_today = Carbon::now();//->format('Y-m-d');
                 
                 //create directory
                 if(!Storage::exists($app_file_storage_uri)) {
@@ -131,11 +137,23 @@ class ItemController extends Controller
                     $dataArray['image_uri'] = $filename;
                 }
                 
-                DB::transaction(function () use ($dataArray){
-                    Item::create( $dataArray );
+                DB::transaction(function () use ($request, $dataArray, $date_today){
+                    $newItemObject = Item::create( $dataArray );
+                    
+                    unset($dataArray);
+                    $dataArray = array(
+                        'is_visible' => true,
+                        'item_id' => $newItemObject->id,
+                        'quantity' => $request->input('quantity'),
+                        //'date_create' => $request->input('date_create'),
+                        'date_create' => $date_today,
+                        'measuring_unit_id' => $newItemObject->measuring_unit_id,
+                        'transaction_type_id' => ($request->input('transaction_type_id'))?$request->input('transaction_type_id'):2
+                    );
+                    $newStockObject = Stock::create( $dataArray );
                 });
                 
-            }catch(Exception $e){dd($e);
+            }catch(Exception $e){
                 notify()->flash(
                     'Error', 
                     'warning', [
@@ -177,9 +195,13 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit(Item $item, Request $request)
     {
         //
+        $itemClone = clone $item;
+        if(view()->exists('pages.item_edit')){
+            return View::make('pages.item_edit', array('itemObject' => $itemClone));
+        }
     }
 
     /**
@@ -192,6 +214,104 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         //
+        $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
+        
+        $itemClone = clone $item;
+        // validate the info, create rules for the inputs
+        $rules = array(
+            'name'    => 'required'
+        );
+        // run the validation rules on the inputs from the form
+        $validator = Validator::make(Input::all(), $rules);
+        // if the validator fails, redirect back to the form
+        if ($validator->fails()) {
+            
+            notify()->flash(
+                'Error', 
+                'warning', [
+                'timer' => $data['timer'],
+                'text' => 'error',
+            ]);
+            
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+            
+        } else {
+            // do process
+            try {
+                
+                $app_file_storage_uri = config('app.app_file_storage_uri');
+                $date_today = Carbon::now();//->format('Y-m-d');
+                
+                //create directory
+                if(!Storage::exists($app_file_storage_uri)) {
+                    Storage::makeDirectory($app_file_storage_uri, 0775, true); //creates directory
+                }
+                
+                $dataArray = array(
+                    'is_visible' => true,
+                    'name' => $request->input('name'),
+                    'code' => $request->input('code'),
+                    'quantity_low' => $request->input('quantity_low'),
+                    'is_rentable' => $request->input('is_rentable'),
+                    'unit_price' => $request->input('unit_price'),
+                    'measuring_unit_id' => $request->input('measuring_unit_id'),
+                    'rack_id' => $request->input('rack_id'),
+                    'deck_id' => $request->get('deck_id')
+                );
+                
+                $image_uri_input = $request->file('image_uri');
+                
+                // file input
+                if( ($image_uri_input) ){
+                    if(Storage::exists($itemClone->image_uri)){
+                        chmod(Storage::path($itemClone->image_uri), 755);
+                        Storage::delete( $itemClone->image_uri );
+                    }
+                    
+                    $file_original_name = $image_uri_input->getClientOriginalName();
+                    $file_extension = $image_uri_input->getClientOriginalExtension();
+                    //$filename = $file->store( $dir );
+                    $filename = $image_uri_input->storeAs( 
+                        $app_file_storage_uri,
+                        uniqid( time() ) . '_' . $file_original_name
+                    );
+                    
+                    $dataArray['image_uri'] = $filename;
+                }
+                
+                DB::transaction(function () use ($itemClone, $request, $dataArray, $date_today){
+                    $itemClone->update( $dataArray );
+                    
+                    unset($dataArray);
+                });
+                
+            }catch(Exception $e){
+                notify()->flash(
+                    'Error', 
+                    'warning', [
+                    'timer' => $data['timer'],
+                    'text' => 'error',
+                ]);
+                
+                return redirect()
+                    ->back()
+                    ->withInput();
+            }
+        }
+        
+        notify()->flash(
+            'Success', 
+            'success', [
+            'timer' => $data['timer'],
+            'text' => 'success',
+        ]);
+        
+        //return Response::json( $data );
+        //return redirect()->back();
+        return $this->create();
     }
 
     /**
@@ -200,8 +320,52 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy(Item $item, Request $request)
     {
         //
+        $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
+        
+        $itemClone = clone $item;
+        
+        try {
+                
+            $app_file_storage_uri = config('app.app_file_storage_uri');
+            $date_today = Carbon::now();//->format('Y-m-d');
+
+            //create directory
+            if(!Storage::exists($app_file_storage_uri)) {
+                Storage::makeDirectory($app_file_storage_uri, 0775, true); //creates directory
+            }
+
+            $dataArray = array(
+                'is_visible' => false
+            );
+
+            DB::transaction(function () use ($request, $dataArray, $itemClone){
+                $itemClone->update( $dataArray );
+            });
+
+        }catch(Exception $e){
+            notify()->flash(
+                'Error', 
+                'warning', [
+                'timer' => $data['timer'],
+                'text' => 'error',
+            ]);
+
+            return redirect()
+                ->back()
+                ->withInput();
+        }
+        
+        notify()->flash(
+            'Success', 
+            'success', [
+            'timer' => $data['timer'],
+            'text' => 'success',
+        ]);
+        
+        //return Response::json( $data );
+        return redirect()->back();
     }
 }

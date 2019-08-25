@@ -26,6 +26,7 @@
           <form action="{!! route('itemIssue.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
             <!-- {{ csrf_field() }} || {{ Session::token() }} -->
             @csrf
+            
             <input type="hidden" id="transaction_type_id" name="transaction_type_id" value="4"/>
             <!-- select item -->
             <div class="row add-padding">

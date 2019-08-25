@@ -18,6 +18,8 @@ use DB;
 use Carbon\Carbon;
 use \Exception;
 
+use App\ItemReceive;
+
 class CashBookController extends Controller
 {
     //
@@ -39,17 +41,17 @@ class CashBookController extends Controller
         $auth_user = auth()->user();
         $date_today = Carbon::now();//->format('Y-m-d');
         
-        $itemIssueObject = new ItemIssue();
-        $itemIssueObjectArray = array();
+        $itemReceiveObject = new ItemReceive();
+        $itemReceiveObjectArray = array();
         
-        $query = $itemIssueObject->with( array('transactionType', 'customer', 'user', 'itemReceives', 'itemIssueDatas') )
+        $query = $itemReceiveObject->with( array('itemReceiveDatas', 'user', 'itemIssue') )
             ->where('is_visible', '=', true)
-            ->where('transaction_type_id', '=', 5);
-        $itemIssueObjectArray = $query->get();
+            ->where('transaction_type_id', '=', 7);
+        $itemReceiveObjectArray = $query->get();
         
-        if(view()->exists('pages.handoverItems')){
-            return View::make('pages.handoverItems', array(
-                'itemIssueObjectArray' => $itemIssueObjectArray
+        if(view()->exists('pages.paymentHistory')){
+            return View::make('pages.paymentHistory', array(
+                'itemReceiveObjectArray' => $itemReceiveObjectArray
             ));
         }
     }
