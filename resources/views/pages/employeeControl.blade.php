@@ -76,14 +76,18 @@
             <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Item Count</label>
                 <input type="number" class="form-control" placeholder="Item Count" id="quantity_item_issue_data" name="quantity_item_issue_data"/>
               </div>
-              <div class="form-group has-error add-padding">
+              <div class="add-padding">
+              <div class="row">
+              <div class="form-group has-error add-padding col-md-6">
               <!-- span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span -->
               <br/><br/>
               <span class="help-block" id="irack_item">Rack </span>
               <span class="help-block" id="ideck_item">Deck </span>
               <span class="help-block" id="imeasuring_unit_item">Measuring Unit </span>
               </div>
-              <div class="form-group  col-md-4 overviewImage2"><img id="image_uri_item" src="" alt=""/></div>
+              <div class="form-group  col-md-6 overviewImage2"><img id="image_uri_item" src="" alt=""/></div>
+              </div>
+              </div>
 
             <div class="form-group col-md-12">
             <div class="form-group input-group min-margin">
@@ -276,24 +280,12 @@
           <div class="box-body">
             <table id="example1" class="table table-bordered table-hover">
               <thead>
-                <!-- tr>
-                  <th>Date</th>
-                  <th>Emp ID</th>
-                  <th>Emp Name</th>
-                  <th>Item name</th>
-                  <th>Quantity</th>
-                  <th>Reason</th>
-                  <th class="th-sm" style="text-align:center"></th>
-                  <th class="th-sm" style="text-align:center"></th>
-                  <th class="article-btn edit" style="text-align:center"><a href="#" title="Update item"><i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i></a></th>
-                  <th class="article-btn delete" style="text-align:center"><a href="#" title="Delete item"><i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i></a></th>
-                </tr -->
                 <tr>
                     <th>Date</th>
+                    <th>Issue ID</th>
                     <th>Emp ID</th>
                     <th>Emp Name</th>
-                    <th>Issue ID</th>
-                    <th>Created User</th>
+                    <th>Items</th>
                 </tr>
               </thead>
               <tbody>
@@ -310,10 +302,12 @@
                     <tr
                         @if( $date_today->greaterThanOrEqualTo( $date_receive ) )
                             {{ null }}
-                        @endif
-                    >
+                        @endif >
                         <!-- {!! 'style="background: rgb(253, 8, 8); color: #fff;"' !!} -->
                         <td>{{ $date_create->format('Y-m-d') }}</td>
+                        <td>
+                            {{ $value->id }}
+                        </td>
                         <td>
                             @if(isset($value->customer))
                                 {{ $value->customer->code }}
@@ -325,16 +319,12 @@
                             @endif
                         </td>
                         <td>
-                            {{ $value->id }}
-                        </td>
-                        <td>
                             @if(isset($value->user))
                                 {{ $value->user->first_name }}
                             @endif
                         </td>
                     </tr>
                     @endif
-                  
                   @endforeach
                 @endisset
               </tbody>
