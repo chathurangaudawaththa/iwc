@@ -8,6 +8,150 @@
       </section>
 
       <!-- Main content -->
+      @if((isset($itemIssueObject)) && ($itemIssueObject->id))
+      <!-- --- -->
+      <section class="content col-md-6">
+
+        <!-- Default box -->
+        <div class="box">
+          <div class="box-header with-border" style="color:#ffffff; background: #00adef;">
+            <h3 class="box-title">Issue of items</h3>
+
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i></button>
+              <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i></button>
+            </div>
+          </div>
+          <div class="box-body">
+          <form action="{!! route('itemIssue.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+            <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+            @csrf
+            
+            <input type="hidden" id="transaction_type_id" name="transaction_type_id" value="4"/>
+            <!-- select item -->
+            <div class="row add-padding">
+            <div class="form-group  col-md-6">
+              <label>Select Employee</label>
+              <select class="form-control select2" style="width: 100%;" id="customer_id" name="customer_id">
+                <option>Select Employee</option>
+                @isset($customerObjectArray)
+                  @foreach($customerObjectArray as $key => $value)
+                    <option value="{!! $value->id !!}" 
+                            data-image_uri-customer="{!! asset(Storage::url($value->image_uri)) !!}"
+                            data-first_name-customer="{!! $value->first_name !!}"
+                            data-last_name-customer="{!! $value->last_name !!}"
+                            data-nic-customer="{!! $value->nic !!}"
+                            data-code-customer="{!! $value->code !!}"
+                            @if($itemIssueObject->customer_id_create == $value->id)
+                            {!! "selected" !!}
+                            @endif
+                    >
+                        {{ $value->code }} | {{ $value->first_name }}
+                    </option>
+                  @endforeach
+                @endisset
+              </select>
+              <!-- span class="help-block" id="info_customer_data">name (code)</span -->
+            </div>
+            <div class="form-group col-md-6 has-error add-padding">
+              <!-- span class="help-block" style="margin-top: 24px;">*Can be issue of items only current date (2019/07/06)</span -->
+            </div>
+            </div>
+            <div class="form-group has-error col-md-6 min-margin">
+            <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Select Item</label>
+              <select class="form-control select2" style="width: 100%;" id="item_id_select" name="item_id_select">
+                <option>Select Item</option>
+                @isset($itemObjectArray)
+                  @foreach($itemObjectArray as $key => $value)
+                    <option value="{!! $value->id !!}" 
+                            data-image_uri-item="{!! asset(Storage::url($value->image_uri)) !!}"
+                            data-name-item="{!! $value->name !!}"
+                            data-rack-item="{!! !empty($value->rack) ? $value->rack->name  : null !!}"
+                            data-deck-item="{!! !empty($value->deck) ? $value->deck->name  : null !!}"
+                            data-measuring_unit-item="{!! !empty($value->measuringUnit) ? $value->measuringUnit->name  : null !!}"
+                    >
+                        {{ $value->code }} | {{ $value->name }}
+                    </option>
+                  @endforeach
+                @endisset
+              </select>
+            </div>
+            <div class="form-group col-md-6 min-margin">
+            <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Item Count</label>
+                <input type="number" class="form-control" placeholder="Item Count" id="quantity_item_issue_data" name="quantity_item_issue_data"/>
+              </div>
+              <div class="add-padding">
+              <div class="row">
+              <div class="form-group has-error add-padding col-md-6">
+              <!-- span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span -->
+              <br/><br/>
+              <span class="help-block" id="irack_item">Rack </span>
+              <span class="help-block" id="ideck_item">Deck </span>
+              <span class="help-block" id="imeasuring_unit_item">Measuring Unit </span>
+              </div>
+              <div class="form-group  col-md-6 overviewImage2"><img id="image_uri_item" src="" alt=""/></div>
+              </div>
+              </div>
+
+            <div class="form-group col-md-12">
+            <div class="form-group input-group min-margin">
+                    <input type="text" class="form-control" placeholder="Reoson" id="description_item_issue_data" name="description_item_issue_data"/>
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-info btn-flat" id="btn_add_item_data">Add</button>
+                    </span>
+              </div>
+              <!-- span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span -->
+
+              </div>
+              <div class="form-group col-md-12">
+
+            <!-- /.box-header -->
+            <div class="form-group col-md-12" style="background: #e8e1e1; padding-top:10px">
+              <fieldset>
+                <legend class="has-warning"><label id="info_customer_data">-</label></legend>
+                <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Qty</th>
+                  <th>Reason</th>
+                  <!-- th class="th-sm" style="text-align:center;color: #d2c7c7;"></th -->
+                  <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
+                </tr>
+              </thead>
+              <tbody id="tbody_item">
+              </tbody>
+            </table>
+              </fieldset>
+            </div>
+            <!-- /.box-body -->
+         
+              </div>
+              <!-- -->
+            <div class="form-group col-md-12">
+                <div class="form-group input-group min-margin">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-info btn-flat">Save</button>
+                    </span>
+                </div>
+            </div>
+              <!-- -->
+          </form>
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer" style="color:#fff; background: #00adef;">
+            Issue of items
+          </div>
+          <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+
+      </section>
+      <!-- --- -->
+      @else
+      <!-- --- -->
       <section class="content col-md-6">
 
         <!-- Default box -->
@@ -144,6 +288,8 @@
         <!-- /.box -->
 
       </section>
+      <!-- --- -->
+      @endif
       <section class="content col-md-6">
 
         <!-- Default box -->
