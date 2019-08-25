@@ -80,19 +80,26 @@ class ItemController extends Controller
         // validate the info, create rules for the inputs
         $rules = array(
             'code'    => 'required|unique:items',
-            'name'    => 'required|unique:items'
+            'name'    => 'required|unique:items',
+            'quantity' => 'required|integer|min:0',
+            'quantity_low' => 'required|integer|min:0',
+            'measuring_unit_id' => 'required',
+            'rack_id' => 'required',
+            'deck_id' => 'required',
+            'image_uri' => 'required|max:100',
+
         );
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
         // if the validator fails, redirect back to the form
         if ($validator->fails()) {
             
-            notify()->flash(
-                'Error', 
-                'warning', [
-                'timer' => $data['timer'],
-                'text' => 'error',
-            ]);
+            // notify()->flash(
+            //     'Error', 
+            //     'warning', [
+            //     'timer' => $data['timer'],
+            //     'text' => 'error',
+            // ]);
             
             return redirect()
                 ->back()
@@ -220,7 +227,13 @@ class ItemController extends Controller
         $itemClone = clone $item;
         // validate the info, create rules for the inputs
         $rules = array(
-            'name'    => 'required'
+            'code'    => 'required',
+            'name'    => 'required',
+            'quantity' => 'required',
+            'measuring_unit_id' => 'required',
+            'rack_id' => 'required',
+            'deck_id' => 'required',
+            'image_uri' => 'required|max:100',
         );
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
