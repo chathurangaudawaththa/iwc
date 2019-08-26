@@ -7,10 +7,7 @@ Route::get('/adduser', function()
 Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
-Route::get('/supemp', function()
-{
-   return View::make('pages.supEmp');
-});
+
 /*
 Route::get('user/{name?}', function ($name = null) {
     return $name;
@@ -78,6 +75,8 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::post('emp/issue/{itemIssue}/update', array('uses' => 'ItemIssueController@update'))->name('itemIssue.update');
     // dstroy item issue
     Route::get('item-issues/{itemIssue}/destroy', array('uses' => 'ItemIssueController@destroy'))->name('itemIssue.destroy');
+    // add employeee
+    Route::get('supemp', array('uses' => 'EmployeeController@index'))->name('employee.index');
 });
 
 Route::get('storage/{filename}', array('uses' => 'AttachmentController@showFile'))->where(['filename' => '.*']);

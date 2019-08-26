@@ -42,6 +42,19 @@ class EmployeeController extends Controller
     public function index()
     {
         //
+        $customerObject = new Customer();
+        
+        $query = $customerObject
+            ->where('is_visible', '=', true)
+            ->where('user_type_id', '=', 2);
+        //$query = $query->whereHas('tables', function($query){});
+        $customerObjectArray = $query->get();
+        
+        if(view()->exists('pages.supEmp')){
+            return View::make('pages.supEmp', array(
+                'customerObjectArray' => $customerObjectArray
+            ));
+        }
     }
 
     /**
