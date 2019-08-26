@@ -54,7 +54,7 @@
                   <div class="form-group col-md-4">
                      <label class="control-label" for="inputError"><i class="fa fa-fw fa-stack-overflow"></i> Update low quantity
                      rate</label>
-                     <input value="0" type="number" class="form-control" id="inputError" placeholder="Low quantity rate" name="quantity_low" value="{{ $itemObject->quantity_low }}"/>
+                     <input type="number" class="form-control" id="inputError" placeholder="Low quantity rate" name="quantity_low" value="{{ $itemObject->quantity_low }}"/>
                      <span class="help-block">Notification will be issued when quantity of stock is less than this rate.</span>
                   </div>
 
