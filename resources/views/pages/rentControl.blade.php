@@ -8,6 +8,7 @@
 
       </section>
 
+      <section class="content col-md-12">
       <!-- Main content -->
       @if((isset($itemIssueObject)) && ($itemIssueObject->id))
       <section class="content col-md-6">
@@ -327,7 +328,7 @@
       <section class="content col-md-6">
 
         <!-- Default box -->
-        <div class="box collapsed-box">
+         <div class="box"> <!--collapsed-box -->
           <div class="box-header with-border" style="color:#fff; background: #222d32;">
             <h3 class="box-title">Register New Client</h3>
 
@@ -338,7 +339,7 @@
                 <i class="fa fa-times"></i></button>
             </div>
           </div>
-          <div class="box-body" style="display: none;">
+           <div class="box-body"> <!--style="display: none;" -->
           <form action="{!! route('customer.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
             <!-- {{ csrf_field() }} || {{ Session::token() }} -->
             @csrf
@@ -464,6 +465,7 @@
 
       </section>
       <!-- stock overview -->
+      </section>
       <section class="content col-md-12">
 
         <!-- Default box -->

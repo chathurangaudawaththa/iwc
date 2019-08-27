@@ -70,12 +70,12 @@ class LoginController extends Controller
             Auth::attempt($credentials);
             
             if( auth()->check() ){
-                notify()->flash(
-                    'Success', 
-                    'success', [
-                    'timer' => $data['timer'],
-                    'text' => 'success',
-                ]);
+                // notify()->flash(
+                //     'Success', 
+                //     'success', [
+                //     'timer' => $data['timer'],
+                //     'text' => 'success',
+                // ]);
                 
                 return redirect()->route('home');
             }else{
@@ -99,12 +99,12 @@ class LoginController extends Controller
         Auth::logout();
         //$exitCode = Artisan::call('cache:clear');
         
-        notify()->flash(
-            'Success', 
-            'success', [
-            'timer' => $data['timer'],
-            'text' => 'success',
-        ]);
+        // notify()->flash(
+        //     'Success', 
+        //     'success', [
+        //     'timer' => $data['timer'],
+        //     'text' => 'success',
+        // ]);
         
         return redirect()->route('login.showLogin');
     }
