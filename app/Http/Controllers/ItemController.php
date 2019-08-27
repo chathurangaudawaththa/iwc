@@ -233,7 +233,7 @@ class ItemController extends Controller
             'measuring_unit_id' => 'required',
             'rack_id' => 'required',
             'deck_id' => 'required',
-            'image_uri' => 'required|max:100',
+            //'image_uri' => 'required|max:100',
         );
         // run the validation rules on the inputs from the form
         $validator = Validator::make(Input::all(), $rules);
