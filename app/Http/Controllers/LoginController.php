@@ -38,7 +38,7 @@ class LoginController extends Controller
     
     public function doLogin(Request $request){
         //
-        $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
+        $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 5000);
         // validate the info, create rules for the inputs
         $rules = array(
             'username'    => 'required',
@@ -49,10 +49,10 @@ class LoginController extends Controller
         // if the validator fails, redirect back to the form
         if($validator->fails()){
             notify()->flash(
-                'Error', 
+                'Admin Login', 
                 'warning', [
                 'timer' => $data['timer'],
-                'text' => 'error',
+                'text' => 'Invalid Username or Password',
             ]);
             
             return redirect()->back()
@@ -70,21 +70,10 @@ class LoginController extends Controller
             Auth::attempt($credentials);
             
             if( auth()->check() ){
-                // notify()->flash(
-                //     'Success', 
-                //     'success', [
-                //     'timer' => $data['timer'],
-                //     'text' => 'success',
-                // ]);
+
                 
                 return redirect()->route('home');
             }else{
-                notify()->flash(
-                    'Error', 
-                    'warning', [
-                    'timer' => $data['timer'],
-                    'text' => 'error',
-                ]);
                 
                 return redirect()->back()->withInput(Input::except('password'));
             }

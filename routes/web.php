@@ -7,6 +7,10 @@ Route::get('/adduser', function()
 Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
+Route::get('/supemp', function()
+{
+   return View::make('pages.supEmp');
+});
 /*
 Route::get('user/{name?}', function ($name = null) {
     return $name;

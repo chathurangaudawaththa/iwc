@@ -28,6 +28,12 @@
             <span>Add New Item</span>
           </a>
         </li>
+        <li class="@isset($supemp){{$supemp}}@endisset"> 
+          <a href="/supemp"> 
+          <i class="fa fa-male"></i>
+            <span>Register New Employee</span>
+          </a>
+        </li>
         <li class="@isset($nav_stock){{$nav_stock}}@endisset"> 
           <a href="/stock"> 
           <i class="fa fa-table"></i>
