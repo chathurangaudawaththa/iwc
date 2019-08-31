@@ -8,7 +8,7 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content  new-content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <a href="rent" title="Click tio visit">
@@ -81,78 +81,21 @@
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
-      <section class="col-lg-7 connectedSortable">
+<section class="col-md-12" style="min-height: 370px;">
 
-<!-- Chat box -->
-
-<!-- /.box (chat box) -->
-
-<!-- TO DO List -->
-<div class="box box-primary">
-  <div class="box-header">
-    <i class="ion ion-clipboard"></i>
-
-    <h3 class="box-title">The stocks
-are low</h3>
-  </div>
-  <!-- /.box-header -->
-  <div class="box-body">
-    <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-    <ul class="todo-list">
-      <li>
-            <span class="handle">
-              <i class="fa fa-ellipsis-v"></i>
-              <i class="fa fa-ellipsis-v"></i>
-            </span>
-        <span class="text">Wood screws</span>
-        <small class="label label-danger" style="font-size: 13px;"></i>92 Piece(s)</small>
-      </li>
-      <li>
-            <span class="handle">
-              <i class="fa fa-ellipsis-v"></i>
-              <i class="fa fa-ellipsis-v"></i>
-            </span>
-        <span class="text">Bolt</span>
-        <small class="label label-danger" style="font-size: 13px;"></i>80 Piece(s)</small>
-      </li>
-    </ul>
-  </div>
-</div>
+<!-- Include Date Range Picker -->
+<p>Select the date range for your report generate</p>
+<input type="text" id="demo" name="datefilter" value="" />
+<p>Select Report type</p>
+<div class="select-wrapper">
+      <select class="select">
+        <option value="value1">Rent stock</option>
+        <option value="value1">supply to employee</option>
+        <option value="value2">Cash book</option>
+        <option value="value3">other</option>
+      </select>
+    </div>
 </section>
-<!-- /.Left col -->
-        <section class="col-lg-5 connectedSortable">
-          <!-- Calendar -->
-          <div class="box box-solid bg-green-gradient">
-            <div class="box-header">
-              <i class="fa fa-calendar"></i>
-
-              <h3 class="box-title">Calendar</h3>
-              <!-- tools box -->
-              <div class="pull-right box-tools">
-                <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-                </button>
-              </div>
-              <!-- /. tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-              <!--The calendar -->
-              <div id="calendar" style="width: 100%"></div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-        </section>
-        <!-- right col -->
-      </div>
-      <!-- /.row (main row) -->
-
-    </section>
-    
-    <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 

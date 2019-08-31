@@ -33,3 +33,63 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <!-- jQuery 3 -->
   <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+
+  <!-- Include Required Prerequisites -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+<script src="{{asset('js/popper.min.js')}}"></script>
+
+<style>
+#demo {
+  width: 420px;
+  heignth: 41px;
+  padding: 9px 15px;
+  margin: 10px auto;
+  font-size: 16px;
+  text-align:center;
+  border: 1px solid #cccaca;
+
+}
+.small-box>.inner {
+  padding: 0 10px;
+}
+.new-content {
+  padding: 0 15px;
+}
+
+.select-wrapper {
+  position: relative;
+  width: 420px;
+}
+.select-wrapper::after {
+  color: black;
+  content: '▾';
+  margin-right: 10px;
+  pointer-events: none;
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  font-size: 20px;
+}
+
+.select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 9px 15px;
+  width: 100%;
+  border: 1px solid #cccaca;
+}
+.select:focus {
+  color: black;
+}
+.select::-ms-expand {
+  display: none;
+}
+</style>
