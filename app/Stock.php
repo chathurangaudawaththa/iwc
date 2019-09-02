@@ -16,7 +16,7 @@ class Stock extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    protected $fillable = array('is_visible', 'quantity', 'date_create', 'item_id', 'measuring_unit_id', 'transaction_type_id');
+    protected $fillable = array('is_visible', 'quantity', 'date_create', 'item_id', 'measuring_unit_id', 'transaction_type_id', 'stockable_type', 'stockable_id');
     //protected $hidden = array();
     //protected $casts = array();
     
@@ -40,6 +40,12 @@ class Stock extends Model
      //one to many (inverse)
     public function transactionType(){
         return $this->belongsTo('App\TransactionType', 'transaction_type_id', 'id');
+    }
+    
+    //one to many (polymorphic) (inverse)
+    public function stockable(){
+        //return $this->morphTo();
+        return $this->morphTo('stockable', 'stockable_type', 'stockable_id');
     }
     
 }

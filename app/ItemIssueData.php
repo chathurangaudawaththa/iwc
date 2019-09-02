@@ -66,4 +66,9 @@ class ItemIssueData extends Model
         return $this->itemIssue->itemReceiveDatas->where('item_id', '=', $this->item_id);
     }
     
+    //one to many (polymorphic)
+    public function stocks(){
+        return $this->morphMany('App\Stock', 'stockable', 'stockable_type', 'stockable_id', 'id');
+    }
+    
 }

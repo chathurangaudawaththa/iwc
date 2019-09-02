@@ -77,6 +77,8 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     Route::get('item-issues/{itemIssue}/destroy', array('uses' => 'ItemIssueController@destroy'))->name('itemIssue.destroy');
     // add employeee
     Route::get('supemp', array('uses' => 'EmployeeController@index'))->name('employee.index');
+    // report
+    Route::get('report', array('uses' => 'ReportController@create'))->name('report.create');
 });
 
 Route::get('storage/{filename}', array('uses' => 'AttachmentController@showFile'))->where(['filename' => '.*']);

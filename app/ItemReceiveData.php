@@ -42,4 +42,9 @@ class ItemReceiveData extends Model
         return $this->belongsTo('App\MeasuringUnit', 'measuring_unit_id', 'id');
     }
     
+    //one to many (polymorphic)
+    public function stocks(){
+        return $this->morphMany('App\Stock', 'stockable', 'stockable_type', 'stockable_id', 'id');
+    }
+    
 }

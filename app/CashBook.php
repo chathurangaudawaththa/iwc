@@ -16,7 +16,7 @@ class CashBook extends Model
     //protected $connection = "mysql";
     //$this->setConnection("mysql");
     
-    protected $fillable = array('is_visible', 'amount', 'date_create', 'transaction_type_id');
+    protected $fillable = array('is_visible', 'amount', 'date_create', 'transaction_type_id', 'cashable_type', 'cashable_id');
     //protected $hidden = array();
     //protected $casts = array();
     
@@ -30,6 +30,12 @@ class CashBook extends Model
     //one to many (inverse)
     public function transactionType(){
         return $this->belongsTo('App\TransactionType', 'transaction_type_id', 'id');
+    }
+    
+    //one to many (polymorphic) (inverse)
+    public function cashable(){
+        //return $this->morphTo();
+        return $this->morphTo('cashable', 'cashable_type', 'cashable_id');
     }
     
 }

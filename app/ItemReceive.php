@@ -50,4 +50,14 @@ class ItemReceive extends Model
         return $this->hasMany('App\ItemReceiveData', 'item_receive_id', 'id')->sum('quantity');
     }
     
+    //one to many (polymorphic)
+    public function stocks(){
+        return $this->morphMany('App\Stock', 'stockable', 'stockable_type', 'stockable_id', 'id');
+    }
+    
+    //one to many (polymorphic)
+    public function cashBooks(){
+        return $this->morphMany('App\CashBook', 'cashable', 'cashable_type', 'cashable_id', 'id');
+    }
+    
 }

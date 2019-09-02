@@ -16,7 +16,8 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner"> 
-              <h3>150</h3>
+              <!-- h3>0</h3 -->
+              <h3> <span style="min-height: 1em;display: inline-block;"></span> </h3>
 
               <p>Equipment Rental<br>To Customer</p>
             </div>
@@ -32,7 +33,8 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53</h3>
+              <!-- h3>0</h3 -->
+              <h3> <span style="min-height: 1em;display: inline-block;"></span> </h3>
 
               <p>Equipment Supply<br>To Employee</p>
             </div>
@@ -49,8 +51,11 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
-
+              @if(isset($dataArray["date_receive_count"]))
+                <h3>{!! number_format($dataArray["date_receive_count"]) !!}</h3>
+              @else
+                <h3> 0 </h3>
+              @endisset
               <p>Handover date<br>is over</p>
             </div>
             <div class="icon">
@@ -65,8 +70,11 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
-
+              @if(isset($dataArray["quantity_low_count"]))
+                <h3>{!! number_format($dataArray["quantity_low_count"]) !!}</h3>
+              @else
+                <h3> 0 </h3>
+              @endisset
               <p>The stocks<br>are low</p>
             </div>
             <div class="icon">
@@ -85,18 +93,121 @@
 
 <!-- Include Date Range Picker -->
 <p>Select the date range for your report generate</p>
-<input type="text" id="demo" name="datefilter" value="" />
-<p>Select Report type</p>
-<div class="select-wrapper">
-      <select class="select">
-        <option value="value1">Rent stock</option>
-        <option value="value1">supply to employee</option>
-        <option value="value2">Cash book</option>
-        <option value="value3">other</option>
-      </select>
+<form method="GET" action="{!! route('report.create') !!}" enctype="multipart/form-data" target="_blank">
+    @csrf
+    <input type="text" id="demo" name="datefilter" value=""/>
+    <input type="hidden" id="date_start" name="date_start"/>
+    <input type="hidden" id="date_end" name="date_end"/>
+    <p>Select Report type</p>
+    <div class="select-wrapper">
+        <select class="select" name="report_type" required>
+            <option value="select"> select </option>
+            <option value="supply_employee">supply to employee</option>
+            <option value="supply_customer">rent to customer</option>
+            <option value="cash_book">cash book</option>
+            <option value="stock_item">item</option>
+        </select>
     </div>
+
+    <div class="btn-group" style="margin-top: 1em;">
+        <button type="submit" class="btn btn-success"> Check </button>
+    </div>
+    
+</form>
 </section>
 </div>
 <!-- /.content-wrapper -->
 
+<!-- ------------------------------------------ -->
+<script type="text/javascript">
+$(function() {
+
+    var date_start = moment().subtract(1, 'month');
+    var date_end = moment().startOf('hour');
+    var format_1 = "YYYY-MM-DD";
+
+    function cb(start, end, label) {
+        var date_start = $("#date_start");
+        var date_end = $("#date_end");
+        date_start.val( start.format(format_1) );
+        date_end.val( end.format(format_1) );
+        //$('#div_id span').html(start.format(format_1) + ' - ' + end.format(format_1));
+        console.log("A new date selection was made: " + start.format(format_1) + ' to ' + end.format(format_1));
+    }
+
+    var datefilter = $('input[name="datefilter"]').daterangepicker({
+        startDate: date_start,
+        endDate: date_end,
+        opens: 'right',
+        timePicker: false,
+        locale: {
+            format: 'YYYY-MM-DD'
+        },
+        ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+    
+    datefilter.on('cancel.daterangepicker', function(ev, picker) {
+        //do something, like clearing an input
+        datefilter.val('');
+    });
+    
+    cb(date_start, date_end, null);
+
+});
+</script>
+<!-- script>
+$('#demo').daterangepicker({
+    "showISOWeekNumbers": true,
+    "timePicker": false,
+    "autoUpdateInput": true,
+    "locale": {
+        "cancelLabel": 'Clear',
+        "format": "YYYY MMMM, DD",
+        "separator": " - ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+        ],
+        "monthNames": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "firstDay": 1
+    },
+    "linkedCalendars": true,
+    "showCustomRangeLabel": false,
+    "startDate": 1,
+    "endDate": "2019 August, 30",
+    "opens": "right"
+});
+</script -->
+<!-- ------------------------------------------ -->
 @stop
