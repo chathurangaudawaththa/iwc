@@ -87,10 +87,6 @@
                 <input class="styled-checkbox" id="styled-checkbox-3" type="checkbox" value="value4">
                 <label for="styled-checkbox-3">Filtering by Price</label>
               </li>
-              <li>
-                <input class="styled-checkbox" id="styled-checkbox-3" type="checkbox" value="value4">
-                <label for="styled-checkbox-3">Filtering by Price</label>
-              </li>
               <button type="submit" class="btn btn-success pull-right"> Check </button>
             </div>
             
