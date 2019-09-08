@@ -70,8 +70,12 @@
             <span>Payment History</span>
           </a>
         </li>
-        <li><a href="report"><i class="fa fa-book"></i> <span>Reports</span></a></li>
+        <li class="@isset($rep){{$rep}}@endisset">
+          <a href="/rep">
+          <i class="fa fa-book"></i>
+            <span>Reports</span></a>
+          </li>
       </ul>
     </section>
     <!-- /.sidebar -->
-  </aside>
+  </aside>rep

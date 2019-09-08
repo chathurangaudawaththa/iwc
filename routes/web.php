@@ -8,6 +8,10 @@ Route::post('/add-user', 'UserController@AddUser');
 // user login
 Route::post('/conf', 'UserController@LogUser');
 
+Route::get('/rep', function()
+{
+   return View::make('pages.report');
+});
 /*
 Route::get('user/{name?}', function ($name = null) {
     return $name;
