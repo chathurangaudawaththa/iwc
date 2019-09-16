@@ -40,8 +40,19 @@ class ReportController extends Controller
         
         switch( $report_type ){
             case "supply_employee": {
+                $itemIssueObject = new ItemIssue();
+                $itemIssueObjectArray = array();
+                
+                $query = $itemIssueObject->with( array('itemIssueDatas', 'user', 'itemReceives', 'customer', 'transactionType', 'stocks') )
+                    ->where('is_visible', '=', true)
+                    ->where('transaction_type_id', '=', 4)
+                    ->whereDate('date_create', '>=', $date_start)
+                    ->whereDate('date_create', '<=', $date_end);
+                $itemIssueObjectArray = $query->get();
+                
                 if(view()->exists('pages.print_report_supply_employee')){
                     return View::make('pages.print_report_supply_employee', array(
+                        'itemIssueObjectArray' => $itemIssueObjectArray,
                         'date_start' => $date_start,
                         'date_end' => $date_end
                     ));
@@ -49,8 +60,19 @@ class ReportController extends Controller
                 break;
             }  
             case "supply_customer": {
+                $itemIssueObject = new ItemIssue();
+                $itemIssueObjectArray = array();
+                
+                $query = $itemIssueObject->with( array('itemIssueDatas', 'user', 'itemReceives', 'customer', 'transactionType', 'stocks') )
+                    ->where('is_visible', '=', true)
+                    ->where('transaction_type_id', '=', 5)
+                    ->whereDate('date_create', '>=', $date_start)
+                    ->whereDate('date_create', '<=', $date_end);
+                $itemIssueObjectArray = $query->get();
+                
                 if(view()->exists('pages.print_report_supply_customer')){
                     return View::make('pages.print_report_supply_customer', array(
+                        'itemIssueObjectArray' => $itemIssueObjectArray,
                         'date_start' => $date_start,
                         'date_end' => $date_end
                     ));
