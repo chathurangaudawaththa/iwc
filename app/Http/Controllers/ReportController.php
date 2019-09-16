@@ -39,8 +39,24 @@ class ReportController extends Controller
         $report_type = $request->input('report_type');
         
         switch( $report_type ){
-            case "supply_employee": {}  
-            case "supply_customer": {}  
+            case "supply_employee": {
+                if(view()->exists('pages.print_report_supply_employee')){
+                    return View::make('pages.print_report_supply_employee', array(
+                        'date_start' => $date_start,
+                        'date_end' => $date_end
+                    ));
+                }
+                break;
+            }  
+            case "supply_customer": {
+                if(view()->exists('pages.print_report_supply_customer')){
+                    return View::make('pages.print_report_supply_customer', array(
+                        'date_start' => $date_start,
+                        'date_end' => $date_end
+                    ));
+                }
+                break;
+            }  
             case "cash_book": {
                 $itemReceiveObject = new ItemReceive();
                 $itemReceiveObjectArray = array();
@@ -59,11 +75,21 @@ class ReportController extends Controller
                         'date_end' => $date_end
                     ));
                 }
+                break;
             }  
-            case "stock_item": {}
+            case "stock_item": {
+                if(view()->exists('pages.print_report_stock_item')){
+                    return View::make('pages.print_report_stock_item', array(
+                        'date_start' => $date_start,
+                        'date_end' => $date_end
+                    ));
+                }
+                break;
+            }
             default :{
                 //return redirect()->back();
                 return redirect()->route('home');
+                break;
             }
         }
         
