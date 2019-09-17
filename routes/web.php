@@ -1,6 +1,6 @@
 <?php
 // user registration
-Route::get('/adduser', function()
+Route::get('/add', function()
 {
    return View::make('pages.addUser');
 });

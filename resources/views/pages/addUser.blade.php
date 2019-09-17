@@ -1,5 +1,3 @@
-@extends('layouts.default')
-@section('content')
 <?php $nav_emp = 'active'; ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -11,7 +9,7 @@
       <section class="content col-md-6">
 
         <!-- Default box -->
-        <div class="box collapsed-box">
+        <div class="box">
           <div class="box-header with-border" style="color:#fff; background: #222d32;">
             <h3 class="box-title">Register New Employee</h3>
 
@@ -22,7 +20,7 @@
                 <i class="fa fa-times"></i></button>
             </div>
           </div>
-          <div class="box-body" style="display: none;">
+          <div class="box-body">
             <form action="{!! route('user.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
                 <!-- {{ csrf_field() }} || {{ Session::token() }} -->
                 @csrf
@@ -58,4 +56,3 @@
       <!-- stock overview -->
       <!-- /.content -->
     </div>
-@stop

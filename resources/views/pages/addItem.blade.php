@@ -115,76 +115,61 @@
                   <div class="form-group col-md-2" style="background:#72fd9d">
                      <label style="font-size: 13px;margin-top: 10px;">Stock Status</label>
                      <div class="radio">
-                        <label>
-                        <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="2"/>
-                        Piece (s)
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="3"/>
-                        Packet (s)
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="4"/>
-                        ml (Liquid)
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="5"/>
-                        m (meters)
-                        </label>
-                     </div>
+                           <input type="radio" value="2" name="measuring_unit_id" id="measuring_unit_id-1">
+                           <label for="measuring_unit_id-1" class="radio-label"><strong>Piece (s)</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="3" name="measuring_unit_id" id="measuring_unit_id-2">
+                           <label for="measuring_unit_id-2" class="radio-label"><strong>Packet (s)</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="4" name="measuring_unit_id" id="measuring_unit_id-3">
+                           <label for="measuring_unit_id-3" class="radio-label"><strong>ml (Liquid)</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="5" name="measuring_unit_id" id="measuring_unit_id-4">
+                           <label for="measuring_unit_id-4" class="radio-label"><strong>m (meters)</strong></label>
+                        </div>
                   </div>
-                  <div class="form-group col-md-1" style="background:#00adef">
+                  <div class="form-group col-md-2" style="background:#00adef">
                      <label style="font-size: 13px;margin-top: 10px;">Rack</label>
-                     <div class="radio">
-                        <label>
-                        <input type="radio" name="rack_id" id="rack_id" value="2"/>
-                        R1
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="rack_id" id="rack_id" value="3"/>
-                        R2
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="rack_id" id="rack_id" value="4"/>
-                        R3
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="rack_id" id="rack_id" value="5"/>
-                        R4
-                        </label> 
-                     </div>
+                        <div class="radio">
+                           <input type="radio" value="2" name="rack_id" id="rack-1">
+                           <label for="rack-1" class="radio-label"><strong>R1</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="3" name="rack_id" id="rack-2">
+                           <label for="rack-2" class="radio-label"><strong>R2</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="4" name="rack_id" id="rack-3">
+                           <label for="rack-3" class="radio-label"><strong>R3</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="5" name="rack_id" id="rack-4">
+                           <label for="rack-4" class="radio-label"><strong>R4</strong></label>
+                        </div>                 
                   </div>
-                  <div class="form-group col-md-1" style="background:#00adef">
+                  <div class="form-group col-md-2" style="background:#7ed5f7">
                      <label style="font-size: 13px;margin-top: 10px;">Deck</label>
                      <div class="radio">
-                        <label>
-                        <input type="radio" name="deck_id" id="deck_id" value="2"/>
-                        D1
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="deck_id" id="deck_id" value="3"/>
-                        D2
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="deck_id" id="deck_id" value="4"/>
-                        D3
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="deck_id" id="deck_id" value="5"/>
-                        D4
-                        </label> 
-                     </div>
+                           <input type="radio" value="2" name="deck_id" id="deck-1">
+                           <label for="deck-1" class="radio-label"><strong>D1</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="3" name="deck_id" id="deck-2">
+                           <label for="deck-2" class="radio-label"><strong>D2</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="4" name="deck_id" id="deck-3">
+                           <label for="deck-3" class="radio-label"><strong>D3</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="5" name="deck_id" id="deck-4">
+                           <label for="deck-4" class="radio-label"><strong>D4</strong></label>
+                        </div>
                   </div>
-                  <div class="form-group has-error col-md-4">
+                  <div class="form-group has-error col-md-3">
                   <label class="control-label" for="inputError">
                     {{$errors->getBag('default')->first('measuring_unit_id')}}
                     </label>
@@ -197,7 +182,7 @@
                     {{$errors->getBag('default')->first('deck_id')}}
                     </label>
                </div>
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-3">
                      <fieldset>
                         <legend class="has-warning"><label>Complete this for only rental items.</label></legend>
                         <div class="form-group has-warning col-md-12">
@@ -216,87 +201,73 @@
                   <div class="add-padding">
                   <div class="form-group col-md-2" style="background:#72fd9d">
                      <label style="font-size: 13px;margin-top: 10px;">Stock Status</label>
-                     <div class="radio">
-                        <label>
-                        <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="2"/>
-                        Piece (s)
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="3"/>
-                        Packet (s)
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="4"/>
-                        ml (Liquid)
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="measuring_unit_id" id="measuring_unit_id" value="5"/>
-                        m (meters)
-                        </label>
-                     </div>
+                        <div class="radio">
+                           <input type="radio" value="2" name="measuring_unit_id" id="measuring_unit_id-1">
+                           <label for="measuring_unit_id-1" class="radio-label"><strong>Piece (s)</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="3" name="measuring_unit_id" id="measuring_unit_id-2">
+                           <label for="measuring_unit_id-2" class="radio-label"><strong>Packet (s)</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="4" name="measuring_unit_id" id="measuring_unit_id-3">
+                           <label for="measuring_unit_id-3" class="radio-label"><strong>ml (Liquid)</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="5" name="measuring_unit_id" id="measuring_unit_id-4">
+                           <label for="measuring_unit_id-4" class="radio-label"><strong>m (meters)</strong></label>
+                        </div>
                   </div>
-                  <div class="form-group col-md-1" style="background:#00adef">
+                  <div class="form-group col-md-2" style="background:#00adef">
                      <label style="font-size: 13px;margin-top: 10px;">Rack</label>
-                     <div class="radio">
-                        <label>
-                        <input type="radio" name="rack_id" id="rack_id" value="2"/>
-                        R1
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="rack_id" id="rack_id" value="3"/>
-                        R2
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="rack_id" id="rack_id" value="4"/>
-                        R3
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="rack_id" id="rack_id" value="5"/>
-                        R4
-                        </label> 
+                     <div class="col-md-12">
+                        <div class="radio">
+                           <input type="radio" value="2" name="rack_id" id="rack-1">
+                           <label for="rack-1" class="radio-label"><strong>R1</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="3" name="rack_id" id="rack-2">
+                           <label for="rack-2" class="radio-label"><strong>R2</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="4" name="rack_id" id="rack-3">
+                           <label for="rack-3" class="radio-label"><strong>R3</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="5" name="rack_id" id="rack-4">
+                           <label for="rack-4" class="radio-label"><strong>R4</strong></label>
+                        </div>                     
                      </div>
                   </div>
-                  <div class="form-group col-md-1" style="background:#00adef">
+                  <div class="form-group col-md-2" style="background:#7ed5f7">
                      <label style="font-size: 13px;margin-top: 10px;">Deck</label>
-                     <div class="radio">
-                        <label>
-                        <input type="radio" name="deck_id" id="deck_id" value="2"/>
-                        D1
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="deck_id" id="deck_id" value="3"/>
-                        D2
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="deck_id" id="deck_id" value="4"/>
-                        D3
-                        </label>
-                        <br>
-                        <label>
-                        <input type="radio" name="deck_id" id="deck_id" value="5"/>
-                        D4
-                        </label> 
-                     </div>
+                        <div class="radio">
+                           <input type="radio" value="2" name="deck_id" id="deck-1">
+                           <label for="deck-1" class="radio-label"><strong>D1</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="3" name="deck_id" id="deck-2">
+                           <label for="deck-2" class="radio-label"><strong>D2</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="4" name="deck_id" id="deck-3">
+                           <label for="deck-3" class="radio-label"><strong>D3</strong></label>
+                        </div>
+                        <div class="radio">
+                           <input type="radio" value="5" name="deck_id" id="deck-4">
+                           <label for="deck-4" class="radio-label"><strong>D4</strong></label>
+                        </div>
                   </div>
-                  <div class="form-group col-md-8">
+                  <div class="form-group col-md-6">
                      <fieldset>
                         <legend class="has-warning"><label>Complete this for only rental items.</label></legend>
-                        <div class="form-group has-warning col-md-4">
+                        <div class="form-group has-warning col-md-6">
                            <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-money"></i> Rental charge per
                            day</label>
                            <input type="text" class="form-control" id="inputWarning" placeholder="Price" name="unit_price"/>
                            <span class="help-block">Currency auto selected (LKR)</span>
                         </div>
-                        <div class="form-group has-warning col-md-6">
-                        </div>
+                        
                      </fieldset>
                   </div>
                </div>

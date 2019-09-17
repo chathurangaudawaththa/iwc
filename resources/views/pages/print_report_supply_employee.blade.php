@@ -56,7 +56,7 @@
                         <td>19/08/19</td>
                         <td>emp-001</td>
                         <td>Amal</td>
-                        <td style="color=green">Status</td>
+                        <td style="color:green">Status</td>
                         <td>Drill<br>Glinder</td>
                     </tr>
 

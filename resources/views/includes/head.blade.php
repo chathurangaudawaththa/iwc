@@ -192,5 +192,12 @@ li{
   padding: 0;
   list-style-type: none;
 }
+.radio label {
+    min-height: 20px;
+    padding-left: 0;
+    margin-bottom: 10px;
+    font-weight: 400;
+    cursor: pointer;
+}
 
 </style>
