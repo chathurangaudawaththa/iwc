@@ -43,6 +43,7 @@
                 <tr>
                 <th>Invoice No</th>
                   <th>Date</th>
+                  <th>Emp ID</th>
                   <th>Employee Name</th>
                   <th>Handover Status</th>
                   <th>Items</th>
@@ -53,6 +54,7 @@
                     <tr>
                         <td>0001</td>
                         <td>19/08/19</td>
+                        <td>emp-001</td>
                         <td>Amal</td>
                         <td style="color=green">Status</td>
                         <td>Drill<br>Glinder</td>
