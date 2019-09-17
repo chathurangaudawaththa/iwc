@@ -51,14 +51,46 @@
               </thead>
               <tbody>
               
-                    <tr>
-                        <td>0001</td>
-                        <td>19/08/19</td>
-                        <td>emp-001</td>
-                        <td>Amal</td>
-                        <td style="color:green">Status</td>
-                        <td>Drill<br>Glinder</td>
-                    </tr>
+                @isset($itemIssueObjectArray)
+                    @foreach($itemIssueObjectArray as $key => $value)
+
+                        @php
+                            $date_today = Carbon\Carbon::now()->startOfDay();
+                            $date_create = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_create)->startOfDay();
+                            $date_receive = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->date_receive)->startOfDay();
+                        @endphp
+                        
+                        <tr>
+                            <td>{{ $value->id }}</td>
+                            <td>{{ $date_create->format('Y-m-d') }}</td>
+                            <td>
+                                @if(isset($value->customer))
+                                    {{ $value->customer->code }}
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($value->customer))
+                                    {{ $value->customer->first_name . " " . $value->customer->last_name }}
+                                @endif
+                            </td>
+                            <td>
+                                @if( $value->itemIssueDatasSum() == $value->itemReceiveDatasSum() )
+                                    <span style="color:green;">Handovered</span>
+                                @else
+                                    <span style="color:red;">Not Yet</span>
+                                @endif
+                            </td>
+                            <td>
+                                @foreach($value->itemIssueDatas as $key_data => $value_data)
+                                    <span>{{ $value_data->item->name }}</span>
+                                    <span> [{{ number_format($value_data->quantity) }}] </span>
+                                    <br/>
+                                @endforeach
+                            </td>
+                        </tr>
+
+                    @endforeach
+                @endisset
 
               </tbody>
             </table>
