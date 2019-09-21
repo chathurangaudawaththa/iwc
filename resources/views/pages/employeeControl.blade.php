@@ -330,125 +330,253 @@
       </section>
       <!-- --- -->
       @endif
-      <section class="content col-md-6">
+      <!-- --- -->
+      @if( (isset($customerObject)) && ($customerObject->id) )
+        <!-- --- -->
+    <section class="content col-md-6">
 
-        <!-- Default box -->
-        <div class="box"><!-- collapsed-box -->
-          <div class="box-header with-border" style="color:#fff; background: #222d32;">
-            <h3 class="box-title">Register New Employee</h3>
+            <!-- Default box -->
+            <div class="box"><!-- collapsed-box -->
+              <div class="box-header with-border" style="color:#fff; background: #222d32;">
+                <h3 class="box-title">Register New Employee</h3>
 
-            <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                <i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                <i class="fa fa-times"></i></button>
-            </div>
-          </div>
-          <div class="box-body"><!-- style="display: none;" -->
-          <form action="{!! route('employee.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
-            <!-- {{ csrf_field() }} || {{ Session::token() }} -->
-            @csrf
-            <input type="hidden" id="user_type_id" name="user_type_id" value="2"/>
-            <div class="col-md-12 row">
-            <div class="form-group has-warning col-md-4">
-              <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Emp ID</label>
-              <input type="text" class="form-control" id="code" name="code" placeholder="Emp ID"/>
-            </div>
-            <div class="form-group has-warning col-md-8">
-            <label class="control-label" for="inputWarning"> Full Name with Initial</label>
-              <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Emp Name"/>
-              <span class="help-block">Example : W.A.Senarath</span>
-
-            </div>
-            </div>
-            <div class="form-group col-md-6 add-padding">
-              <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Front)</label>
-
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="image_uri_nic_front" name="image_uri_nic_front" multiple="false" onchange="readURL(this);">
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fa fa-minus"></i></button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fa fa-times"></i></button>
+                </div>
               </div>
-              <div class="input-group-append">
-                <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
-              </div>
-            </div>
-            <div class="form-group col-md-6 add-padding">
-              <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Back)</label>
+              <div class="box-body"><!-- style="display: none;" -->
+              <form action="{!! route('employee.update', ['customer' => $customerObject->id]) !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+                <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+                @csrf
+                <input type="hidden" id="user_type_id" name="user_type_id" value="2"/>
+                <div class="col-md-12 row">
+                <div class="form-group has-warning col-md-4">
+                  <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Emp ID</label>
+                  <input type="text" class="form-control" id="code" name="code" placeholder="Emp ID" value="{!! $customerObject->code !!}"/>
+                </div>
+                <div class="form-group has-warning col-md-8">
+                <label class="control-label" for="inputWarning"> Full Name with Initial</label>
+                  <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Emp Name" value="{!! $customerObject->first_name !!}"/>
+                  <span class="help-block">Example : W.A.Senarath</span>
 
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="image_uri_nic_back" name="image_uri_nic_back" multiple="true" onchange="readURL(this);"/>
-              </div>
-              <div class="input-group-append">
-                <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
-              </div>
-            </div>
-            <div class="add-padding">
-            <div class="col-md-6"></div>
-            <div class="col-md-3">
-            <button class="btn btn-app btn-app-marg-bot" title="Cancel" type="reset">
-                <i class="fa fa-repeat"></i>
-              </button>
-            </div>
-            <div class="col-md-3">
-            <button class="btn btn-app btn-app-marg-bot" title="Save" type="submit">
-                <i class="fa fa-save"></i>
-              </button>
-            </div>
-            </div>
-          </form>
-            <div class="form-group col-md-12" style="background: #e8e1e1; padding-top:10px">
-              <fieldset>
-                <legend class="has-warning"><label>Registerd Employees</label></legend>
-                <table class="table table-bordered table-hover">
-              <thead>
-                <tr>
-                  <th>Emp ID</th>
-                  <th>Full Name</th>
-                  <th>NID (Front)</th>
-                  <th>NID (Back)</th>
-                  <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
-                  <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
-                </tr>
-              </thead>
-              <tbody>
-                  
-                @isset($customerObjectArray)
-                  @foreach($customerObjectArray as $key => $value)
-                  
+                </div>
+                </div>
+                <div class="form-group col-md-6 add-padding">
+                  <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Front)</label>
+
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="image_uri_nic_front" name="image_uri_nic_front" multiple="false" onchange="readURL(this);">
+                  </div>
+                  <div class="input-group-append">
+                    <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
+                  </div>
+                </div>
+                <div class="form-group col-md-6 add-padding">
+                  <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Back)</label>
+
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="image_uri_nic_back" name="image_uri_nic_back" multiple="true" onchange="readURL(this);"/>
+                  </div>
+                  <div class="input-group-append">
+                    <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
+                  </div>
+                </div>
+                <div class="add-padding">
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                <button class="btn btn-app btn-app-marg-bot" title="Cancel" type="reset">
+                    <i class="fa fa-repeat"></i>
+                  </button>
+                </div>
+                <div class="col-md-3">
+                <button class="btn btn-app btn-app-marg-bot" title="Save" type="submit">
+                    <i class="fa fa-save"></i>
+                  </button>
+                </div>
+                </div>
+              </form>
+                <div class="form-group col-md-12" style="background: #e8e1e1; padding-top:10px">
+                  <fieldset>
+                    <legend class="has-warning"><label>Registerd Employees</label></legend>
+                    <table class="table table-bordered table-hover">
+                  <thead>
                     <tr>
-                        <td>{{ $value->code }}</td>
-                        <td>{{ $value->first_name }}</td>
-                        <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_front)) !!}" alt=""></td>
-                        <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_back)) !!}" alt=""></td>
-                        <td class="article-btn edit" style="text-align:center">
-                            <a href="#" title="Update item">
-                                <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                        <td class="article-btn delete" style="text-align:center">
-                            <a href="#" title="Delete item">
-                                <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
-                            </a>
-                        </td>
+                      <th>Emp ID</th>
+                      <th>Full Name</th>
+                      <th>NID (Front)</th>
+                      <th>NID (Back)</th>
+                      <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
+                      <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
                     </tr>
-                  
-                  @endforeach
-                @endisset
-                  
-              </tbody>
-            </table>
-              </fieldset>
-            </div>
-            
-          </div>
-          <!-- /.box-body -->
-          <div class="box-footer" style="color:#fff; background: #222d32;">
-            Register New Employee
-          </div>
-          <!-- /.box-footer-->
-        </div>
-        <!-- /.box -->
+                  </thead>
+                  <tbody>
 
-      </section>
+                    @isset($customerObjectArray)
+                      @foreach($customerObjectArray as $key => $value)
+
+                        <tr>
+                            <td>{{ $value->code }}</td>
+                            <td>{{ $value->first_name }}</td>
+                            <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_front)) !!}" alt=""></td>
+                            <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_back)) !!}" alt=""></td>
+                            <td class="article-btn edit" style="text-align:center">
+                                <a href="{!! route('employee.edit', ['customer' => $value->id]) !!}" title="Update item">
+                                    <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            <td class="article-btn delete" style="text-align:center">
+                                <a href="#" title="Delete item">
+                                    <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                      @endforeach
+                    @endisset
+
+                  </tbody>
+                </table>
+                  </fieldset>
+                </div>
+
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer" style="color:#fff; background: #222d32;">
+                Register New Employee
+              </div>
+              <!-- /.box-footer-->
+            </div>
+            <!-- /.box -->
+
+          </section>
+        <!-- --- -->
+      @else
+        <!-- --- -->
+        <section class="content col-md-6">
+
+            <!-- Default box -->
+            <div class="box"><!-- collapsed-box -->
+              <div class="box-header with-border" style="color:#fff; background: #222d32;">
+                <h3 class="box-title">Register New Employee</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fa fa-minus"></i></button>
+                  <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fa fa-times"></i></button>
+                </div>
+              </div>
+              <div class="box-body"><!-- style="display: none;" -->
+              <form action="{!! route('employee.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+                <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+                @csrf
+                <input type="hidden" id="user_type_id" name="user_type_id" value="2"/>
+                <div class="col-md-12 row">
+                <div class="form-group has-warning col-md-4">
+                  <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>Emp ID</label>
+                  <input type="text" class="form-control" id="code" name="code" placeholder="Emp ID"/>
+                </div>
+                <div class="form-group has-warning col-md-8">
+                <label class="control-label" for="inputWarning"> Full Name with Initial</label>
+                  <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Emp Name"/>
+                  <span class="help-block">Example : W.A.Senarath</span>
+
+                </div>
+                </div>
+                <div class="form-group col-md-6 add-padding">
+                  <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Front)</label>
+
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="image_uri_nic_front" name="image_uri_nic_front" multiple="false" onchange="readURL(this);">
+                  </div>
+                  <div class="input-group-append">
+                    <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
+                  </div>
+                </div>
+                <div class="form-group col-md-6 add-padding">
+                  <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Back)</label>
+
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="image_uri_nic_back" name="image_uri_nic_back" multiple="true" onchange="readURL(this);"/>
+                  </div>
+                  <div class="input-group-append">
+                    <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
+                  </div>
+                </div>
+                <div class="add-padding">
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                <button class="btn btn-app btn-app-marg-bot" title="Cancel" type="reset">
+                    <i class="fa fa-repeat"></i>
+                  </button>
+                </div>
+                <div class="col-md-3">
+                <button class="btn btn-app btn-app-marg-bot" title="Save" type="submit">
+                    <i class="fa fa-save"></i>
+                  </button>
+                </div>
+                </div>
+              </form>
+                <div class="form-group col-md-12" style="background: #e8e1e1; padding-top:10px">
+                  <fieldset>
+                    <legend class="has-warning"><label>Registerd Employees</label></legend>
+                    <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>Emp ID</th>
+                      <th>Full Name</th>
+                      <th>NID (Front)</th>
+                      <th>NID (Back)</th>
+                      <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
+                      <th class="th-sm" style="text-align:center;color: #d2c7c7;"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    @isset($customerObjectArray)
+                      @foreach($customerObjectArray as $key => $value)
+
+                        <tr>
+                            <td>{{ $value->code }}</td>
+                            <td>{{ $value->first_name }}</td>
+                            <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_front)) !!}" alt=""></td>
+                            <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_back)) !!}" alt=""></td>
+                            <td class="article-btn edit" style="text-align:center">
+                                <a href="{!! route('employee.edit', ['customer' => $value->id]) !!}" title="Update item">
+                                    <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            <td class="article-btn delete" style="text-align:center">
+                                <a href="#" title="Delete item">
+                                    <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                      @endforeach
+                    @endisset
+
+                  </tbody>
+                </table>
+                  </fieldset>
+                </div>
+
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer" style="color:#fff; background: #222d32;">
+                Register New Employee
+              </div>
+              <!-- /.box-footer-->
+            </div>
+            <!-- /.box -->
+
+          </section>
+        <!-- --- -->
+      @endif
+      <!-- --- -->
       <!-- stock overview -->
 </section>
       <section class="content col-md-12">

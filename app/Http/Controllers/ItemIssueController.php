@@ -149,7 +149,7 @@ class ItemIssueController extends Controller
                     
                 });
                 
-            }catch(Exception $e){dd($e);
+            }catch(Exception $e){
                 notify()->flash(
                     'Error', 
                     'warning', [
@@ -309,7 +309,7 @@ class ItemIssueController extends Controller
                     
                 });
                 
-            }catch(Exception $e){dd($e);
+            }catch(Exception $e){
                 notify()->flash(
                     'Error', 
                     'warning', [
@@ -370,7 +370,7 @@ class ItemIssueController extends Controller
 
             });
 
-        }catch(Exception $e){dd($e);
+        }catch(Exception $e){
             notify()->flash(
                 'Error', 
                 'warning', [

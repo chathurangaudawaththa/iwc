@@ -324,6 +324,22 @@
         <!-- /.box -->
 
       </section>
+          <script>
+              $(function(){
+                "use strict";
+                //var datepicker = $('#datepicker');
+                var datepicker = $('#datepicker').datepicker({
+                    'format': 'yyyy-mm-dd',
+                    'defaultDate': new Date(),
+                    'startDate': new Date(),
+                    'setDate': new Date()
+                });
+                //$('#datepicker').datepicker('setValue', new Date());
+                $('#datepicker').datepicker('setDate', new Date());
+                //$('#datepicker').datepicker('setStartDate', new Date());
+                //$('#datepicker').datetimepicker('update');
+              });
+          </script>
       @endif
       <section class="content col-md-6">
 
