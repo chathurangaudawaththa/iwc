@@ -428,7 +428,7 @@
                                 </a>
                             </td>
                             <td class="article-btn delete" style="text-align:center">
-                                <a href="#" title="Delete item">
+                                <a href="{!! route('employee.destroy', ['customer' => $value->id]) !!}" title="Delete item" onclick="return confirm('Are you sure?');">
                                     <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
                                 </a>
                             </td>
@@ -550,7 +550,7 @@
                                 </a>
                             </td>
                             <td class="article-btn delete" style="text-align:center">
-                                <a href="#" title="Delete item">
+                                <a href="{!! route('employee.destroy', ['customer' => $value->id]) !!}" title="Delete item" onclick="return confirm('Are you sure?');">
                                     <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
                                 </a>
                             </td>

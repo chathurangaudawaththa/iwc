@@ -39,7 +39,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, Customer $customer)
     {
         //
         $customerObject = new Customer();
@@ -52,7 +52,8 @@ class EmployeeController extends Controller
         
         if(view()->exists('pages.supEmp')){
             return View::make('pages.supEmp', array(
-                'customerObjectArray' => $customerObjectArray
+                'customerObjectArray' => $customerObjectArray,
+                'customerObject' => $customer
             ));
         }
     }
@@ -432,8 +433,52 @@ class EmployeeController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy(Customer $customer, Request $request)
     {
         //
+        $data = array('title' => 'title', 'text' => 'text', 'type' => 'default', 'timer' => 3000);
+        
+        $customerClone = clone $customer;
+        
+        try {
+                
+            $app_file_storage_uri = config('app.app_file_storage_uri');
+            $date_today = Carbon::now();//->format('Y-m-d');
+
+            //create directory
+            if(!Storage::exists($app_file_storage_uri)) {
+                Storage::makeDirectory($app_file_storage_uri, 0775, true); //creates directory
+            }
+
+            $dataArray = array(
+                'is_visible' => false
+            );
+
+            DB::transaction(function () use ($request, $dataArray, $customerClone){
+                $customerClone->update( $dataArray );
+            });
+
+        }catch(Exception $e){
+            notify()->flash(
+                'Error', 
+                'warning', [
+                'timer' => $data['timer'],
+                'text' => 'error',
+            ]);
+
+            return redirect()
+                ->back()
+                ->withInput();
+        }
+        
+        notify()->flash(
+            'Success', 
+            'success', [
+            'timer' => $data['timer'],
+            'text' => 'success',
+        ]);
+        
+        //return Response::json( $data );
+        return redirect()->back();
     }
 }

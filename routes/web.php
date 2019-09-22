@@ -80,13 +80,17 @@ Route::group(['middleware' => array('memberMiddleWare', 'disablePreventBackMiddl
     // dstroy item issue
     Route::get('item-issues/{itemIssue}/destroy', array('uses' => 'ItemIssueController@destroy'))->name('itemIssue.destroy');
     // add employeee
-    Route::get('supemp', array('uses' => 'EmployeeController@index'))->name('employee.index');
+    Route::get('supemp/{customer?}', array('uses' => 'EmployeeController@index'))->where('customer', '[0-9]+')->name('employee.index');
     // report
     Route::get('report', array('uses' => 'ReportController@create'))->name('report.create');
     // employee update
     Route::post('emp/issue/{itemIssue}/update', array('uses' => 'ItemIssueController@update'))->name('itemIssue.update');
     Route::get('emp/{customer}/edit', array('uses' => 'EmployeeController@edit'))->where('customer', '[0-9]+')->name('employee.edit');
     Route::post('emp/{customer}/update', array('uses' => 'EmployeeController@update'))->where('customer', '[0-9]+')->name('employee.update');
+    Route::get('rent/{customer}/edit', array('uses' => 'CustomerController@edit'))->where('customer', '[0-9]+')->name('customer.edit');
+    Route::post('rent/{customer}/update', array('uses' => 'CustomerController@update'))->where('customer', '[0-9]+')->name('customer.update');
+    Route::get('employee/{customer}/destroy', array('uses' => 'EmployeeController@destroy'))->name('employee.destroy');
+    Route::get('customer/{customer}/destroy', array('uses' => 'CustomerController@destroy'))->name('customer.destroy');
 });
 
 Route::get('storage/{filename}', array('uses' => 'AttachmentController@showFile'))->where(['filename' => '.*']);

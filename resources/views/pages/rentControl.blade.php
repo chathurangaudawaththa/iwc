@@ -356,7 +356,82 @@
             </div>
           </div>
            <div class="box-body"> <!--style="display: none;" -->
-          <form action="{!! route('customer.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+           @if( (isset($customerObject)) && ($customerObject->id) )
+               <!-- --- -->
+               <form action="{!! route('customer.update', ['customer' => $customerObject->id]) !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
+            <!-- {{ csrf_field() }} || {{ Session::token() }} -->
+            @csrf
+            <input type="hidden" id="user_type_id" name="user_type_id" value="3"/>
+            <div class="row add-padding">
+            <div class="form-group has-warning col-md-4">
+              <label class="control-label" for="inputWarning"><i class="fa fa-fw fa-barcode"></i>National ID No</label>
+              <input type="text" class="form-control" id="nic" name="nic" placeholder="882251568V" value="{!! $customerObject->nic !!}"/>
+            </div>
+            <div class="form-group has-warning col-md-8">
+            <label class="control-label" for="inputWarning"> Full Name with Initial</label>
+              <input type="text" class="form-control" id="first_name" name="first_name" placeholder="W.A.Senarath" value="{!! $customerObject->first_name !!}"/>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Address</label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-home"></i>
+                  </div>
+                  <input type="text" class="form-control" id="address" name="address" placeholder="188/B,Aluthgama,Bogamuwa." value="{!! $customerObject->address !!}"/>
+                </div>
+                <!-- /.input group -->
+              </div>
+            <div class="form-group col-md-6">
+                <label>Contact Number</label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-phone"></i>
+                  </div>
+                  <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask id="phone" name="phone" value="{!! $customerObject->phone !!}"/>
+                </div>
+                <!-- /.input group -->
+              </div>
+            </div>
+            <div class="form-group col-md-6 add-padding">
+              <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Front)</label>
+
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image_uri_nic_front" name="image_uri_nic_front" multiple="true" onchange="readURL(this);"/>
+              </div>
+              <div class="input-group-append">
+                <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
+              </div>
+            </div>
+            <div class="form-group col-md-6 add-padding">
+              <label class="custom-file-label" for="exampleInputFile">Add Image of NID (Back)</label>
+
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image_uri_nic_back" name="image_uri_nic_back" multiple="true" onchange="readURL(this);"/>
+              </div>
+              <div class="input-group-append">
+                <span class="help-block">Select Item Image, less than 200kb Image capacity.</span>
+              </div>
+            </div>
+            <div class="add-padding">
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+            <button class="btn btn-app btn-app-marg-bot" title="Cancel" type="reset">
+                <i class="fa fa-repeat"></i>
+              </button>
+            </div>
+            <div class="col-md-3">
+            <button class="btn btn-app btn-app-marg-bot" title="Save" type="submit">
+                <i class="fa fa-save"></i>
+              </button>
+            </div>
+            </div>
+          </form>
+               <!-- --- -->
+           @else
+               <!-- --- -->
+               <form action="{!! route('customer.store') !!}" method="POST" class="" autocomplete="off" id="form" enctype="multipart/form-data">
             <!-- {{ csrf_field() }} || {{ Session::token() }} -->
             @csrf
             <input type="hidden" id="user_type_id" name="user_type_id" value="3"/>
@@ -426,6 +501,8 @@
             </div>
             </div>
           </form>
+               <!-- --- -->
+           @endif
             <div class="form-group col-md-12" style="background: #e8e1e1; padding-top:10px">
               <fieldset>
                 <legend class="has-warning"><label>Last Registerd Client</label></legend>
@@ -451,12 +528,12 @@
                         <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_front)) !!}" alt=""></td>
                         <td class="overviewImage"><img src="{!! asset(Storage::url($value->image_uri_nic_back)) !!}" alt=""></td>
                         <td class="article-btn edit" style="text-align:center">
-                            <a href="#" title="Update item">
+                            <a href="{!! route('customer.edit', ['customer' => $value->id]) !!}" title="Update item">
                                 <i style="color: #ffc400" class="fa fa-pencil-square" aria-hidden="true"></i>
                             </a>
                         </td>
                         <td class="article-btn delete" style="text-align:center">
-                            <a href="#" title="Delete item">
+                            <a href="{!! route('customer.destroy', ['customer' => $value->id]) !!}" title="Delete item" onclick="return confirm('Are you sure?');">
                                 <i style="color: #c50404" class="fa fa-window-close" aria-hidden="true"></i>
                             </a>
                         </td>
